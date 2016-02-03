@@ -40,6 +40,19 @@
             .pipe(jshint.reporter('default'));
     });
 
+    gulp.paths = {
+        src: 'src',
+        dist: 'dist',
+        tmp: '.tmp',
+        e2e: 'e2e'
+    };
+
+    require('require-dir')('./gulp');
+
+    gulp.task('client', ['clean'], function () {
+        gulp.start('build');
+    });
+
     // The default task (called when you run `gulp` from cli)
     gulp.task('default', ['lint', 'nodemon', 'watch']);
 }());
