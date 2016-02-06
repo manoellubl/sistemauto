@@ -11,7 +11,7 @@
 
     var app = express();
 
-    var config = require('./config/env.config.json')[process.env.NODE_ENV || 'production'];
+    var config = require('./config/env.config.json')[process.env.NODE_ENV || 'development'];
     var db = require('./config/db.config');
 
     app.use(logger('dev'));

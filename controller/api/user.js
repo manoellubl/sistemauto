@@ -41,27 +41,7 @@
                 if (error !== null) {
                     next(error);
                 } else {
-        			if (request.body.estacionamento) {
-        				var park = new Park(request.body);
-        				park.userID = data._id;
-        				park.save(function(error, data1) {
-        					if (error !== null) {
-                                user.remove({'_id': data._id}, function(error, info) {
-                                    console.log('removeerror', error);
-                                    console.log('removeinfo', info);
-                                });
-                                console.log('error', error);
-        					    next(error);
-        						// TODO remover o usuario
-        					} else {
-                                console.log('persistido park');
-                                console.log(data1);
-                                response.json(data1);
-                            }
-        				});
-        			} else {
-        				response.json(data);
-        			}
+                    response.json(data);
                 }
             });
         });

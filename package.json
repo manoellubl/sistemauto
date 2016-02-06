@@ -56,9 +56,13 @@
     "protractor": "~1.4.0",
     "require-dir": "~0.1.0",
     "uglify-save-license": "~0.4.1",
-    "wiredep": "~2.2.0"
+    "wiredep": "~2.2.0",
+    "mocha": "*",
+    "should": "*",
+    "supertest": "*"
   },
   "scripts": {
-    "start": "npm install && bower install"
+    "start": "npm install && bower install",
+    "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js --reporter spec"
   }
 }
