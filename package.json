@@ -15,7 +15,8 @@
     "jsonwebtoken": "^5.4.0",
     "mongojs": "^1.2.1",
     "mongoose": "^4.1.1",
-    "morgan": "^1.6.1"
+    "morgan": "^1.6.1",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
@@ -63,6 +64,6 @@
   },
   "scripts": {
     "start": "npm install && bower install",
-    "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js --reporter spec"
+    "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js"
   }
 }
