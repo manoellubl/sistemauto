@@ -11,10 +11,14 @@
         email: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            index: {
+                unique: true
+            }
         },
         password: {
-            type: String
+            type: String,
+            required: true
         }
     });
 
