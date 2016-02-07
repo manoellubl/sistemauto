@@ -197,3 +197,41 @@ describe('Na requisição GET /user/id', function() {
 		});
 	});
 });
+
+describe('Na requisição PUT /user/id', function() {
+	
+	var id = undefined;
+	var token = undefined;
+	
+	var user = {
+		name: 'xpto-test',
+		email: 'xpto' + Math.random() + '@gmail.com',
+		password: 'xpto'
+	};
+	
+	before(function(done) {
+        request.post('/api/user').send(user).expect(201).end(function(error, response) {
+			id = response.body._id;
+			request.post('/api/authenticate/login').send(user).expect(200).end(function(error, response) {
+				token = response.body.token;
+				done();
+			});
+		});
+	});
+	
+	it('deveria retornar o usuario do id respectivo', function(done) {
+		user.name = user.name + " alterado";
+		
+		request.put('/api/user/' + id).set('x-access-token', token).send(user).expect(200).end(function(error, response) {
+			if (error) {
+				return done(error);
+			}
+			
+			expect(response.body._id).to.not.undefined;
+			expect(response.body.name).to.equal(user.name);
+			expect(response.body.email).to.equal(user.email);
+			
+			done();
+		});
+	});
+});
