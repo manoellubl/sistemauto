@@ -18,9 +18,12 @@
         },
         password: {
             type: String,
-            required: true
+            required: true,
+			select: false
         }
-    });
+    }, {
+		password: false
+	});
 
     module.exports = mongoose.model('User', user);
 }());

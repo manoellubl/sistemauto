@@ -12,12 +12,11 @@
          * POST /api/login
          */
         router.post('/login', function(request, response) {
-			console.log('chegou na requisicao');
             var email = request.body.email;
             
             var query = User.findOne({
                 email: email
-            });
+            }).select('+password');
 
             query.exec(function(error, data) {
                 if (data === null) {
