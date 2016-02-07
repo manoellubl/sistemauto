@@ -171,7 +171,8 @@ describe('Na requisição GET /user/id', function() {
 		});
 	});
 	
-	it('deveria retornar o usuario do id respectivo', function(done) {
+	it('deveria retornar o usuario do id respectivo', function(done) { 
+		console.log('id', id);
 		request.get('/api/user/' + id).set('x-access-token', token).expect(200).end(function(error, response) {
 			if (error) {
 				return done(error);
@@ -186,10 +187,10 @@ describe('Na requisição GET /user/id', function() {
 	});
 
 	it('deveria vir com erro quando o usuario nao existe', function(done) {
-		var idInexistente = -1;
+		var idInexistente = 'abc';
 		
-		// TODO corrigir o status e ver retorno
-		request.get('/api/user/' + idInexistente).set('x-access-token', token).expect(200).end(function(error, response) {
+		console.log('id inexistente');
+		request.get('/api/user/' + idInexistente).set('x-access-token', token).expect(400).end(function(error, response) {
 			if (error) {
 				return done(error);
 			}

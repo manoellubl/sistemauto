@@ -21,11 +21,15 @@
          *
          * GET /api/user/:id
          */
-        router.get('/:_id', function(request, response) {
+        router.get('/:_id', function(request, response, next) {
             var id = request.params._id;
             var query = User.findById(id);
             query.exec(function(error, data) {
-                response.json(data);
+				if (error !== null) {
+					next(error);
+				} else {
+    	            response.json(data);
+				}
             });
         });
 
@@ -54,7 +58,7 @@
         router.put('/:_id', function(request, response, next) {
             var id = request.params._id;
             var query =  User.findByIdAndUpdate(id, {$set: request.body}, {new: true});
-            query.exec(function(error, data) {
+            query.exec(function(error, data) {	
                 if (error !== null) {
                     next(error);
                 } else {
