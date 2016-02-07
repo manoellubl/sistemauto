@@ -13,6 +13,7 @@
 
     var config = require('./config/env.config.json')[process.env.NODE_ENV || 'development'];
     var db = require('./config/db.config');
+    db.init(config.MONGO_URI);
 
     app.use(logger('dev'));
     app.use(bodyParser.json());
@@ -46,11 +47,9 @@
     app.use(function(error, request, response, next) {
         response.status(error.status || 400);
         response.json({
-            message: error.message || "mensagem"
+            message: error.message
         });
     });
-
-    db.init(config.MONGO_URI);
 
     var server = app.listen(app.get('port'), server_ip_address, function () {
 		console.log('Running the server at', server_ip_address, server.address().port);

@@ -36,12 +36,12 @@
          */
         router.post('/', function(request, response, next) {
             var user = new User(request.body);
-
+			// remover e criptografar senha http://importjake.io/testing-express-routes-with-mocha-supertest-and-mock-goose/
             user.save(function(error, data) {
                 if (error !== null) {
                     next(error);
                 } else {
-                    response.json(data);
+                    response.status(201).json(data);
                 }
             });
         });

@@ -14,7 +14,8 @@
             };
 
             request.post('/api/user').send(user).end(function(error, response) {
-                if (error === null) {
+                console.log('chamando');
+                if (error !== null) {
                     console.log('rejeitando');
                     deferred.reject(error);
                 } else {
