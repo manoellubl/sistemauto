@@ -3,6 +3,7 @@
 
     module.exports = function (router) {
         var User = rootRequire('model/user.model');
+		var encrypt = require('mongoose-encryption');
 
         /**
          * Realiza o GET de Collection do Endpoint user.

@@ -2,8 +2,10 @@
    'use strict';
 
     var mongoose = require('mongoose');
+	var encrypt = require('mongoose-encryption');
+	var config = require('../config/env.config')[process.env.NODE_ENV || 'development'];
 
-    var user = new mongoose.Schema({
+    var schema = new mongoose.Schema({
         name: {
             type: String,
             required: true
@@ -24,6 +26,8 @@
     }, {
 		password: false
 	});
+	
+	// schema.plugin(encrypt, { key: config.secret, fields: ['password'] });
 
-    module.exports = mongoose.model('User', user);
+    module.exports = mongoose.model('User', schema);
 }());
