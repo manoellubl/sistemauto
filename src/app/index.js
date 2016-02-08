@@ -6,6 +6,16 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider,
                     $mdIconProvider) {
     $stateProvider
+		.state('login', {
+			url: '/login',
+			templateUrl: 'app/views/login.html',
+			controller: 'LoginController'
+		})
+		.state('signup', {
+			url: '/signup',
+			templateUrl: 'app/views/signup.html',
+			controller: 'SignupController'
+		})
       .state('home', {
         url: '',
         templateUrl: 'app/views/main.html',
