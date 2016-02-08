@@ -1,6 +1,12 @@
 (function(){
-  'use strict';
+	'use strict';
+	
+	var app = angular.module('app', [
+		'ngMaterial',
+		'blockUI'
+	]);
 
-  angular.module('app', [ 'ngMaterial' ]);
-
+	app.config(function(blockUIConfig) {
+		blockUIConfig.delay = 100;
+	});
 })();
