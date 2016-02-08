@@ -9,12 +9,14 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
 		.state('login', {
 			url: '/login',
 			templateUrl: 'app/views/login.html',
-			controller: 'LoginController'
+			controller: 'LoginController',
+			authRequired: false
 		})
 		.state('signup', {
 			url: '/signup',
 			templateUrl: 'app/views/signup.html',
-			controller: 'SignupController'
+			controller: 'SignupController',
+			authRequired: false
 		})
       .state('home', {
         url: '',
@@ -28,7 +30,8 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
         templateUrl: 'app/views/dashboard.html',
         data: {
           title: 'Dashboard'
-        }
+        },
+		authRequired: true
       })
       .state('home.profile', {
         url: '/profile',
@@ -37,7 +40,8 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
         controllerAs: 'vm',
         data: {
           title: 'Profile'
-        }
+        },
+		authRequired: true
       })
       .state('home.table', {
         url: '/table',
@@ -46,7 +50,8 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
         templateUrl: 'app/views/table.html',
         data: {
           title: 'Table'
-        }
+        },
+		authRequired: true
       });
 
     $urlRouterProvider.otherwise('/dashboard');
