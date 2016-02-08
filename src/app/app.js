@@ -25,6 +25,7 @@
                 $state.transitionTo('login');
                 event.preventDefault();
             }
+			// se estiver e tentar ir para login ou signup mandar para home
         });
 	});
 })();
