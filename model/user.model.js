@@ -28,6 +28,6 @@
 	});
 	
 	// schema.plugin(encrypt, { key: config.secret, fields: ['password'] });
-
+	
     module.exports = mongoose.model('User', schema);
 }());
