@@ -9,7 +9,7 @@
 		NavService
 	]);
 
-	function NavService($q){
+	function NavService($q) {
 		var menuItems = [{
 				name: 'Dashboard',
 				icon: 'dashboard',
