@@ -22,7 +22,6 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
         url: '',
         templateUrl: 'app/views/main.html',
         controller: 'MainController',
-        controllerAs: 'vm',
         abstract: true
       })
       .state('home.dashboard', {

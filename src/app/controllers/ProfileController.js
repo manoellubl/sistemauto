@@ -1,27 +1,36 @@
-(function(){
+(function() {
 
-  angular
-    .module('app')
-    .controller('ProfileController', [
-      ProfileController
-    ]);
+	'use strict';
 
-  function ProfileController() {
-    var vm = this;
+	/**
+	 * Controller responsável pela view do perfil do usuário.
+	 */
+	angular.module('app').controller('ProfileController', [
+		'$scope',
+		'UserService',
+		ProfileController
+	]);
 
-    vm.user = {
-      title: 'Admin',
-      email: 'contact@flatlogic.com',
-      firstName: '',
-      lastName: '' ,
-      company: 'FlatLogic Inc.' ,
-      address: 'Fabritsiusa str, 4' ,
-      city: 'Minsk' ,
-      state: '' ,
-      biography: 'We are young and ambitious full service design and technology company. ' +
-      'Our focus is JavaScript development and User Interface design.',
-      postalCode : '220007'
-    };
-  }
-
+	function ProfileController($scope, UserService) {
+		
+		/**
+		 * Requisita os dados do usuário.
+		 */
+		UserService.get().then(function(info) {
+			$scope.user = info.data;
+		}, function(error) {
+			
+		});
+		
+		/**
+		 * Atualiza os dados do usuário.
+		 */
+		$scope.update = function() {
+			UserService.update($scope.user).then(function(info) {
+				
+			}, function(error) {
+				
+			});
+		};
+	}
 })();

@@ -1,89 +1,36 @@
-(function(){
+(function() {
+	'use strict';
 
-  angular
-       .module('app')
-       .controller('MainController', [
-          'navService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast', 'UserService',
-          MainController
-       ]);
+	/**
+	 * Controller principal do sistema. As demais view's
+	 * são filhas da view a qual este controller é responsável.
+	 */
+	angular.module('app').controller('MainController', [
+		'navService', 
+		'$scope', 
+		'UserService',
+		MainController
+	]);
 
-  function MainController(navService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast, UserService) {
-    var vm = this;
+	function MainController(navService, $scope, UserService) {
+		
+		// itens do menu
+		$scope.menuItems = [];
 
-    vm.menuItems = [ ];
-    vm.selectItem = selectItem;
-    vm.toggleItemsList = toggleItemsList;
-    vm.showActions = showActions;
-    vm.title = $state.current.data.title;
-    vm.showSimpleToast = showSimpleToast;
-    vm.toggleRightSidebar = toggleRightSidebar;
-	
-	vm.logout = function() {
-		UserService.logout().then(function(info) {
-			$state.go('login');
-		}, function(error) {
-			
+		/**
+		 * Realiza o logout do sistema.
+		 */
+		$scope.logout = function() {
+			UserService.logout().then(function(info) {
+				$state.go('login');
+			}, function(error) {
+
+			});
+		};
+
+		// obtém do service os itens do menu
+		navService.loadAllItems().then(function(menuItems) {
+			$scope.menuItems = [].concat(menuItems);
 		});
-	};
-
-    navService
-      .loadAllItems()
-      .then(function(menuItems) {
-        vm.menuItems = [].concat(menuItems);
-      });
-
-    function toggleRightSidebar() {
-        $mdSidenav('right').toggle();
-    }
-
-    function toggleItemsList() {
-      var pending = $mdBottomSheet.hide() || $q.when(true);
-
-      pending.then(function(){
-        $mdSidenav('left').toggle();
-      });
-    }
-
-    function selectItem (item) {
-      vm.title = item.name;
-      vm.toggleItemsList();
-      vm.showSimpleToast(vm.title);
-    }
-
-    function showActions($event) {
-        $mdBottomSheet.show({
-          parent: angular.element(document.getElementById('content')),
-          templateUrl: 'app/views/partials/bottomSheet.html',
-          controller: [ '$mdBottomSheet', SheetController],
-          controllerAs: "vm",
-          bindToController : true,
-          targetEvent: $event
-        }).then(function(clickedItem) {
-          clickedItem && $log.debug( clickedItem.name + ' clicked!');
-        });
-
-        function SheetController( $mdBottomSheet ) {
-          var vm = this;
-
-          vm.actions = [
-            { name: 'Share', icon: 'share', url: 'https://twitter.com/intent/tweet?text=Angular%20Material%20Dashboard%20https://github.com/flatlogic/angular-material-dashboard%20via%20@flatlogicinc' },
-            { name: 'Star', icon: 'star', url: 'https://github.com/flatlogic/angular-material-dashboard/stargazers' }
-          ];
-
-          vm.performAction = function(action) {
-            $mdBottomSheet.hide(action);
-          };
-        }
-    }
-
-    function showSimpleToast(title) {
-      $mdToast.show(
-        $mdToast.simple()
-          .content(title)
-          .hideDelay(2000)
-          .position('bottom right')
-      );
-    }
-  }
-
+	}
 })();
