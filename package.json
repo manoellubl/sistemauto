@@ -67,7 +67,8 @@
     "wiredep": "~2.2.0"
   },
   "scripts": {
-    "start": "npm install && bower install && gulp deploy && NODE_ENV=production node app.js",
-    "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js"
+    "start": "npm install && NODE_ENV=production node app.js",
+    "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js",
+	"postinstall": "bower install && gulp deploy"
   }
 }
