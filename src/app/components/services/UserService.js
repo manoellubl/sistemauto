@@ -20,10 +20,23 @@
 		this.login = function(data) {
 			var deferred = $q.defer();
 			
-			$http.post(ApiUrl + '/authenticate/login', data).then(function(info) {
+			$http.post(ApiUrl.url + '/authenticate/login', data).then(function(info) {
 				setToken(info.data.token);
 				setId(info.data.id);
 				deferred.resolve({});
+			}, function(error) {
+				deferred.reject(error);
+			});
+			
+			return deferred.promise;
+		};
+		
+		this.logout = function() {
+			var deferred = $q.defer();
+			
+			$http.post(ApiUrl.url + '/authenticate/logout').then(function(info) {
+				setToken(null);
+				deferred.resolve(info);
 			}, function(error) {
 				deferred.reject(error);
 			});
@@ -39,6 +52,10 @@
 			window.localStorage.setItem('token-auth', token);
 		}
 		
+		function clearToken() {
+			window.localStorage.removeItem('token-auth');
+		}
+		
 		/**
 		 * Armazena o id do usuário logado.
 		 * @param {String} identificador do usuário logado.
@@ -51,7 +68,7 @@
 		 * Realiza o cadastro de um usuário no sistema.
 		 */
 		this.postUser = function(user) {
-			return $http.post(ApiUrl + '/user', user);	
+			return $http.post(ApiUrl.url + '/user', user);	
 		};
 		
 		/**

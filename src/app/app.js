@@ -28,4 +28,8 @@
 			// se estiver e tentar ir para login ou signup mandar para home
         });
 	});
+	
+	app.config(function($httpProvider) {
+		$httpProvider.interceptors.push('Interceptor');
+	})
 })();
