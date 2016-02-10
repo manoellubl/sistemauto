@@ -4,7 +4,7 @@
 	/**
 	 * Service encapsulando os itens da Navbar do sistema.
 	 */
-	angular.module('app').service('navService', [
+	angular.module('app').service('NavService', [
 		'$q',
 		NavService
 	]);

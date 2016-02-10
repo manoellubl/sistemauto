@@ -6,13 +6,14 @@
 	 * são filhas da view a qual este controller é responsável.
 	 */
 	angular.module('app').controller('MainController', [
-		'navService', 
-		'$scope', 
+		'$scope',
+		'$state',
+		'NavService', 
 		'UserService',
 		MainController
 	]);
 
-	function MainController(navService, $scope, UserService) {
+	function MainController($scope, $state, NavService, UserService) {
 		
 		// itens do menu
 		$scope.menuItems = [];
@@ -29,7 +30,7 @@
 		};
 
 		// obtém do service os itens do menu
-		navService.loadAllItems().then(function(menuItems) {
+		NavService.loadAllItems().then(function(menuItems) {
 			$scope.menuItems = [].concat(menuItems);
 		});
 	}
