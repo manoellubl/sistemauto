@@ -115,7 +115,7 @@
 			} else {
 				$http.get(ApiUrl.url + '/user/' + getId()).then(function(info) {
 					self.user = info.data;
-					deferred.resolve(info.data);
+					deferred.resolve(info);
 				}, function(error) {
 					deferred.reject(error);
 				});
@@ -135,7 +135,7 @@
 			
 			$http.put(ApiUrl.url + '/user/' + getId(), data).then(function(info) {
 				self.user = info.data;
-				deferred.resolve(info.data);
+				deferred.resolve(info);
 			}, function(error) {
 				deferred.reject(error);
 			});
