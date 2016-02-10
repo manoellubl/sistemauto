@@ -10,9 +10,7 @@
 
 	function InterceptorService(ApiUrl, $q, $rootScope) {
 		this.request = function(config) {
-			console.log(">>>>>>>>>>>>>>>>>>>>>>");
-			console.log('request', config.url);
-			if (config.url.indexOf("/api") !== -1 || config.url.indexOf("localhost") !== -1) { // apenas requisiçoes para o nosso server adiciona o token
+			if (config.url.indexOf(ApiUrl.url) !== -1) { // apenas requisiçoes para o nosso server adiciona o token
 				config.headers['x-access-token'] = window.localStorage.getItem('token-auth');
 			}
 			return config;
