@@ -1,6 +1,10 @@
 (function() {
     'use strict';
 
+	/**
+	 * Service de Interceptação de requisições http. Adiciona
+	 * ao header o token de autenticação.
+	 */
 	angular.module('app').service('Interceptor',[
 		'ApiUrl',
 		'$q',

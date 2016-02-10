@@ -12,6 +12,7 @@
 	]);
 	
 	function SignupController($scope, $state, UserService) {
+		
 		// usuário que está se cadastrando.
 		$scope.user = {};
 		

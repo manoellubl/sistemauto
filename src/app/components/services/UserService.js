@@ -16,6 +16,8 @@
 		/**
 		 * Realiza a requisição http para autenticar no sistema.
 		 * @param {Object} com email e senha para autenticar
+		 * 
+		 * @return {Promise} promessa da requisição.
 		 */
 		this.login = function(data) {
 			var deferred = $q.defer();
@@ -31,6 +33,11 @@
 			return deferred.promise;
 		};
 		
+		/**
+		 * Realiza a requisição http para realizar logout no sistema.
+		 * 
+		 * @return {Promise} promessa da requisição.
+		 */
 		this.logout = function() {
 			var deferred = $q.defer();
 			
@@ -52,6 +59,9 @@
 			window.localStorage.setItem('token-auth', token);
 		}
 		
+		/**
+		 * Limpa o token do usuário.
+		 */
 		function clearToken() {
 			window.localStorage.removeItem('token-auth');
 		}

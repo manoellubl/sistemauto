@@ -12,6 +12,7 @@
 	]);
 	
 	function LoginController($scope, $state, UserService) {
+		
 		// usuário do form de login
 		$scope.user = {};
 		

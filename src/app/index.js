@@ -42,16 +42,6 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
           title: 'Profile'
         },
 		authRequired: true
-      })
-      .state('home.table', {
-        url: '/table',
-        controller: 'TableController',
-        controllerAs: 'vm',
-        templateUrl: 'app/views/table.html',
-        data: {
-          title: 'Table'
-        },
-		authRequired: true
       });
 
     $urlRouterProvider.otherwise('/dashboard');
