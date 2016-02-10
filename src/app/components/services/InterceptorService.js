@@ -15,7 +15,7 @@
 	function InterceptorService(ApiUrl, $q, $rootScope) {
 		
 		/**
-		 * 
+		 * Intercepta requisições
 		 */
 		this.request = function(config) {
 			if (config.url.indexOf(ApiUrl.url) !== -1) { // apenas requisiçoes para o nosso server adiciona o token
@@ -25,7 +25,7 @@
 		};
 		
 		/**
-		 * 
+		 * Intercepta response's de sucesso.
 		 */
 		this.response = function(response) {
 			$rootScope.$broadcast('response:sucess:' + response.config.method);
@@ -33,7 +33,7 @@
 		};
 
 		/**
-		 * 
+		 * Intercepta response's de erro.
 		 */
 		this.responseError = function(response) {
 			$rootScope.$broadcast('response:error:' + response.config.method);
