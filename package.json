@@ -69,6 +69,6 @@
   "scripts": {
     "start": "npm install && NODE_ENV=production node app.js",
     "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js",
-	"postinstall": "bower install && gulp deploy"
+	"postinstall": "bower cache clean && bower install && gulp deploy"
   }
 }
