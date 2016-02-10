@@ -31,7 +31,7 @@
 
 	app.set('view engine', 'html');
 
-	app.use(express.static(path.join(__dirname, '.publish')));
+	app.use(express.static(path.join(__dirname, 'dist')));
 
     global.rootRequire = function(name) {
         return require(__dirname + '/' + name);
