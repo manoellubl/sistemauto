@@ -13,6 +13,7 @@
 		'ngMaterial'
 	]);
 	
+	// localmente colocar http://localhost:8080/api
 	app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
 	app.config(function(blockUIConfig) {
