@@ -11,11 +11,6 @@
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "express-enrouten": "^1.2.1",
-    "gulp": "^3.9.0",
-    "gulp-jshint": "^1.11.2",
-    "gulp-livereload": "^3.8.0",
-    "gulp-nodemon": "^2.0.3",
-    "gulp-watch": "^4.3.5",
     "http-proxy": "~1.7.0",
     "jsonwebtoken": "^5.4.0",
     "mongojs": "^1.2.1",
@@ -26,6 +21,11 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+	"gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-livereload": "^3.8.0",
+    "gulp-nodemon": "^2.0.3",
+    "gulp-watch": "^4.3.5",
     "chai": "^3.5.0",
     "mocha": "*",
     "mockgoose": "^5.2.4",
@@ -33,8 +33,8 @@
     "supertest": "*"
   },
   "scripts": {
-    "start": "npm install && npm install --dev && NODE_ENV=production node app.js",
+    "start": "npm install && NODE_ENV=production node app.js",
     "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js",
-    "postinstall": "bower install && gulp build"
+    "postinstall": "bower install"
   }
 }
