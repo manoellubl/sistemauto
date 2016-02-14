@@ -13,7 +13,7 @@
 		'ngMaterial'
 	]);
 	
-	app.constant('ApiUrl', { url: 'http://localhost:8080/api' });
+	app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
 	app.config(function(blockUIConfig) {
 		blockUIConfig.delay = 100;
