@@ -8,25 +8,25 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
     $stateProvider
 		.state('login', {
 			url: '/login',
-			templateUrl: 'app/views/login.html',
+			templateUrl: '../view/login.html',
 			controller: 'LoginController',
 			authRequired: false
 		})
 		.state('signup', {
 			url: '/signup',
-			templateUrl: 'app/views/signup.html',
+			templateUrl: '../view/signup.html',
 			controller: 'SignupController',
 			authRequired: false
 		})
       .state('home', {
         url: '',
-        templateUrl: 'app/views/main.html',
+        templateUrl: '../view/main.html',
         controller: 'MainController',
         abstract: true
       })
       .state('home.dashboard', {
         url: '/dashboard',
-        templateUrl: 'app/views/dashboard.html',
+        templateUrl: '../view/dashboard.html',
         data: {
           title: 'Dashboard'
         },
@@ -34,7 +34,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
       })
       .state('home.profile', {
         url: '/profile',
-        templateUrl: 'app/views/profile.html',
+        templateUrl: '../view/profile.html',
         controller: 'ProfileController',
         controllerAs: 'vm',
         data: {
@@ -84,5 +84,5 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
       'A700': '#E75753'
     });
 
-    $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
+    $mdIconProvider.icon('user', '../asset/images/user.svg', 64);
   });

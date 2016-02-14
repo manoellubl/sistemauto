@@ -24,15 +24,14 @@
 
     app.use(cors());
 
-	app.set('port', process.env.OPENSHIFT_NODEJS_PORT  || config.PORT);
-    app.set('ipaddr', server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
+	app.set('port', process.env.PORT  || config.PORT);
 
 	app.set('views', path.join(__dirname, 'view'));
 	app.engine('html', require('ejs').renderFile);
 
 	app.set('view engine', 'html');
 
-	app.use(express.static(path.join(__dirname, 'dist')));
+	app.use(express.static(path.join(__dirname, 'public')));
 
     global.rootRequire = function(name) {
         return require(__dirname + '/' + name);

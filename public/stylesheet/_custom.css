@@ -1,20 +1,5 @@
-// COLORS
-$main-bg-color: #ECECEC;
-$text-color: #7A7A7A;
-$accent-color: rgb(0, 150, 136);
-$warning-color: #E75753;
-
-
-// VARIABLES
-$left-sidenav-width: 110px;
-$widget-height: 310px;
-$font-weight-bold: 600;
-$font-size-large: 22px;
-
-
-// LAYOUT
 body {
-  color: $text-color;
+  color: #7A7A7A;
 }
 
 .toolbar-button {
@@ -27,7 +12,7 @@ body {
 }
 
 .page-content {
-  background-color: $main-bg-color;
+  background-color: #ECECEC;
 }
 
 .widget-progress {
@@ -35,8 +20,6 @@ body {
   margin-left: 10px;
 }
 
-
-// UTILS
 .capitalize {
   text-transform: capitalize;
 }
@@ -47,14 +30,12 @@ body {
   margin: 0 10px;
 }
 
-
-// COMPONENTS
 .messages {
   position: relative;
+}
 
-  &-content {
-    height: 100vh;
-  }
+.messages-content {
+  height: 100vh;
 }
 
 .notifications-label {
@@ -67,49 +48,44 @@ body {
   font-size: 12px;
   top: 2px;
   right: 2px;
-  background-color: $warning-color;
+  background-color: #E75753;
 }
 
-// panel-widget
 .panel-widget {
   background-color: white;
+}
 
-  &-toolbar {
-    box-shadow: none;
-  }
+.panel-widget-toolbar {
+  box-shadow: none;
+}
 
-  &-tittle {
-    color: $text-color;
-  }
+.panel-widget-tittle {
+  color: #7A7A7A;
 }
 
 .options {
-  -webkit-transition:all linear 0.5s;
-  transition:all linear 0.5s;
+  -webkit-transition: all linear 0.5s;
+  transition: all linear 0.5s;
 }
 
 .options.ng-hide {
-  opacity:0;
+  opacity: 0;
 }
 
 .fixed-height-widget {
-  height: $widget-height;
+  height: 310px;
 }
 
-// charts
-.donut-chart-title{
+.donut-chart-title {
   text-align: center;
 }
 
 .custom-tooltip {
-  font-size: $font-size-large;
-  color: $text-color;
+  font-size: 22px;
+  color: #7A7A7A;
   text-align: center;
 }
 
-
-// OVERRIDES
-// angular material overrides
 md-radio-group {
   border: none;
 }
@@ -119,9 +95,9 @@ md-icon {
 }
 
 md-sidenav.md-locked-open.md-sidenav-left {
-  width: $left-sidenav-width;
-  min-width: $left-sidenav-width;
-  max-width: $left-sidenav-width;
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
 }
 
 a.md-button.md-warn.md-raised, a.md-button.md-warn.md-fab, .md-button.md-warn.md-raised, .md-button.md-warn.md-fab {
@@ -129,38 +105,47 @@ a.md-button.md-warn.md-raised, a.md-button.md-warn.md-fab, .md-button.md-warn.md
 }
 
 md-radio-button.md-accent.md-checked .md-label span {
-  color: $accent-color;
+  color: #009688;
 }
 
 .md-toolbar-tools h1 {
-  font-size: $font-size-large;
+  font-size: 22px;
 }
-
 
 md-backdrop.md-sidenav-backdrop {
   position: fixed;
 }
 
-// libs overrides
 .material-icons {
   vertical-align: middle;
 }
 
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
 
 .nvd3.nv-pie .nv-pie-title {
-  fill: rgb(68, 68, 68);
-  font-weight: $font-weight-bold;
-  font-size: $font-size-large !important;
+  fill: #444444;
+  font-weight: 600;
+  font-size: 22px !important;
 }
 
 .nvtooltip {
   background-color: transparent;
   border: none;
-  font-weight: $font-weight-bold;
+  font-weight: 600;
 }
 
 .orange .md-bar2 {
@@ -168,5 +153,5 @@ md-backdrop.md-sidenav-backdrop {
 }
 
 .orange .md-container {
-  background-color: rgb(255, 236, 201)
+  background-color: #ffecc9;
 }
