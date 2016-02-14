@@ -66,8 +66,5 @@
     "start": "npm install && npm install --dev && NODE_ENV=production node app.js",
     "server-test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/**/*.js",
     "postinstall": "bower install && gulp build"
-  },
-  "engines": {
-    "node": "5.4.1"
   }
 }
