@@ -10,10 +10,21 @@
          * GET /api/user
          */
         router.get('/', function(request, response) {
-            var query = User.find();
-            query.exec(function(error, data) {
-                response.json(data);
-            });
+            if (request.query !== undefined && request.query.name !== undefined) {
+                var cursor = User.find({ 
+                    name : {
+                        '$regex': request.query.name
+                    }
+                });
+                cursor.exec(function(error, data) {
+                    response.json(data);
+                });
+            } else {
+                var cursor = User.find(request.query);
+                cursor.exec(function(error, data) {
+                    response.json(data);
+                });
+            }
         });
 
         /**
