@@ -11,7 +11,7 @@
             var hasToken = token !== null && token !== undefined;
             var isAuthentication = request.originalUrl === "/api/authenticate/login";
             var isCreatingUser = request.url === "/api/user" && request.method === "POST";
-            var isGetUsers = request.url === "/api/user" && request.method === "GET";
+            var isGetUsers = request.originalUrl === "/api/user" && request.method === "GET";
 
             if (isAuthentication || isCreatingUser || request.url == "/" || isGetUsers) {
                 next();
