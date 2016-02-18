@@ -22,6 +22,29 @@
             type: String,
             required: true,
 			select: false
+        },
+        cnpj: {
+            type: String,
+            required: true,
+            unique: true,
+            index: {
+                unique: true
+            }
+        },
+        about: {
+            type: String
+        },
+        address: {
+            type: String
+        },
+        city: {
+            type: String
+        },
+        state: {
+            type: String
+        },
+        cep: {
+            type: String
         }
     }, {
 		password: false
