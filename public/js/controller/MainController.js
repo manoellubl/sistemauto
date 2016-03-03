@@ -10,11 +10,12 @@
 		'$state',
 		'NavService', 
 		'UserService',
+		'$translate',
 		MainController
 	]);
 
-	function MainController($scope, $state, NavService, UserService) {
-		
+	function MainController($scope, $state, NavService, UserService, $translate) {
+
 		// itens do menu
 		$scope.menuItems = [];
 
@@ -27,6 +28,10 @@
 			}, function(error) {
 
 			});
+		};
+
+		$scope.setLanguage = function(language) {
+			$translate.use(language);
 		};
 
 		// obtém do service os itens do menu

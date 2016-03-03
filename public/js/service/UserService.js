@@ -49,6 +49,7 @@
 				setToken(null);
 				deferred.resolve(info);
 			}, function(error) {
+				setToken(null);
 				deferred.reject(error);
 			});
 			
