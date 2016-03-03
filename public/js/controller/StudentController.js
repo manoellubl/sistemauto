@@ -8,10 +8,18 @@
     angular.module('app').controller('StudentController', [
         '$scope',
         '$mdDialog',
+        'StudentService',
         StudentController
     ]);
 
-    function StudentController($scope, $mdDialog) {
+    function StudentController($scope, $mdDialog, StudentService) {
+
+        $scope.students = [];
+
+        StudentService.getStudents().then(function(info) {
+
+        });
+
         $scope.showForm = function() {
             $mdDialog.show({
                 controller: novoAlunoController,

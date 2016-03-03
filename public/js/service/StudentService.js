@@ -17,7 +17,22 @@
         var cache = {};
 
         this.getStudents = function() {
-            return $http.get(ApiUrl.url + '/student');
+            var deferred = $q.defer();
+            if (self.cache.length !== 0) {
+                deferred.resolve({
+                    data: [cache]
+                });
+            } else {
+                $http.get(ApiUrl.url + '/student').then(function(info) {
+                    for (var student in info.data) {
+                        cache[student._id] = student;
+                    }
+                    deferred.resolve(info);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            }
+            return deferred.promise;
         };
 
         this.getStudent = function(id) {
