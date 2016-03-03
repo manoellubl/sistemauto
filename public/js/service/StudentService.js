@@ -20,12 +20,12 @@
             var deferred = $q.defer();
             if (Object.keys(self.cache).length  !== 0) {
                 deferred.resolve({
-                    data: [cache]
+                    data: [self.cache]
                 });
             } else {
                 $http.get(ApiUrl.url + '/student').then(function(info) {
                     for (var student in info.data) {
-                        cache[student._id] = student;
+                        self.cache[student._id] = student;
                     }
                     deferred.resolve(info);
                 }, function(error) {
@@ -37,13 +37,13 @@
 
         this.getStudent = function(id) {
             var deferred = $q.defer();
-            if (self.cache.id !== undefined) {
+            if (self.self.cache.id !== undefined) {
                 deferred.resolve({
-                    data: cache.id
+                    data: self.cache.id
                 });
             } else {
                 $http.get(ApiUrl.url + '/student/' + id).then(function(info) {
-                    cache.id = info.data;
+                    self.cache.id = info.data;
                     deferred.resolve(info);
                 }, function(error) {
                     deferred.reject(error);
@@ -52,11 +52,11 @@
             return deferred.promise;
         };
 
-        this.postStudent = function() {
+        this.postStudent = function(data) {
             var deferred = $q.defer();
 
             $http.post(ApiUrl.url + '/student', data).then(function(info) {
-                cache._id = info.data;
+                self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
                 deferred.reject(error);
@@ -69,7 +69,7 @@
             var deferred = $q.defer();
 
             $http.put(ApiUrl.url + '/student/' + data._id, data).then(function(info) {
-                cache._id = info.data;
+                self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
                 deferred.reject(error);
