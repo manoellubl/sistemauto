@@ -1,0 +1,59 @@
+<md-dialog>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Cadastrar Instrutor</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="Fechar cadastro" ng-click="fechar()">
+                    <md-icon md-svg-src="assets/svg/close.svg" aria-label="Fechar cadastro"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content layout-padding="" class="autoScroll">
+            <md-input-container class="md-icon-float">
+                <md-icon md-svg-src="assets/svg/pessoa.svg" style="display:inline-block;"></md-icon>
+                <input ng-model="instrutor.dados.nome" type="text" placeholder="Nome">
+            </md-input-container>
+            <md-input-container>
+                <md-icon md-svg-src="assets/svg/telefone.svg"></md-icon>
+                <input ng-model="instrutor.dados.telefone" type="text" placeholder="Telefone">
+            </md-input-container>
+            <md-input-container>
+                <md-icon md-svg-src="assets/svg/email.svg" class="email"></md-icon>
+                <input ng-model="instrutor.dados.email" type="email" placeholder="Email">
+            </md-input-container>
+            <div layout="" layout-sm="column">
+                <md-input-container flex="">
+                    <md-icon md-svg-src="assets/svg/endereco.svg" style="display:inline-block;"></md-icon>
+                    <input ng-model="instrutor.dados.local.endereco" type="text" placeholder="Endereco">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="instrutor.dados.local.bairro" type="text" placeholder="Bairro">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="instrutor.dados.local.numero" type="text" placeholder="Número">
+                </md-input-container>
+            </div>
+            <div layout="" layout-sm="column">
+                <md-input-container>
+                    <md-icon md-svg-src="assets/svg/mapa.svg" style="display:inline-block;"></md-icon>
+                    <input ng-model="instrutor.dados.local.cep" type="text" placeholder="CEP">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="instrutor.dados.local.cidade" type="text" placeholder="Cidade">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="instrutor.dados.local.estado" type="text" placeholder="Estado">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="instrutor.dados.local.complemento" type="text" placeholder="Complemento">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <span flex></span>
+            <md-button ng-click="limpar()" class="md-primary">Limpar</md-button>
+            <md-button ng-click="cadastrar()" class="md-primary">Cadastrar</md-button>
+        </div>
+    </form>
+</md-dialog>
