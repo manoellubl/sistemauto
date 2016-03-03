@@ -14,11 +14,11 @@
     function StudentService($http, $q, ApiUrl) {
         var self = this;
 
-        var cache = {};
+        this.cache = {};
 
         this.getStudents = function() {
             var deferred = $q.defer();
-            if (self.cache.length !== 0) {
+            if (Object.keys(self.cache).length  !== 0) {
                 deferred.resolve({
                     data: [cache]
                 });

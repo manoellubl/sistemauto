@@ -17,7 +17,7 @@
         $scope.students = [];
 
         StudentService.getStudents().then(function(info) {
-
+            $scope.students = info.data;
         });
 
         $scope.showForm = function() {
