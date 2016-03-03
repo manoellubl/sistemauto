@@ -1,25 +1,14 @@
 <md-dialog>
     <form id="form-profile" data-parsley-validate="" ng-submit="update()">
-        <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-            <md-input-container>
-                <label>{{ 'PROFILE_COMPANY' | translate }} *</label>
-                <input required ng-model="user.company">
-            </md-input-container>
-            <md-input-container>
-                <label>{{ 'PROFILE_CNPJ' | translate }} *</label>
-                <input required ng-model="user.cnpj">
-            </md-input-container>
-        </md-content>
         <md-content class="md-padding">
             <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_NAME' | translate }} *</label>
-                    <input required ng-model="user.name" type="text">
+                    <label>Nome completo *</label>
+                    <input required ng-model="student.name" type="text">
                 </md-input-container>
-                <md-input-container flex>
-                    <label>{{ 'PROFILE_EMAIL' | translate }} *</label>
-                    <input required ng-model="user.email" type="email">
-                </md-input-container>
+                <md-checkbox ng-model="student.arquivado" flex>
+                    <label>Arquivar</label>
+                </md-checkbox>
             </div>
             <md-input-container flex>
                 <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
