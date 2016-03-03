@@ -29,8 +29,9 @@
         };
 
         $scope.showForm = function() {
-            console.log('===================e============== ');
             $mdDialog.show({
+                clickOutsideToClose: true,
+                preserveScope: true,
                 scope: $scope,
                 templateUrl: '../view/newInstructor.html',
                 parent: angular.element(document.body)

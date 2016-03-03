@@ -1,8 +1,13 @@
 <md-list>
- <md-list-item ng-repeat="i in instructors" ng-click="goToPerson(person.name, $event)">
+ <md-list-item ng-repeat="i in instructors" ng-click="fazerFuncao()">
     <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
     <p>{{ i.name }}</p>
-    <md-icon md-svg-icon="communication:messenger" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': s.newMessage}"></md-icon>
+	<md-button class="md-icon-button" ng-click="funcaoParaEditar()">
+       <md-icon md-menu-origin>edit</md-icon>
+   </md-button>
+    <md-button class="md-icon-button" ng-click="algumacoisa()">
+       <md-icon md-menu-origin>delete</md-icon>
+   </md-button>
   </md-list-item>
 </md-list>
 
