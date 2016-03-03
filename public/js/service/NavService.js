@@ -18,6 +18,10 @@
 				name: 'Profile',
 				icon: 'person',
 				sref: '.profile'
+			}, {
+				name: 'Students',
+				icon: 'account_box',
+				sref: '.student'
 			}
 		];
 	

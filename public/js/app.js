@@ -146,7 +146,17 @@
               title: 'Profile'
             },
             authRequired: true
-          });
+          })
+            .state('home.student', {
+                url: '/student',
+                templateUrl: '../view/student.html',
+                controller: 'StudentController',
+                controllerAs: 'vm',
+                data: {
+                    title: 'Student'
+                },
+                authRequired: true
+            });
 
         $urlRouterProvider.otherwise('/dashboard');
 
