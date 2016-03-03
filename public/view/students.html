@@ -1,3 +1,11 @@
+<md-list>
+ <md-list-item ng-repeat="s in students" ng-click="goToPerson(person.name, $event)">
+    <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
+    <p>{{ s.name }}</p>
+    <md-icon md-svg-icon="communication:messenger" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': s.newMessage}"></md-icon>
+  </md-list-item>
+</md-list>
+
 <form id="form-profile" data-parsley-validate="" ng-submit="update()">
 
 </form>

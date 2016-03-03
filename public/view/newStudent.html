@@ -1,5 +1,5 @@
 <md-dialog>
-    <form id="form-profile" data-parsley-validate="" ng-submit="update()">
+    <form id="form-profile" data-parsley-validate="" ng-submit="register()">
         <md-content class="md-padding">
             <div layout layout-sm="column">
                 <md-input-container flex>
@@ -12,25 +12,33 @@
             </div>
             <md-input-container flex>
                 <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
-                <input ng-model="user.address">
+                <input ng-model="student.address">
             </md-input-container>
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>{{ 'PROFILE_CITY' | translate }}</label>
-                    <input ng-model="user.city">
+                    <input ng-model="student.city">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'PROFILE_STATE' | translate }}</label>
-                    <input ng-model="user.state">
+                    <input ng-model="student.state">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'PROFILE_CEP' | translate }}</label>
-                    <input ng-model="user.cep">
+                    <input ng-model="student.cep">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_CPF' | translate }}</label>
+                    <input required ng-model="student.cpf">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_RG' | translate }}</label>
+                    <input required ng-model="student.rg">
                 </md-input-container>
             </div>
             <md-input-container flex>
                 <label>{{ 'PROFILE_ABOUT' | translate }}</label>
-			<textarea ng-model="user.about" columns="1"
+			<textarea ng-model="student.about" columns="1"
                       md-maxlength="150"></textarea>
             </md-input-container>
             <md-input-container>

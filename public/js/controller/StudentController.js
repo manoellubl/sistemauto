@@ -17,8 +17,16 @@
         $scope.students = [];
 
         StudentService.getStudents().then(function(info) {
-            $scope.students = info.data;
+            $scope.students.splice(0, $scope.students.length);
+            $scope.students.push.apply($scope.students, info.data);
         });
+
+        $scope.register = function() {
+            StudentService.postStudent($scope.student).then(function(info) {
+            }, function(error) {
+                console.log(error);
+            });
+        };
 
         $scope.showForm = function() {
             $mdDialog.show({

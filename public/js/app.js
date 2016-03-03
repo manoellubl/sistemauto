@@ -16,7 +16,7 @@
 	
 	// localmente colocar http://localhost:8080/api
     // para o http://sistemauto.herokuapp.com/api
-	app.constant('ApiUrl', { url: 'http://localhost:8080/api' });
+	app.constant('ApiUrl', { url: 'http://localhost:8050/api' });
 
 	app.config(function(blockUIConfig) {
 		blockUIConfig.delay = 100;
@@ -81,7 +81,9 @@
             PROFILE_STATE: 'State',
             PROFILE_CEP: 'Postal Code',
             PROFILE_ABOUT: 'About us',
-            PROFILE_SAVE: 'Save'
+            PROFILE_SAVE: 'Save',
+            STUDENT_CPF: 'CPF',
+            STUDENT_RG: 'RG'
         });
         $translateProvider.translations('pt-br', {
             LOGIN_EMAIL: 'Email',
@@ -103,7 +105,9 @@
             PROFILE_STATE: 'Estado',
             PROFILE_CEP: 'CEP',
             PROFILE_ABOUT: 'Sobre',
-            PROFILE_SAVE: 'Salvar'
+            PROFILE_SAVE: 'Salvar',
+            STUDENT_CPF: 'CPF',
+            STUDENT_RG: 'RG'
         });
         $translateProvider.preferredLanguage('pt-br');
     });
