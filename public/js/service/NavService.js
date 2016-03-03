@@ -22,8 +22,12 @@
 				name: 'Students',
 				icon: 'account_box',
 				sref: '.student'
-			}
-		];
+			}, {
+				name: 'Instructors',
+				icon: 'perm_identity',
+				sref: '.instructor'
+			}		
+			];
 	
 		this.loadAllItems = function() {
 			return $q.when(menuItems);
