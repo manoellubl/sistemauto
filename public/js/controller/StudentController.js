@@ -22,16 +22,12 @@
 
         $scope.showForm = function() {
             $mdDialog.show({
-                controller: novoAlunoController,
+                scope: $scope,
                 templateUrl: '../view/newStudent.html',
                 parent: angular.element(document.body)
             });
         };
 
-        /**
-         * Controller para o modal de cadastro de aluno
-         */
-        function novoAlunoController($scope) {
-        };
+        
     }
 })();
