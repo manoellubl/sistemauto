@@ -21,15 +21,20 @@
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>{{ 'STUDENT_CEP' | translate }}*</label>
-                    <input required ng-model="student.cep" ng-blur="updateAddress(student.cep)">
+                    <input required ng-model="student.cep">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_CITY' | translate }}*</label>
                     <input required ng-model="student.city">
                 </md-input-container>
                 <md-input-container flex>
+<<<<<<< HEAD
                     <label>{{ 'STUDENT_STATE' | translate }}*</label>
-                    <input required ng-model="student.cep" ng-blur="updateAddress(student.cep)">
+                    <input required ng-model="student.state">
+=======
+                    <label>{{ 'PROFILE_CEP' | translate }}</label>
+                    <input ng-model="student.cep" ng-blur="updateAddress(student.cep)">
+>>>>>>> 2f291e5fd228c80f4eaca823c1a0408589539533
                 </md-input-container>
             </div>
             <div layout layout-sm="column">

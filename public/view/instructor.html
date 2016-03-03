@@ -1,53 +1,18 @@
-<!-- TODO: Add validations -->
+<md-list>
+ <md-list-item ng-repeat="i in instructors" ng-click="goToPerson(person.name, $event)">
+    <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
+    <p>{{ i.name }}</p>
+    <md-icon md-svg-icon="communication:messenger" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': s.newMessage}"></md-icon>
+  </md-list-item>
+</md-list>
+
 <form id="form-profile" data-parsley-validate="" ng-submit="update()">
-    <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
-        <md-input-container>
-            <label>{{ 'PROFILE_COMPANY' | translate }} *</label>
-            <input required ng-model="user.company">
-        </md-input-container>
-        <md-input-container>
-            <label>{{ 'PROFILE_CNPJ' | translate }} *</label>
-            <input required ng-model="user.cnpj">
-        </md-input-container>
-    </md-content>
-    <md-content class="md-padding">
-        <div layout layout-sm="column">
-            <md-input-container flex>
-                <label>{{ 'PROFILE_NAME' | translate }} *</label>
-                <input required ng-model="user.name" type="text">
-            </md-input-container>
-            <md-input-container flex>
-                <label>{{ 'PROFILE_EMAIL' | translate }} *</label>
-                <input required ng-model="user.email" type="email">
-            </md-input-container>
-        </div>
-        <md-input-container flex>
-            <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
-            <input ng-model="user.address">
-        </md-input-container>
-        <div layout layout-sm="column">
-            <md-input-container flex>
-                <label>{{ 'PROFILE_CITY' | translate }}</label>
-                <input ng-model="user.city">
-            </md-input-container>
-            <md-input-container flex>
-                <label>{{ 'PROFILE_STATE' | translate }}</label>
-                <input ng-model="user.state">
-            </md-input-container>
-            <md-input-container flex>
-                <label>{{ 'PROFILE_CEP' | translate }}</label>
-                <input ng-model="user.cep">
-            </md-input-container>
-        </div>
-        <md-input-container flex>
-            <label>{{ 'PROFILE_ABOUT' | translate }}</label>
-			<textarea ng-model="user.about" columns="1"
-                      md-maxlength="150"></textarea>
-        </md-input-container>
-        <md-input-container>
-            <div layout="row" layout-sm="column">
-                <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'PROFILE_SAVE' | translate }}</md-button>
-            </div>
-        </md-input-container>
-    </md-content>
+
 </form>
+<md-button
+        class="md-fab md-warn md-fab-bottom-right"
+        style="position: fixed;"
+        ng-click="showForm()"
+        aria-label="Cadastrar Instrutor">
+    <md-icon md-svg-src="asset/svg/plus.svg"></md-icon>
+</md-button>

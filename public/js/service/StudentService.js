@@ -81,5 +81,9 @@
         this.removeStudent = function(id) {
 
         };
+
+        this.getAddressByCep = function(cep) {
+            return $http.get("http://cep.correiocontrol.com.br/" + cep + ".json");
+        };
     }
 })();

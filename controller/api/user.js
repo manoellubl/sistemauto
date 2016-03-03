@@ -52,13 +52,17 @@
         router.post('/', function(request, response, next) {
             var user = new User(request.body);
 			// remover e criptografar senha http://importjake.io/testing-express-routes-with-mocha-supertest-and-mock-goose/
-            user.save(function(error, data) {
-                if (error !== null) {
-                    next(error);
-                } else {
-                    response.status(201).json(data);
-                }
-            });
+            if (validate(user)) {
+                user.save(function(error, data) {
+                    if (error !== null) {
+                        next(error);
+                    } else {
+                        response.status(201).json(data);
+                    }
+                });
+            } else {
+                response.status(400).json('Erro de validação');
+            }
         });
 
         /**
@@ -68,14 +72,48 @@
          */
         router.put('/:_id', function(request, response, next) {
             var id = request.params._id;
-            var query =  User.findByIdAndUpdate(id, {$set: request.body}, {new: true});
-            query.exec(function(error, data) {	
-                if (error !== null) {
-                    next(error);
-                } else {
-                    response.json(data);
-                }
-            });
+            if (validate(request.body)) {
+                var query =  User.findByIdAndUpdate(id, {$set: request.body}, {new: true});
+                query.exec(function(error, data) {  
+                    if (error !== null) {
+                        next(error);
+                    } else {
+                        response.json(data);
+                    }
+                });
+            } else {
+                response.status(400).json('Erro de validação');
+            }
         });
+
+        // TODO MOVER
+        function validate(user) {
+            if (user.cnpj.length != 14) {
+                return false;
+            }
+            
+            for (var k = 0; k < 2; k++) {
+                var factor = 2;
+                var sum = 0;
+                for (var i = 11 + k; i >= 0; i--) {
+                    var d = parseInt(user.cnpj.charAt(i));
+                    
+                    if (isNaN(d)) {
+                        return false;
+                    }
+
+                    sum += d * factor;
+                    factor = (factor == 9 ? 2 : (factor + 1));
+                }
+
+                sum %= 11;
+                
+                if ((sum < 2 ? 0 : 11 - sum) != user.cnpj.charAt(12 + k)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     };
 }());

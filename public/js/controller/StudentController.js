@@ -48,5 +48,16 @@
                 parent: angular.element(document.body)
             });
         };
+
+        $scope.updateAddress = function(cep) {
+            StudentService.getAddressByCep(cep).then(function(info) {
+                $scope.student.city = info.data.localidade;
+                $scope.student.address = info.data.logradouro + ', ' + info.data.bairro;
+                $scope.student.state = info.data.uf;
+                console.log(info);
+            }, function(error) {
+                console.log(error);
+            });
+        };
     }
 })();
