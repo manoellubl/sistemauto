@@ -18,7 +18,7 @@
 
         this.getStudents = function() {
             var deferred = $q.defer();
-            if (Object.keys(self.cache).length  !== 0) {
+            if (Object.keys(self.cache).length  > 0 && Object.keys(self.cache) === "undefined") {
                 deferred.resolve({
                     data: [self.cache]
                 });
@@ -80,6 +80,10 @@
 
         this.removeStudent = function(id) {
 
+        };
+
+        this.getAddressByCep = function(cep) {
+            return $http.get("http://cep.correiocontrol.com.br/" + cep + ".json");
         };
     }
 })();

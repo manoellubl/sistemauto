@@ -82,8 +82,19 @@
             PROFILE_CEP: 'Postal Code',
             PROFILE_ABOUT: 'About us',
             PROFILE_SAVE: 'Save',
+            STUDENT_ADDRESS: 'Address',
             STUDENT_CPF: 'CPF',
-            STUDENT_RG: 'RG'
+            STUDENT_BIRTHDATE: 'Birth Date',
+            STUDENT_RG: 'RG',
+            STUDENT_CITY: 'City',
+            STUDENT_STATE: 'State',
+            STUDENT_CEP: 'Postal Code',
+            STUDENT_EMAIL: 'Email',
+            STUDENT_DRIVER_LICENSE_CLASS: 'Driver license class',
+            STUDENT_SITUATION: 'Situation',
+            STUDENT_VALUE: 'Value',
+            STUDENT_CANCEL: 'Cancel',
+            STUDENT_SAVE: 'Save'
         });
         $translateProvider.translations('pt-br', {
             LOGIN_EMAIL: 'Email',
@@ -106,8 +117,19 @@
             PROFILE_CEP: 'CEP',
             PROFILE_ABOUT: 'Sobre',
             PROFILE_SAVE: 'Salvar',
+            STUDENT_ADDRESS: 'Endereço',
             STUDENT_CPF: 'CPF',
-            STUDENT_RG: 'RG'
+            STUDENT_BIRTHDATE: 'Data de Nascimento',
+            STUDENT_RG: 'RG',
+            STUDENT_CEP: 'CEP',
+            STUDENT_CITY: 'Cidade',
+            STUDENT_STATE: 'Estado',
+            STUDENT_EMAIL: 'Email',
+            STUDENT_DRIVER_LICENSE_CLASS: 'Tipo de habilitação',
+            STUDENT_SITUATION: 'Situação',
+            STUDENT_VALUE: 'Valor',
+            STUDENT_CANCEL: 'Cancelar',
+            STUDENT_SAVE: 'Salvar'
         });
         $translateProvider.preferredLanguage('pt-br');
     });

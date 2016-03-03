@@ -23,23 +23,41 @@
             required: true,
             unique: true
         },
-        dataNascimento: {
-            type: Date
+        birthDate: {
+            type: Date,
+            required: true
         },
         email: {
-            type: String
+            type: String,
+            required: true
         },
-        tipoHabilitacao: {
-            type: String
+        driverLicenseClass: {
+            type: String,
+            required: true
         },
-        situacao: {
-            type: String
+        situation: {
+            type: String,
+            required: true
         },
-        endereco: {
-            type: String
+        address: {
+            type: String,
+            required: true
         },
-        valor: {
-            type: Number
+        value: {
+            type: Number,
+            required: true
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true
+        },
+        cep: {
+            type: String,
+            required: true
         }
     });
 

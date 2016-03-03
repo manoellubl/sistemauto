@@ -32,5 +32,16 @@
 				
 			});
 		};
+
+		$scope.updateAddress = function(cep) {
+			UserService.getAddressByCep(cep).then(function(info) {
+				$scope.user.city = info.data.localidade;
+				$scope.user.address = info.data.logradouro + ', ' + info.data.bairro;
+				$scope.user.state = info.data.uf;
+				console.log(info);
+			}, function(error) {
+				console.log(error);
+			});
+		};
 	}
 })();

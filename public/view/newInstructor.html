@@ -25,7 +25,7 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'PROFILE_CEP' | translate }}</label>
-                    <input ng-model="instructor.cep">
+                    <input ng-model="instructor.cep" ng-blur="updateAddress(instructor.cep)">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_CPF' | translate }}</label>
