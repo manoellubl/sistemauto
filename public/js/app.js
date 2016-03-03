@@ -177,10 +177,10 @@
 
         $mdThemingProvider
           .theme('default')
-            .primaryPalette('grey', {
-              'default': '600'
+            .primaryPalette('teal', {
+              'default': '800'
             })
-            .accentPalette('teal', {
+            .accentPalette('amber', {
               'default': '500'
             })
             .warnPalette('defaultPrimary');
