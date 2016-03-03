@@ -10,11 +10,12 @@
 		'$state',
 		'NavService', 
 		'UserService',
+		'$translate',
 		MainController
 	]);
 
-	function MainController($scope, $state, NavService, UserService) {
-		
+	function MainController($scope, $state, NavService, UserService, $translate) {
+
 		// itens do menu
 		$scope.menuItems = [];
 
@@ -23,10 +24,15 @@
 		 */
 		$scope.logout = function() {
 			UserService.logout().then(function(info) {
+				UserService.clear();
 				$state.go('login');
 			}, function(error) {
-
+				UserService.clear();
 			});
+		};
+
+		$scope.setLanguage = function(language) {
+			$translate.use(language);
 		};
 
 		// obtém do service os itens do menu

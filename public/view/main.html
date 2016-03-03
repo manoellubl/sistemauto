@@ -22,6 +22,13 @@
 
 <div layout="column" flex>
     <md-toolbar layout="row" layout-align="end center">
+        <md-button class="toolbar-button dropdown" ng-click="myDropdownIsActive=!myDropdownIsActive" ng-class="{active:myDropdownIsActive}" aria-label="language">
+            <i class="material-icons">language</i>
+            <ul class="dropdown-menu md-whiteframe-z1">
+                <li><md-button style="color: #2a6496" ng-click="setLanguage('en')">English</md-button></li>
+                <li><md-button style="color: #2a6496" ng-click="setLanguage('pt-br')">Português (Brasil)</md-button></li>
+            </ul>
+        </md-button>
 		<md-button ng-click = "logout()" hide-sm class="toolbar-button" aria-label="exit_to_app">
             <i class="material-icons">exit_to_app</i>
         </md-button>

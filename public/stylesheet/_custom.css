@@ -155,3 +155,30 @@ md-backdrop.md-sidenav-backdrop {
 .orange .md-container {
   background-color: #ffecc9;
 }
+
+.md-button.dropdown {
+  overflow: visible; /*reset*/
+}
+
+.dropdown .dropdown-menu {
+  max-width: 0;
+  position: absolute;
+  top: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  transition: min-width 0.2s ease-in-out, left 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.dropdown .dropdown-menu .md-button {
+  min-width: 100%;
+  border-radius: 0;
+  margin: 0;
+  padding: 6px 32px;
+}
+
+.dropdown.active .dropdown-menu {
+  max-width: 300px; /* set a maxwidth bigger than the widest element */
+  left: -126px;
+}

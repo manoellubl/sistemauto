@@ -64,13 +64,6 @@
 		}
 		
 		/**
-		 * Limpa o token do usuário.
-		 */
-		function clearToken() {
-			window.localStorage.removeItem('token-auth');
-		}
-		
-		/**
 		 * Obtém o id do usuário logado.
 		 * 
 		 * @return {String} identificador do usuário logado.
@@ -141,6 +134,15 @@
 			});
 			
 			return deferred.promise;
+		};
+
+		/**
+		 * Limpa todos os dados do usuário logado
+		 */
+		this.clear = function() {
+			window.localStorage.removeItem('token-auth');
+			window.localStorage.removeItem('user-id');
+			window.location.reload();
 		};
 	}
 })();
