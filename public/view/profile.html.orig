@@ -2,8 +2,17 @@
 <form id="form-profile" data-parsley-validate="" ng-submit="update()">
 	<md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
 		<md-input-container>
+<<<<<<< HEAD
+			<label>{{ 'PROFILE_NAME' | translate }} *</label>
+			<input required ng-model="user.name" type="text">
+		</md-input-container>
+		<md-input-container>
+			<label>{{ 'PROFILE_EMAIL' | translate }} *</label>
+			<input required ng-model="user.email" type="email">
+=======
 			<label>Company Name *</label>
 			<input required ng-model="user.company">
+>>>>>>> master
 		</md-input-container>	
 		<md-input-container>
 			<label>{{ 'PROFILE_CNPJ' | translate }} *</label>
@@ -13,12 +22,36 @@
 	<md-content class="md-padding">
 		<div layout layout-sm="column">
 			<md-input-container flex>
+<<<<<<< HEAD
+				<label>{{ 'PROFILE_ADDRESS' | translate }}</label>
+				<input ng-model="user.address">
+			</md-input-container>
+			<div layout layout-sm="column">
+				<md-input-container flex>
+					<label>{{ 'PROFILE_CITY' | translate }}</label>
+					<input ng-model="user.city">
+				</md-input-container>
+				<md-input-container flex>
+					<label>{{ 'PROFILE_STATE' | translate }}</label>
+					<input ng-model="user.state">
+				</md-input-container>
+				<md-input-container flex>
+					<label>{{ 'PROFILE_CEP' | translate }}</label>
+					<input ng-model="user.cep">
+				</md-input-container>
+			</div>
+			<md-input-container flex>
+				<label>{{ 'PROFILE_ABOUT' | translate }}</label>
+				<textarea ng-model="user.about" columns="1"
+						md-maxlength="150"></textarea>
+=======
 				<label>Manager *</label>
 				<input required ng-model="user.name" type="text">
 			</md-input-container>
 			<md-input-container flex>
 				<label>Email *</label>
 				<input required ng-model="user.email" type="email">
+>>>>>>> master
 			</md-input-container>
 		</div>
 		<md-input-container flex>

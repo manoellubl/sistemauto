@@ -31,6 +31,10 @@
                 unique: true
             }
         },
+        company: {
+            type: String,
+            required: true,
+        },
         about: {
             type: String
         },
