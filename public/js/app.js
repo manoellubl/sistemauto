@@ -147,15 +147,26 @@
             },
             authRequired: true
           })
-            .state('home.student', {
-                url: '/student',
-                templateUrl: '../view/student.html',
-                controller: 'StudentController',
-                controllerAs: 'vm',
-                data: {
-                    title: 'Student'
-                },
-                authRequired: true
+          .state('home.student', {
+              url: '/student',
+              templateUrl: '../view/student.html',
+              controller: 'StudentController',
+              controllerAs: 'vm',
+              data: {
+                  title: 'Student'
+              },
+              authRequired: true
+          })
+
+          .state('home.instructor', {
+             url: '/instructor',
+              templateUrl: '../view/instructor.html',
+               controller: 'InstructorController',
+               controllerAs: 'vm',
+               data: {
+                   title: 'Instructor'
+               },
+               authRequired: true
             });
 
         $urlRouterProvider.otherwise('/dashboard');
