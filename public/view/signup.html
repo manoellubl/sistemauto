@@ -5,6 +5,10 @@
 				<md-content md-theme="docs-dark">
 					<form id="signup-form" data-parsley-validate="" ng-submit="register()">
 						<md-input-container>
+							<label>{{ 'SIGNUP_COMPANYNAME' | translate }}</label>
+							<input type="text" required ng-model="user.company">
+						</md-input-container>
+						<md-input-container>
 							<label>{{ 'SIGNUP_NAME' | translate }}</label>
 							<input type="text" required ng-model="user.name">
 						</md-input-container>
