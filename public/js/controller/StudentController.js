@@ -28,11 +28,10 @@
             });
         };
         $scope.update = function(id) {
-            console.log(id);
-            StudentService.putStudent($scope.student).then(function(info) {
+            /*StudentService.updateStudent($scope.student).then(function(info) {
             }, function(error) {
                 console.log(error);
-            });
+            });*/
         };
 
         $scope.closeForm = function() {
