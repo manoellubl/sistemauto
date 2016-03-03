@@ -1,59 +1,54 @@
 <md-dialog>
-    <form>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Cadastrar Instrutor</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" aria-label="Fechar cadastro" ng-click="fechar()">
-                    <md-icon md-svg-src="asset/svg/close.svg" aria-label="Fechar cadastro"></md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-        <md-dialog-content layout-padding="" class="autoScroll">
-            <md-input-container class="md-icon-float">
-                <md-icon md-svg-src="assets/svg/pessoa.svg" style="display:inline-block;"></md-icon>
-                <input ng-model="instrutor.dados.nome" type="text" placeholder="Nome">
+    <form id="form-profile" data-parsley-validate="" ng-submit="update()">
+        <md-content md-theme="dark" class="md-padding" layout="row" layout-sm="column">
+            <md-input-container>
+                <label>{{ 'PROFILE_COMPANY' | translate }} *</label>
+                <input required ng-model="user.company">
             </md-input-container>
             <md-input-container>
-                <md-icon md-svg-src="assets/svg/telefone.svg"></md-icon>
-                <input ng-model="instrutor.dados.telefone" type="text" placeholder="Telefone">
+                <label>{{ 'PROFILE_CNPJ' | translate }} *</label>
+                <input required ng-model="user.cnpj">
+            </md-input-container>
+        </md-content>
+        <md-content class="md-padding">
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_NAME' | translate }} *</label>
+                    <input required ng-model="user.name" type="text">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_EMAIL' | translate }} *</label>
+                    <input required ng-model="user.email" type="email">
+                </md-input-container>
+            </div>
+            <md-input-container flex>
+                <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
+                <input ng-model="user.address">
+            </md-input-container>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_CITY' | translate }}</label>
+                    <input ng-model="user.city">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_STATE' | translate }}</label>
+                    <input ng-model="user.state">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_CEP' | translate }}</label>
+                    <input ng-model="user.cep">
+                </md-input-container>
+            </div>
+            <md-input-container flex>
+                <label>{{ 'PROFILE_ABOUT' | translate }}</label>
+			<textarea ng-model="user.about" columns="1"
+                      md-maxlength="150"></textarea>
             </md-input-container>
             <md-input-container>
-                <md-icon md-svg-src="assets/svg/email.svg" class="email"></md-icon>
-                <input ng-model="instrutor.dados.email" type="email" placeholder="Email">
+                <div layout="row" layout-sm="column">
+                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'PROFILE_SAVE' | translate }}</md-button>
+                </div>
             </md-input-container>
-            <div layout="" layout-sm="column">
-                <md-input-container flex="">
-                    <md-icon md-svg-src="assets/svg/endereco.svg" style="display:inline-block;"></md-icon>
-                    <input ng-model="instrutor.dados.local.endereco" type="text" placeholder="Endereco">
-                </md-input-container>
-                <md-input-container>
-                    <input ng-model="instrutor.dados.local.bairro" type="text" placeholder="Bairro">
-                </md-input-container>
-                <md-input-container>
-                    <input ng-model="instrutor.dados.local.numero" type="text" placeholder="Número">
-                </md-input-container>
-            </div>
-            <div layout="" layout-sm="column">
-                <md-input-container>
-                    <md-icon md-svg-src="assets/svg/mapa.svg" style="display:inline-block;"></md-icon>
-                    <input ng-model="instrutor.dados.local.cep" type="text" placeholder="CEP">
-                </md-input-container>
-                <md-input-container>
-                    <input ng-model="instrutor.dados.local.cidade" type="text" placeholder="Cidade">
-                </md-input-container>
-                <md-input-container>
-                    <input ng-model="instrutor.dados.local.estado" type="text" placeholder="Estado">
-                </md-input-container>
-                <md-input-container>
-                    <input ng-model="instrutor.dados.local.complemento" type="text" placeholder="Complemento">
-                </md-input-container>
-            </div>
-        </md-dialog-content>
-        <div class="md-actions" layout="row">
-            <span flex></span>
-            <md-button ng-click="limpar()" class="md-primary">Limpar</md-button>
-            <md-button ng-click="cadastrar()" class="md-primary">Cadastrar</md-button>
-        </div>
+        </md-content>
     </form>
 </md-dialog>

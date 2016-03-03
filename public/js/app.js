@@ -149,7 +149,7 @@
           })
           .state('home.student', {
               url: '/student',
-              templateUrl: '../view/student.html',
+              templateUrl: '../view/students.html',
               controller: 'StudentController',
               controllerAs: 'vm',
               data: {
