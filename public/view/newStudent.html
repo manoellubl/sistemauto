@@ -1,0 +1,43 @@
+<md-dialog>
+    <form id="form-profile" data-parsley-validate="" ng-submit="update()">
+        <md-content class="md-padding">
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Nome completo *</label>
+                    <input required ng-model="student.name" type="text">
+                </md-input-container>
+                <md-checkbox ng-model="student.arquivado" flex>
+                    <label>Arquivar</label>
+                </md-checkbox>
+            </div>
+            <md-input-container flex>
+                <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
+                <input ng-model="user.address">
+            </md-input-container>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_CITY' | translate }}</label>
+                    <input ng-model="user.city">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_STATE' | translate }}</label>
+                    <input ng-model="user.state">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'PROFILE_CEP' | translate }}</label>
+                    <input ng-model="user.cep">
+                </md-input-container>
+            </div>
+            <md-input-container flex>
+                <label>{{ 'PROFILE_ABOUT' | translate }}</label>
+			<textarea ng-model="user.about" columns="1"
+                      md-maxlength="150"></textarea>
+            </md-input-container>
+            <md-input-container>
+                <div layout="row" layout-sm="column">
+                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'PROFILE_SAVE' | translate }}</md-button>
+                </div>
+            </md-input-container>
+        </md-content>
+    </form>
+</md-dialog>

@@ -15,9 +15,8 @@
 	]);
 	
 	// localmente colocar http://localhost:8080/api
-  // para o http://sistemauto.herokuapp.com/api
-  //app.constant('ApiUrl', { url: 'http://localhost:8080/api' });
-	app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
+    // para o http://sistemauto.herokuapp.com/api
+	app.constant('ApiUrl', { url: 'http://localhost:8080/api' });
 
 	app.config(function(blockUIConfig) {
 		blockUIConfig.delay = 100;
@@ -147,16 +146,37 @@
               title: 'Profile'
             },
             authRequired: true
-          });
+          })
+          .state('home.student', {
+              url: '/student',
+              templateUrl: '../view/students.html',
+              controller: 'StudentController',
+              controllerAs: 'vm',
+              data: {
+                  title: 'Student'
+              },
+              authRequired: true
+          })
+
+          .state('home.instructor', {
+             url: '/instructor',
+              templateUrl: '../view/instructor.html',
+               controller: 'InstructorController',
+               controllerAs: 'vm',
+               data: {
+                   title: 'Instructor'
+               },
+               authRequired: true
+            });
 
         $urlRouterProvider.otherwise('/dashboard');
 
         $mdThemingProvider
           .theme('default')
-            .primaryPalette('grey', {
-              'default': '600'
+            .primaryPalette('teal', {
+              'default': '800'
             })
-            .accentPalette('teal', {
+            .accentPalette('amber', {
               'default': '500'
             })
             .warnPalette('defaultPrimary');
