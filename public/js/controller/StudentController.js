@@ -27,10 +27,23 @@
                 console.log(error);
             });
         };
+        $scope.update = function(id) {
+            console.log(id);
+            StudentService.putStudent($scope.student).then(function(info) {
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+        $scope.closeForm = function() {
+            $mdDialog.hide();
+        };
 
         $scope.showForm = function() {
             $mdDialog.show({
                 scope: $scope,
+                clickOutsideToClose: true,
+                preserveScope: true, 
                 templateUrl: '../view/newStudent.html',
                 parent: angular.element(document.body)
             });

@@ -6,44 +6,66 @@
                     <label>Nome completo *</label>
                     <input required ng-model="student.name" type="text">
                 </md-input-container>
+                <md-input-container flex>
+                <label>{{ 'STUDENT_EMAIL' | translate }}*</label>
+                    <input required ng-model="student.email">
+                </md-input-container>
                 <md-checkbox ng-model="student.arquivado" flex>
                     <label>Arquivar</label>
                 </md-checkbox>
             </div>
             <md-input-container flex>
-                <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
-                <input ng-model="student.address">
+                <label>{{ 'STUDENT_ADDRESS' | translate }}*</label>
+                <input required ng-model="student.address">
             </md-input-container>
             <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_CITY' | translate }}</label>
-                    <input ng-model="student.city">
+                    <label>{{ 'STUDENT_CEP' | translate }}*</label>
+                    <input required ng-model="student.cep">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_STATE' | translate }}</label>
-                    <input ng-model="student.state">
+                    <label>{{ 'STUDENT_CITY' | translate }}*</label>
+                    <input required ng-model="student.city">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_CEP' | translate }}</label>
-                    <input ng-model="student.cep">
+                    <label>{{ 'STUDENT_STATE' | translate }}*</label>
+                    <input required ng-model="student.state">
                 </md-input-container>
+            </div>
+            <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_CPF' | translate }}</label>
+                    <label>{{ 'STUDENT_CPF' | translate }}*</label>
                     <input required ng-model="student.cpf">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_RG' | translate }}</label>
+                    <label>{{ 'STUDENT_RG' | translate }}*</label>
                     <input required ng-model="student.rg">
                 </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_BIRTHDATE' | translate }}*</label>
+                    <input required ng-model="student.birthDate">
+                </md-input-container>
             </div>
-            <md-input-container flex>
-                <label>{{ 'PROFILE_ABOUT' | translate }}</label>
-			<textarea ng-model="student.about" columns="1"
-                      md-maxlength="150"></textarea>
-            </md-input-container>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*</label>
+                    <input required ng-model="student.driverLicenseClass">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_SITUATION' | translate }}*</label>
+                    <input required ng-model="student.situation">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_VALUE' | translate }}*</label>
+                    <input required ng-model="student.value">
+                </md-input-container>
+            </div>
             <md-input-container>
                 <div layout="row" layout-sm="column">
-                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'PROFILE_SAVE' | translate }}</md-button>
+                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
+                </div>
+                <div layout="row" layout-sm="column">
+                    <md-button type="button" ng-click="closeForm()" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_CANCEL' | translate }}</md-button>
                 </div>
             </md-input-container>
         </md-content>

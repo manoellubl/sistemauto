@@ -37,6 +37,8 @@
         router.post('/', function(request, response, next) {
             var student = new Student(request.body);
             student.save(function(error, data) {
+                console.log("aqui");
+                console.log(error);
                 if (error !== null) {
                     next(error);
                 } else {
