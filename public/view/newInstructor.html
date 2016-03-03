@@ -4,43 +4,39 @@
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>Nome completo *</label>
-                    <input required ng-model="student.name" type="text">
+                    <input required ng-model="instructor.name" type="text">
                 </md-input-container>
-                <md-checkbox ng-model="student.arquivado" flex>
-                    <label>Arquivar</label>
+                <md-checkbox ng-model="instructor.status" flex>
+                    <label>Professor ativo</label>
                 </md-checkbox>
             </div>
             <md-input-container flex>
                 <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
-                <input ng-model="student.address">
+                <input ng-model="instructor.address">
             </md-input-container>
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>{{ 'PROFILE_CITY' | translate }}</label>
-                    <input ng-model="student.city">
+                    <input ng-model="instructor.city">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'PROFILE_STATE' | translate }}</label>
-                    <input ng-model="student.state">
+                    <input ng-model="instructor.state">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'PROFILE_CEP' | translate }}</label>
-                    <input ng-model="student.cep" ng-blur="updateAddress(student.cep)">
+                    <input ng-model="instructor.cep" ng-blur="updateAddress(instructor.cep)">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_CPF' | translate }}</label>
-                    <input required ng-model="student.cpf">
+                    <label>{{ 'STUDENT_CPF' | translate }}</label>
+                    <input required ng-model="instructor.cpf">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_RG' | translate }}</label>
-                    <input required ng-model="student.rg">
+                    <label>{{ 'STUDENT_RG' | translate }}</label>
+                    <input required ng-model="instructor.rg">
                 </md-input-container>
             </div>
-            <md-input-container flex>
-                <label>{{ 'PROFILE_ABOUT' | translate }}</label>
-			<textarea ng-model="student.about" columns="1"
-                      md-maxlength="150"></textarea>
-            </md-input-container>
+
             <md-input-container>
                 <div layout="row" layout-sm="column">
                     <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'PROFILE_SAVE' | translate }}</md-button>

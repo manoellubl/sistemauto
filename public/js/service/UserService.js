@@ -135,6 +135,10 @@
 			
 			return deferred.promise;
 		};
+		
+		this.getAddressByCep = function(cep) {
+			return $http.get("http://cep.correiocontrol.com.br/" + cep + ".json");
+		};
 
 		/**
 		 * Limpa todos os dados do usuário logado

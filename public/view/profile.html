@@ -35,7 +35,7 @@
 			</md-input-container>
 			<md-input-container flex>
 				<label>{{ 'PROFILE_CEP' | translate }}</label>
-				<input ng-model="user.cep">
+				<input ng-model="user.cep" ng-blur="updateAddress(user.cep)">
 			</md-input-container>
 		</div>
 		<md-input-container flex>
