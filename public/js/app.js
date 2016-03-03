@@ -14,8 +14,8 @@
 	]);
 	
 	// localmente colocar http://localhost:8080/api
-  // antes do push voltar http://localhost:8080/api
-	app.constant('ApiUrl', { url: 'http://localhost:8080/api' });
+  // antes do push voltar http://sistemauto.herokuapp.com/api
+	app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
 	app.config(function(blockUIConfig) {
 		blockUIConfig.delay = 100;
