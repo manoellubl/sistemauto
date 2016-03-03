@@ -27,7 +27,5 @@
                 parent: angular.element(document.body)
             });
         };
-
-        
     }
 })();
