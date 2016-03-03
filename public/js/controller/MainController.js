@@ -24,9 +24,10 @@
 		 */
 		$scope.logout = function() {
 			UserService.logout().then(function(info) {
+				UserService.clear();
 				$state.go('login');
 			}, function(error) {
-
+				UserService.clear();
 			});
 		};
 

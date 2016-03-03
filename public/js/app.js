@@ -15,7 +15,7 @@
 	]);
 	
 	// localmente colocar http://localhost:8080/api
- 	 // antes do push voltar http://sistemauto.herokuapp.com/api
+    // para o http://sistemauto.herokuapp.com/api
 	app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
 	app.config(function(blockUIConfig) {
@@ -71,14 +71,16 @@
             SIGNUP_PASSWORD: 'Password',
             SIGNUP_CNPJ: 'CNPJ',
             SIGNUP_REGISTER: 'Register',
-            PROFILE_NAME: 'Name',
+            PROFILE_COMPANY: 'Company Name',
+            PROFILE_NAME: 'Manager',
             PROFILE_EMAIL: 'Email',
             PROFILE_CNPJ: 'CNPJ',
             PROFILE_ADDRESS: 'Address',
             PROFILE_CITY: 'City',
             PROFILE_STATE: 'State',
             PROFILE_CEP: 'Postal Code',
-            PROFILE_ABOUT: 'About us'
+            PROFILE_ABOUT: 'About us',
+            PROFILE_SAVE: 'Save'
         });
         $translateProvider.translations('pt-br', {
             LOGIN_EMAIL: 'Email',
@@ -90,14 +92,16 @@
             SIGNUP_PASSWORD: 'Senha',
             SIGNUP_CNPJ: 'CNPJ',
             SIGNUP_REGISTER: 'Registrar',
-            PROFILE_NAME: 'Nome',
+            PROFILE_COMPANY: 'Empresa',
+            PROFILE_NAME: 'Admin',
             PROFILE_EMAIL: 'Email',
             PROFILE_CNPJ: 'CNPJ',
             PROFILE_ADDRESS: 'Endereço',
             PROFILE_CITY: 'Cidade',
             PROFILE_STATE: 'Estado',
             PROFILE_CEP: 'CEP',
-            PROFILE_ABOUT: 'Sobre a empresa'
+            PROFILE_ABOUT: 'Sobre',
+            PROFILE_SAVE: 'Salvar'
         });
         $translateProvider.preferredLanguage('pt-br');
     });

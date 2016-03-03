@@ -49,7 +49,6 @@
 				setToken(null);
 				deferred.resolve(info);
 			}, function(error) {
-				setToken(null);
 				deferred.reject(error);
 			});
 			
@@ -62,13 +61,6 @@
 		 */
 		function setToken(token) {
 			window.localStorage.setItem('token-auth', token);
-		}
-		
-		/**
-		 * Limpa o token do usuário.
-		 */
-		function clearToken() {
-			window.localStorage.removeItem('token-auth');
 		}
 		
 		/**
@@ -142,6 +134,15 @@
 			});
 			
 			return deferred.promise;
+		};
+
+		/**
+		 * Limpa todos os dados do usuário logado
+		 */
+		this.clear = function() {
+			window.localStorage.removeItem('token-auth');
+			window.localStorage.removeItem('user-id');
+			window.location.reload();
 		};
 	}
 })();
