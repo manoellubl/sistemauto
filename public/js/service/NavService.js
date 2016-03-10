@@ -11,19 +11,19 @@
 
 	function NavService($q) {
 		var menuItems = [{
-				name: 'Dashboard',
+				name: 'MENU_DASHBOARD',
 				icon: 'dashboard',
 				sref: '.dashboard'
 			}, {
-				name: 'Profile',
+				name: 'MENU_PROFILE',
 				icon: 'person',
 				sref: '.profile'
 			}, {
-				name: 'Students',
+				name: 'MENU_STUDENTS',
 				icon: 'account_box',
 				sref: '.student'
 			}, {
-				name: 'Instructors',
+				name: 'MENU_INSTRUCTORS',
 				icon: 'perm_identity',
 				sref: '.instructor'
 			}		

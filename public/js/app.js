@@ -15,8 +15,9 @@
 	]);
 	
 	// localmente colocar http://localhost:8080/api
-    // para o http://sistemauto.herokuapp.com/api
-	app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
+  // para o http://sistemauto.herokuapp.com/api
+  app.constant('ApiUrl', { url: 'http://localhost:8050/api' });
+	//app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
 	app.config(function(blockUIConfig) {
 		blockUIConfig.delay = 100;
@@ -39,21 +40,28 @@
 	});
 	
     app.run(function($rootScope, $mdToast) {
+        /*
+        $rootScope.$on('testando', function(event, data) {
+          $mdToast.showSimple('Working!!! ' + data);
+        });
+        */
+        
         $rootScope.$on('response:sucess:POST', function() {
-            $mdToast.showSimple('Cadastrado com sucesso');
+          $mdToast.showSimple('Cadastrado com sucesso');
         });
 
         $rootScope.$on('response:error:POST', function() {
-            $mdToast.showSimple('Falha no cadastro');
+          $mdToast.showSimple('Falha no cadastro');
         });
 
         $rootScope.$on('response:sucess:PUT', function() {
-            $mdToast.showSimple('Atualizado com sucesso');
+          $mdToast.showSimple('Atualizado com sucesso');
         });
 
         $rootScope.$on('response:error:PUT', function() {
-            $mdToast.showSimple('Falha na atualização');
+          $mdToast.showSimple('Falha na atualização');
         });
+        
     });
 	
 	app.config(function($httpProvider) {
@@ -94,7 +102,11 @@
             STUDENT_SITUATION: 'Situation',
             STUDENT_VALUE: 'Value',
             STUDENT_CANCEL: 'Cancel',
-            STUDENT_SAVE: 'Save'
+            STUDENT_SAVE: 'Save',
+            MENU_DASHBOARD: 'Dashboard',
+            MENU_PROFILE: 'Profile',
+            MENU_STUDENTS: 'Students',
+            MENU_INSTRUCTORS: 'Instructors'
         });
         $translateProvider.translations('pt-br', {
             LOGIN_EMAIL: 'Email',
@@ -129,7 +141,11 @@
             STUDENT_SITUATION: 'Situação',
             STUDENT_VALUE: 'Valor',
             STUDENT_CANCEL: 'Cancelar',
-            STUDENT_SAVE: 'Salvar'
+            STUDENT_SAVE: 'Salvar',
+            MENU_DASHBOARD: 'Painel',
+            MENU_PROFILE: 'Perfil',
+            MENU_STUDENTS: 'Alunos',
+            MENU_INSTRUCTORS: 'Instrutores'
         });
         $translateProvider.preferredLanguage('pt-br');
     });
