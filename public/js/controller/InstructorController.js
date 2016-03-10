@@ -23,9 +23,24 @@
 
         $scope.register = function() {
             InstructorService.postInstructor($scope.instructor).then(function(info) {
+                $scope.closeForm();
+                $scope.updateList();
+                console.log($scope.instructors);
             }, function(error) {
                 console.log(error);
             });
+        };
+
+        $scope.updateList = function() {
+            InstructorService.getInstructors().then(function(info) {
+                $scope.instructors.splice(0, $scope.instructors.length);
+                $scope.instructors.push.apply($scope.instructors, info.data);
+            });
+        }
+
+        $scope.closeForm = function() {
+            $mdDialog.hide();
+            $scope.instructor = {};
         };
 
         $scope.showForm = function() {

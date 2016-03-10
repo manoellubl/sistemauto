@@ -23,6 +23,8 @@
 
         $scope.register = function() {
             StudentService.postStudent($scope.student).then(function(info) {
+                $scope.closeForm();
+                $scope.updateList();
             }, function(error) {
                 console.log(error);
             });
@@ -34,8 +36,16 @@
             });*/
         };
 
+        $scope.updateList = function() {
+            StudentService.getStudents().then(function(info) {
+                $scope.students.splice(0, $scope.students.length);
+                $scope.students.push.apply($scope.students, info.data);
+            });
+        };
+
         $scope.closeForm = function() {
             $mdDialog.hide();
+            $scope.student = {};
         };
 
         $scope.showForm = function() {
