@@ -16,16 +16,28 @@
         
         $scope.instructors = [];
 
-        InstructorService.getInstructors().then(function(info) {
-            $scope.instructors.splice(0, $scope.instructors.length);
-            $scope.instructors.push.apply($scope.instructors, info.data);
-        });
+        $scope.loadPage = function(){
+            InstructorService.getInstructors().then(function(info) {
+                $scope.instructors.splice(0, $scope.instructors.length);
+                $scope.instructors.push.apply($scope.instructors, info.data);
+                console.log($scope.instructors);
+            });
+        };
+
+        $scope.loadPage();
 
         $scope.register = function() {
             InstructorService.postInstructor($scope.instructor).then(function(info) {
+                $scope.closeForm();
+                $scope.loadPage();
+                delete $scope.instructor;
             }, function(error) {
                 console.log(error);
             });
+        };
+
+        $scope.closeForm = function() {
+            $mdDialog.hide();
         };
 
         $scope.showForm = function() {

@@ -16,13 +16,20 @@
 
         $scope.students = [];
 
-        StudentService.getStudents().then(function(info) {
-            $scope.students.splice(0, $scope.students.length);
-            $scope.students.push.apply($scope.students, info.data);
-        });
+        $scope.loadPage = function(){
+            StudentService.getStudents().then(function(info) {
+                $scope.students.splice(0, $scope.students.length);
+                $scope.students.push.apply($scope.students, info.data);
+            });
+        };
 
+        $scope.loadPage();
+        
         $scope.register = function() {
             StudentService.postStudent($scope.student).then(function(info) {
+                $mdDialog.hide();
+                $scope.loadPage();
+                delete $scope.student;
             }, function(error) {
                 console.log(error);
             });

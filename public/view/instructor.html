@@ -2,12 +2,7 @@
  <md-list-item ng-repeat="i in instructors" ng-click="fazerFuncao()">
     <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
     <p>{{ i.name }}</p>
-	<md-button class="md-icon-button" ng-click="funcaoParaEditar()">
-       <md-icon md-menu-origin>edit</md-icon>
-   </md-button>
-    <md-button class="md-icon-button" ng-click="algumacoisa()">
-       <md-icon md-menu-origin>delete</md-icon>
-   </md-button>
+  	<md-icon md-svg-src="asset/svg/clear.svg" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
   </md-list-item>
 </md-list>
 
