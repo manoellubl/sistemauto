@@ -25,14 +25,20 @@
             InstructorService.postInstructor($scope.instructor).then(function(info) {
                 $scope.closeForm();
                 $scope.updateList();
-                console.log($scope.instructors);
             }, function(error) {
                 console.log(error);
             });
         };
+        $scope.update = function(id) {
+            /*InstructorService.updateInstructor($scope.instructor).then(function(info) {
+            }, function(error) {
+                console.log(error);
+            });*/
+        };
 
         $scope.updateList = function() {
             InstructorService.getInstructors().then(function(info) {
+                console.log(info);
                 $scope.instructors.splice(0, $scope.instructors.length);
                 $scope.instructors.push.apply($scope.instructors, info.data);
             });
@@ -45,9 +51,9 @@
 
         $scope.showForm = function() {
             $mdDialog.show({
+                scope: $scope,
                 clickOutsideToClose: true,
                 preserveScope: true,
-                scope: $scope,
                 templateUrl: '../view/newInstructor.html',
                 parent: angular.element(document.body)
             });
