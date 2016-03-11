@@ -38,7 +38,6 @@
 
         $scope.updateList = function() {
             InstructorService.getInstructors().then(function(info) {
-                console.log(info);
                 $scope.instructors.splice(0, $scope.instructors.length);
                 $scope.instructors.push.apply($scope.instructors, info.data);
             });
@@ -64,7 +63,6 @@
                 $scope.instructor.city = info.data.localidade;
                 $scope.instructor.address = info.data.logradouro + ', ' + info.data.bairro;
                 $scope.instructor.state = info.data.uf;
-                console.log(info);
             }, function(error) {
                 console.log(error);
             });

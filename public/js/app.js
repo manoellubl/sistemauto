@@ -40,12 +40,6 @@
 	});
 	
     app.run(function($rootScope, $mdToast) {
-        /*
-        $rootScope.$on('testando', function(event, data) {
-          $mdToast.showSimple('Working!!! ' + data);
-        });
-        */
-        
         $rootScope.$on('response:sucess:POST', function() {
           $mdToast.showSimple('Cadastrado com sucesso');
         });
@@ -95,6 +89,7 @@
             STUDENT_CPF: 'CPF',
             STUDENT_BIRTHDATE: 'Birth Date',
             STUDENT_RG: 'RG',
+            STUDENT_NEIGHBORHOOD: 'Neighborhood',
             STUDENT_CITY: 'City',
             STUDENT_STATE: 'State',
             STUDENT_CEP: 'Postal Code',
@@ -135,6 +130,7 @@
             STUDENT_CPF: 'CPF',
             STUDENT_BIRTHDATE: 'Data de Nascimento',
             STUDENT_RG: 'RG',
+            STUDENT_NEIGHBORHOOD: 'Bairro',
             STUDENT_CEP: 'CEP',
             STUDENT_CITY: 'Cidade',
             STUDENT_STATE: 'Estado',

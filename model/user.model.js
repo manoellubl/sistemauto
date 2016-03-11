@@ -41,6 +41,9 @@
         address: {
             type: String
         },
+        neighborhood: {
+            type: String
+        },
         city: {
             type: String
         },

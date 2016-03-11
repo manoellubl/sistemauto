@@ -26,6 +26,9 @@
         city: {
             type: String
         },
+        neighborhood: {
+            type: String
+        },
         state: {
             type: String
         },

@@ -47,6 +47,10 @@
             type: Number,
             required: true
         },
+        neighborhood: {
+            type: String,
+            required: true
+        },
         city: {
             type: String,
             required: true
