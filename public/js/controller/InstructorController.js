@@ -60,8 +60,9 @@
 
         $scope.updateAddress = function(cep) {
             InstructorService.getAddressByCep(cep).then(function(info) {
+                $scope.instructor.address = info.data.logradouro;
+                $scope.instructor.neighborhood = info.data.bairro;
                 $scope.instructor.city = info.data.localidade;
-                $scope.instructor.address = info.data.logradouro + ', ' + info.data.bairro;
                 $scope.instructor.state = info.data.uf;
             }, function(error) {
                 console.log(error);
