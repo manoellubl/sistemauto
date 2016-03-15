@@ -19,6 +19,10 @@
 				<label>{{ 'PROFILE_EMAIL' | translate }} *</label>
 				<input required ng-model="user.email" type="email">
 			</md-input-container>
+			<md-input-container flex>
+				<label>{{ 'PROFILE_CEP' | translate }}</label>
+				<input ng-model="user.cep" ng-blur="updateAddress(user.cep)">
+			</md-input-container>
 		</div>
 		<md-input-container flex>
 			<label>{{ 'PROFILE_ADDRESS' | translate }}</label>
@@ -26,16 +30,16 @@
 		</md-input-container>
 		<div layout layout-sm="column">
 			<md-input-container flex>
+				<label>{{ 'PROFILE_NEIGHBORHOOD' | translate }}</label>
+				<input ng-model="user.neighborhood">
+			</md-input-container>
+			<md-input-container flex>
 				<label>{{ 'PROFILE_CITY' | translate }}</label>
 				<input ng-model="user.city">
 			</md-input-container>
 			<md-input-container flex>
 				<label>{{ 'PROFILE_STATE' | translate }}</label>
 				<input ng-model="user.state">
-			</md-input-container>
-			<md-input-container flex>
-				<label>{{ 'PROFILE_CEP' | translate }}</label>
-				<input ng-model="user.cep" ng-blur="updateAddress(user.cep)">
 			</md-input-container>
 		</div>
 		<md-input-container flex>

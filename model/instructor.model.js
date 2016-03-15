@@ -44,13 +44,16 @@
             required: true
         },
         email: {
-            type: String
+            type: String,
+            required: true
         },
         cnhType: {
-            type: String
+            type: String,
+            required: true
         },
         address: {
-            type: String
+            type: String,
+            required: true
         }
     });
 
