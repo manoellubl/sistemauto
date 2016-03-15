@@ -14,13 +14,16 @@
 
     function StudentController($scope, $mdDialog, StudentService) {
 
+        $scope.updateList = function() {
+            StudentService.getStudents().then(function(info) {
+                $scope.students.splice(0, $scope.students.length);
+                $scope.students.push.apply($scope.students, info.data);
+            });
+        };
+
         $scope.students = [];
-
-        StudentService.getStudents().then(function(info) {
-            $scope.students.splice(0, $scope.students.length);
-            $scope.students.push.apply($scope.students, info.data);
-        });
-
+        $scope.updateList();
+        
         $scope.register = function() {
             StudentService.postStudent($scope.student).then(function(info) {
                 $scope.closeForm();
@@ -29,18 +32,12 @@
                 console.log(error);
             });
         };
+
         $scope.update = function(id) {
             /*StudentService.updateStudent($scope.student).then(function(info) {
             }, function(error) {
                 console.log(error);
             });*/
-        };
-
-        $scope.updateList = function() {
-            StudentService.getStudents().then(function(info) {
-                $scope.students.splice(0, $scope.students.length);
-                $scope.students.push.apply($scope.students, info.data);
-            });
         };
 
         $scope.closeForm = function() {

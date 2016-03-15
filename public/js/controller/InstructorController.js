@@ -14,12 +14,15 @@
 
     function InstructorController($scope, $mdDialog, InstructorService) {
         
+        $scope.updateList = function() {
+            InstructorService.getInstructors().then(function(info) {
+                $scope.instructors.splice(0, $scope.instructors.length);
+                $scope.instructors.push.apply($scope.instructors, info.data);
+            });
+        }
+        
         $scope.instructors = [];
-
-        InstructorService.getInstructors().then(function(info) {
-            $scope.instructors.splice(0, $scope.instructors.length);
-            $scope.instructors.push.apply($scope.instructors, info.data);
-        });
+        $scope.updateList();
 
         $scope.register = function() {
             InstructorService.postInstructor($scope.instructor).then(function(info) {
@@ -29,19 +32,13 @@
                 console.log(error);
             });
         };
+
         $scope.update = function(id) {
             /*InstructorService.updateInstructor($scope.instructor).then(function(info) {
             }, function(error) {
                 console.log(error);
             });*/
         };
-
-        $scope.updateList = function() {
-            InstructorService.getInstructors().then(function(info) {
-                $scope.instructors.splice(0, $scope.instructors.length);
-                $scope.instructors.push.apply($scope.instructors, info.data);
-            });
-        }
 
         $scope.closeForm = function() {
             $mdDialog.hide();
