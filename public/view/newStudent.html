@@ -6,13 +6,16 @@
                     <label>Nome completo *</label>
                     <input required ng-model="student.name" type="text">
                 </md-input-container>
+            </div>
+            <div layout layout-sm="column">
                 <md-input-container flex>
-                <label>{{ 'STUDENT_EMAIL' | translate }}*</label>
+                    <label>{{ 'STUDENT_EMAIL' | translate }}*</label>
                     <input required ng-model="student.email">
                 </md-input-container>
-                <md-checkbox ng-model="student.arquivado" flex>
-                    <label>Arquivar</label>
-                </md-checkbox>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_CEP' | translate }}*</label>
+                    <input required ng-model="student.cep" ng-blur="updateAddress(student.cep)">
+                </md-input-container>
             </div>
             <md-input-container flex>
                 <label>{{ 'STUDENT_ADDRESS' | translate }}*</label>
@@ -20,8 +23,8 @@
             </md-input-container>
             <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>{{ 'STUDENT_CEP' | translate }}*</label>
-                    <input required ng-model="student.cep" ng-blur="updateAddress(student.cep)">
+                    <label>{{ 'STUDENT_NEIGHBORHOOD' | translate }}*</label>
+                    <input required ng-model="student.neighborhood">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_CITY' | translate }}*</label>
@@ -29,7 +32,7 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_STATE' | translate }}*</label>
-                    <input required ng-model="student.state" ng-blur="updateAddress(student.state)">
+                    <input required ng-model="student.state">
                 </md-input-container>
             </div>
             <div layout layout-sm="column">
@@ -43,13 +46,13 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_BIRTHDATE' | translate }}*</label>
-                    <input required ng-model="student.birthDate">
+                    <input type="date" min="1900-01-01" max="2015-12-31" required ng-model="student.birthDate">
                 </md-input-container>
             </div>
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*</label>
-                    <input required ng-model="student.driverLicenseClass">
+                    <input required ng-model="student.cnhType">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_SITUATION' | translate }}*</label>
@@ -63,8 +66,6 @@
             <md-input-container>
                 <div layout="row" layout-sm="column">
                     <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
-                </div>
-                <div layout="row" layout-sm="column">
                     <md-button type="button" ng-click="closeForm()" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_CANCEL' | translate }}</md-button>
                 </div>
             </md-input-container>

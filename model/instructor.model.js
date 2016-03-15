@@ -24,25 +24,36 @@
             unique: true
         },
         city: {
-            type: String
+            type: String,
+            required: true
+        },
+        neighborhood: {
+            type: String,
+            required: true
         },
         state: {
-            type: String
+            type: String,
+            required: true
         },
         cep: {
-            type: Number
+            type: Number,
+            required: true
         },
-        dateOfBirth: {
-            type: Date
+        birthDate: {
+            type: Date,
+            required: true
         },
         email: {
-            type: String
+            type: String,
+            required: true
         },
         cnhType: {
-            type: String
+            type: String,
+            required: true
         },
         address: {
-            type: String
+            type: String,
+            required: true
         }
     });
 

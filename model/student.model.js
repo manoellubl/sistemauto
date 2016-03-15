@@ -23,28 +23,16 @@
             required: true,
             unique: true
         },
-        birthDate: {
-            type: Date,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true
-        },
-        driverLicenseClass: {
-            type: String,
-            required: true
-        },
-        situation: {
-            type: String,
+        cep: {
+            type: Number,
             required: true
         },
         address: {
             type: String,
             required: true
         },
-        value: {
-            type: Number,
+        neighborhood: {
+            type: String,
             required: true
         },
         city: {
@@ -55,10 +43,27 @@
             type: String,
             required: true
         },
-        cep: {
+        birthDate: {
+            type: Date,
+            required: true
+        },
+        email: {
             type: String,
             required: true
-        }
+        },
+        cnhType: {
+            type: String,
+            required: true
+        },
+        situation: {
+            type: String,
+            required: true
+        },
+        value: {
+            type: Number,
+            required: true
+        },
+        
     });
 
     module.exports = mongoose.model('Student', schema);

@@ -14,26 +14,25 @@
 
     function StudentController($scope, $mdDialog, StudentService) {
 
-        $scope.students = [];
-
-        $scope.loadPage = function(){
+        $scope.updateList = function() {
             StudentService.getStudents().then(function(info) {
                 $scope.students.splice(0, $scope.students.length);
                 $scope.students.push.apply($scope.students, info.data);
             });
         };
 
-        $scope.loadPage();
+        $scope.students = [];
+        $scope.updateList();
         
         $scope.register = function() {
             StudentService.postStudent($scope.student).then(function(info) {
-                $mdDialog.hide();
-                $scope.loadPage();
-                delete $scope.student;
+                $scope.closeForm();
+                $scope.updateList();
             }, function(error) {
                 console.log(error);
             });
         };
+
         $scope.update = function(id) {
             /*StudentService.updateStudent($scope.student).then(function(info) {
             }, function(error) {
@@ -43,6 +42,7 @@
 
         $scope.closeForm = function() {
             $mdDialog.hide();
+            $scope.student = {};
         };
 
         $scope.showForm = function() {
@@ -57,8 +57,9 @@
 
         $scope.updateAddress = function(cep) {
             StudentService.getAddressByCep(cep).then(function(info) {
+                $scope.student.address = info.data.logradouro;
+                $scope.student.neighborhood = info.data.bairro;
                 $scope.student.city = info.data.localidade;
-                $scope.student.address = info.data.logradouro + ', ' + info.data.bairro;
                 $scope.student.state = info.data.uf;
                 console.log(info);
             }, function(error) {

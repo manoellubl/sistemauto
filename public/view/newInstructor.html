@@ -6,42 +6,58 @@
                     <label>Nome completo *</label>
                     <input required ng-model="instructor.name" type="text">
                 </md-input-container>
-                <md-checkbox ng-model="instructor.status" flex>
-                    <label>Professor ativo</label>
-                </md-checkbox>
+            </div>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_EMAIL' | translate }}*</label>
+                    <input required ng-model="instructor.email">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_CEP' | translate }}*</label>
+                    <input required ng-model="instructor.cep" ng-blur="updateAddress(instructor.cep)">
+                </md-input-container>
             </div>
             <md-input-container flex>
-                <label>{{ 'PROFILE_ADDRESS' | translate }}</label>
-                <input ng-model="instructor.address">
+                <label>{{ 'STUDENT_ADDRESS' | translate }}*</label>
+                <input required ng-model="instructor.address">
             </md-input-container>
             <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_CITY' | translate }}</label>
-                    <input ng-model="instructor.city">
+                    <label>{{ 'STUDENT_NEIGHBORHOOD' | translate }}*</label>
+                    <input required ng-model="instructor.neighborhood">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_STATE' | translate }}</label>
-                    <input ng-model="instructor.state">
+                    <label>{{ 'STUDENT_CITY' | translate }}*</label>
+                    <input required ng-model="instructor.city">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'PROFILE_CEP' | translate }}</label>
-                    <input ng-model="instructor.cep" ng-blur="updateAddress(instructor.cep)">
+                    <label>{{ 'STUDENT_STATE' | translate }}*</label>
+                    <input required ng-model="instructor.state">
                 </md-input-container>
+            </div>
+            <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>{{ 'STUDENT_CPF' | translate }}</label>
+                    <label>{{ 'STUDENT_CPF' | translate }}*</label>
                     <input required ng-model="instructor.cpf">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>{{ 'STUDENT_RG' | translate }}</label>
+                    <label>{{ 'STUDENT_RG' | translate }}*</label>
                     <input required ng-model="instructor.rg">
                 </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_BIRTHDATE' | translate }}*</label>
+                    <input type="date" min="1900-01-01" max="2015-12-31" required ng-model="instructor.birthDate">
+                </md-input-container>
             </div>
-
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*</label>
+                    <input required ng-model="instructor.cnhType">
+                </md-input-container>
+            </div>
             <md-input-container>
                 <div layout="row" layout-sm="column">
-                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'PROFILE_SAVE' | translate }}</md-button>
-                </div>
-                <div layout="row" layout-sm="column">
+                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
                     <md-button type="button" ng-click="closeForm()" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_CANCEL' | translate }}</md-button>
                 </div>
             </md-input-container>
