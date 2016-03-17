@@ -51,7 +51,6 @@
             </div>
             <div layout layout-sm="column">
                 <md-input-container >
-                {{instructor.cnhType}}
                     <md-select ng-model="instructor.cnhType" placeholder="{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*" style="padding: 26px 2px 0px">
                       <md-option ng-repeat="cnh in cnhtypes" value="{{cnh.type}}">
                         {{cnh.type}}
