@@ -120,24 +120,33 @@
         }
 
         router.get('/:_idUser/student', function(request, response, next) {
+            console.log("entrou");
             if (request.query !== undefined && request.query.name !== undefined) {
-                var cursor = Student.find({
-                   $and: {
-                       name : {
-                           '$regex': request.query.name
-                       },
-                       user: request.params._idUser
-                   }
-                });
+                console.log('ok');
+                var query = {
+                    $and: {
+                        name : {
+                            '$regex': request.query.name
+                        },
+                        user: request.params._idUser
+                    }
+                };
+                var cursor = Student.find(query);
+                console.log('dados', query);
                 cursor.exec(function(error, data) {
                     if (error !== null) {
                         next(error)
                     } else {
+                        console.log(">>>>>>>>>>>>>>>>>");
+                        console.log(data);
+                        console.log(">>>>>>>>>>>>>>>>>");
                         response.json(data);
                     }
                 });
             } else {
-                var cursor = Student.find(request.query);
+                var cursor = Student.find({
+                    user: request.params._idUser
+                });
                 cursor.exec(function(error, data) {
                     if (error !== null) {
                         next(error);
