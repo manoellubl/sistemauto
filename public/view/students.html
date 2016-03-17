@@ -4,7 +4,7 @@
     <p>{{ student.name }}</p>
     <p>{{ student.email }}</p>
     <p>{{ student.driverLicenseClass }}</p>
-    <md-icon md-svg-src="asset/svg/clear.svg" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
+    <md-icon md-svg-src="asset/svg/clear.svg" ng-click="removerStudent(student._id)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
 	<md-divider ng-if="!$last"></md-divider>
   </md-list-item>
 </md-list>

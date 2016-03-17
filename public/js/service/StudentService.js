@@ -82,7 +82,16 @@
         };
 
         this.removeStudent = function(id) {
+            var deferred = $q.defer();
 
+            $http.delete(ApiUrl.url + '/user/' + UserService.getId() + "/student/" + id).then(function(info) {
+                delete self.cache._id;
+                deferred.resolve(info);
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
         };
 
         this.getAddressByCep = function(cep) {

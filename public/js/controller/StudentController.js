@@ -70,6 +70,14 @@
             $scope.showForm();
         };
 
+        $scope.removerStudent = function(id) {
+          StudentService.removeStudent(id).then(function(info) {
+                $scope.updateList();
+          }, function(error) {
+
+          });
+        };
+
         $scope.showForm = function() {
             $mdDialog.show({
                 scope: $scope,

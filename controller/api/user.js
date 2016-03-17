@@ -122,10 +122,12 @@
         router.get('/:_idUser/student', function(request, response, next) {
             if (request.query !== undefined && request.query.name !== undefined) {
                 var cursor = Student.find({
-                    name : {
-                        '$regex': request.query.name
-                    },
-                    user: request.params._idUser
+                   $and: {
+                       name : {
+                           '$regex': request.query.name
+                       },
+                       user: request.params._idUser
+                   }
                 });
                 cursor.exec(function(error, data) {
                     if (error !== null) {
@@ -186,8 +188,8 @@
         });
 
         router.delete('/:_idUser/student/:_idStudent', function(request, response, next) {
-            var id = request.params._id;
-            Student.remove({_id: id}, function() {
+            var id = request.params._idStudent;
+            Student.remove({_id: id}, function(error, data) {
                 if (error != null) {
                     next(error);
                 } else {
