@@ -4,7 +4,7 @@
     module.exports = function (router) {
         var Student = rootRequire('model/student.model');
 
-        router.get('/', function(request, response) {
+        router.get(':_id/', function(request, response, next) {
             if (request.query !== undefined && request.query.name !== undefined) {
                 var cursor = Student.find({
                     name : {
@@ -12,12 +12,20 @@
                     }
                 });
                 cursor.exec(function(error, data) {
-                    response.json(data);
+                    if (error !== null) {
+                        next(error)
+                    } else {
+                        response.json(data);
+                    }
                 });
             } else {
                 var cursor = Student.find(request.query);
                 cursor.exec(function(error, data) {
-                    response.json(data);
+                    if (error !== null) {
+                        next(error);
+                    } else {
+                        response.json(data);
+                    }
                 });
             }
         });

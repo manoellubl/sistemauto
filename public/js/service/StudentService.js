@@ -2,16 +2,19 @@
     'use strict';
 
     /**
+     * TODO lembrar de fazer um monta url
+     *
      * Service responsável pela lógica com dados dos alunos
      */
     angular.module('app').service('StudentService', [
         '$http',
         '$q',
         'ApiUrl',
+        'UserService',
         StudentService
     ]);
 
-    function StudentService($http, $q, ApiUrl) {
+    function StudentService($http, $q, ApiUrl, UserService) {
         var self = this;
 
         this.cache = {};
@@ -23,7 +26,7 @@
                     data: [self.cache]
                 });
             } else {
-                $http.get(ApiUrl.url + '/student').then(function(info) {
+                $http.get(ApiUrl.url + '/user/' + UserService.getId() + "/student").then(function(info) {
                     for (var student in info.data) {
                         self.cache[student._id] = student;
                     }
@@ -37,12 +40,12 @@
 
         this.getStudent = function(id) {
             var deferred = $q.defer();
-            if (self.self.cache.id !== undefined) {
+            if (self.cache.id !== undefined) {
                 deferred.resolve({
                     data: self.cache.id
                 });
             } else {
-                $http.get(ApiUrl.url + '/student/' + id).then(function(info) {
+                $http.get(ApiUrl.url + '/user/' + UserService.getId() + "/student/" + id).then(function(info) {
                     self.cache.id = info.data;
                     deferred.resolve(info);
                 }, function(error) {
@@ -55,7 +58,7 @@
         this.postStudent = function(data) {
             var deferred = $q.defer();
 
-            $http.post(ApiUrl.url + '/student', data).then(function(info) {
+            $http.post(ApiUrl.url + '/user/' + UserService.getId() + "/student", data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
@@ -68,7 +71,7 @@
         this.updateStudent = function(data) {
             var deferred = $q.defer();
 
-            $http.put(ApiUrl.url + '/student/' + data._id, data).then(function(info) {
+            $http.put(ApiUrl.url + '/user/' + UserService.getId() + "/student/" + data._id, data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {

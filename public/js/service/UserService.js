@@ -68,7 +68,7 @@
 		 * 
 		 * @return {String} identificador do usuário logado.
 		 */
-		function getId() {
+		this.getId = function() {
 			return window.localStorage.getItem('user-id');
 		}
 		
@@ -106,7 +106,7 @@
 					data: self.user
 				});
 			} else {
-				$http.get(ApiUrl.url + '/user/' + getId()).then(function(info) {
+				$http.get(ApiUrl.url + '/user/' + self.getId()).then(function(info) {
 					self.user = info.data;
 					deferred.resolve(info);
 				}, function(error) {
@@ -126,7 +126,7 @@
 		this.update = function(data) {
 			var deferred = $q.defer();
 			
-			$http.put(ApiUrl.url + '/user/' + getId(), data).then(function(info) {
+			$http.put(ApiUrl.url + '/user/' + self.getId(), data).then(function(info) {
 				self.user = info.data;
 				deferred.resolve(info);
 			}, function(error) {

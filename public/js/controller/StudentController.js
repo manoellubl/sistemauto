@@ -25,24 +25,41 @@
         $scope.updateList();
         
         $scope.register = function() {
-            StudentService.postStudent($scope.student).then(function(info) {
-                $scope.closeForm();
-                $scope.updateList();
-            }, function(error) {
-                console.log(error);
-            });
+            if ($scope.student._id === undefined) {
+                StudentService.postStudent($scope.student).then(function(info) {
+                    $scope.closeForm();
+                    $scope.updateList();
+                }, function(error) {
+                    console.log(error);
+                });
+            } else {
+                StudentService.updateStudent($scope.student).then(function(info) {
+                    $scope.closeForm();
+                    $scope.updateList();
+                }, function(error) {
+                    console.log(error);
+                });
+            }
+
         };
 
         $scope.update = function(id) {
-            /*StudentService.updateStudent($scope.student).then(function(info) {
+            StudentService.getStudent(id).then(function(info) {
+                $scope.student = info.data;
+                $scope.showForm();
             }, function(error) {
-                console.log(error);
-            });*/
+
+            });
         };
 
         $scope.closeForm = function() {
             $mdDialog.hide();
             $scope.student = {};
+        };
+
+        $scope.addStudent = function() {
+            $scope.student = {};
+            $scope.showForm();
         };
 
         $scope.showForm = function() {
@@ -61,9 +78,9 @@
                 $scope.student.neighborhood = info.data.bairro;
                 $scope.student.city = info.data.localidade;
                 $scope.student.state = info.data.uf;
-                console.log(info);
+                console.log("info sucesso", info);
             }, function(error) {
-                console.log(error);
+                console.log("error falha", error);
             });
         };
     }

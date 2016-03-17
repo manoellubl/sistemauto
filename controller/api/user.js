@@ -3,6 +3,9 @@
 
     module.exports = function (router) {
         var User = rootRequire('model/user.model');
+        // TODO corrigir o workaround :D
+        var Student = rootRequire('model/student.model');
+
 
         /**
          * Realiza o GET de Collection do Endpoint user.
@@ -87,7 +90,7 @@
         });
 
         // TODO MOVER
-        function validate_cnpj(user) {
+        function    validate_cnpj(user) {
             if (user.cnpj.length != 14) {
                 return false;
             }
@@ -115,5 +118,83 @@
 
             return true;
         }
+
+        router.get('/:_idUser/student', function(request, response, next) {
+            if (request.query !== undefined && request.query.name !== undefined) {
+                var cursor = Student.find({
+                    name : {
+                        '$regex': request.query.name
+                    },
+                    user: request.params._idUser
+                });
+                cursor.exec(function(error, data) {
+                    if (error !== null) {
+                        next(error)
+                    } else {
+                        response.json(data);
+                    }
+                });
+            } else {
+                var cursor = Student.find(request.query);
+                cursor.exec(function(error, data) {
+                    if (error !== null) {
+                        next(error);
+                    } else {
+                        response.json(data);
+                    }
+                });
+            }
+        });
+
+        router.get('/:_idUser/student/:_idStudent', function(request, response, next) {
+            var query = Student.findById(request.params._idStudent);
+            query.exec(function(error, data) {
+                if (error !== null) {
+                    next(error);
+                } else {
+                    response.json(data);
+                }
+            });
+        });
+
+        router.post('/:_idUser/student', function(request, response, next) {
+            var student = new Student(request.body);
+            student.user = request.params._idUser;
+
+            student.save(function(error, data) {
+                if (error !== null) {
+                    next(error);
+                } else {
+                    response.status(201).json(data);
+                }
+            });
+        });
+
+        router.put('/:_idUser/student/:_idStudent', function(request, response, next) {
+            var student = request.body;
+            var idStudent = request.params._idStudent;
+            delete request.body._id;
+
+            var query =  Student.findByIdAndUpdate(idStudent, {$set: student});
+            query.exec(function(error, data) {
+                if (error !== null) {
+                    next(error);
+                } else {
+                    response.json(data);
+                }
+            });
+        });
+
+        router.delete('/:_idUser/student/:_idStudent', function(request, response, next) {
+            var id = request.params._id;
+            Student.remove({_id: id}, function() {
+                if (error != null) {
+                    next(error);
+                } else {
+                    // TODO
+                    response.json({});
+                }
+            });
+        });
     };
 }());

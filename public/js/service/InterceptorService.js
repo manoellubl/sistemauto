@@ -28,7 +28,11 @@
 		 * Intercepta response's de sucesso.
 		 */
 		this.response = function(response) {
-			$rootScope.$broadcast('response:sucess:' + response.config.method);
+			if (response.config !== undefined && response.config !== null
+					&& response.config.method !== undefined) {
+				$rootScope.$broadcast('response:sucess:' + response.config.method);
+			}
+
 			return response;
 		};
 
@@ -36,7 +40,10 @@
 		 * Intercepta response's de erro.
 		 */
 		this.responseError = function(response) {
-			$rootScope.$broadcast('response:error:' + response.config.method);
+			if (response.config !== undefined && response.config !== null
+					&& response.config.method !== undefined) {
+				$rootScope.$broadcast('response:error:' + response.config.method);
+			}
 			return $q.reject(response);
 		};
 	}
