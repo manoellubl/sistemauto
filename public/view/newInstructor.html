@@ -51,8 +51,9 @@
             </div>
             <div layout layout-sm="column">
                 <md-input-container flex>
-                    <label>{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*</label>
-                    <input required ng-model="instructor.cnhType">
+                    <select required ng-model="instructor.cnhType" ng-options="cnh.type as cnh.type for cnh in cnhtypes">
+                        <option value="">{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}* </option>
+                    </select>
                 </md-input-container>
             </div>
             <md-input-container>

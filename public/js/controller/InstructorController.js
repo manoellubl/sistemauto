@@ -13,7 +13,15 @@
     ]);
 
     function InstructorController($scope, $mdDialog, InstructorService) {
-        
+        $scope.cnhtypes = [
+            {type: "A"},
+            {type: "B"},
+            {type: "AB"},
+            {type: "C"},
+            {type: "D"},
+            {type: "E"}
+        ];
+
         $scope.updateList = function() {
             InstructorService.getInstructors().then(function(info) {
                 $scope.instructors.splice(0, $scope.instructors.length);
