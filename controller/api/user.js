@@ -122,10 +122,12 @@
         router.get('/:_idUser/student', function(request, response, next) {
             if (request.query !== undefined && request.query.name !== undefined) {
                 var cursor = Student.find({
-                    name : {
-                        '$regex': request.query.name
-                    },
-                    user: request.params._idUser
+                   $and: {
+                       name : {
+                           '$regex': request.query.name
+                       },
+                       user: request.params._idUser
+                   }
                 });
                 cursor.exec(function(error, data) {
                     if (error !== null) {
