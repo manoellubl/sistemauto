@@ -59,7 +59,7 @@
 
         router.delete('/:_id', function(request, response, next) {
             var id = request.params._id;
-            Instructor.remove({_id: id}, function() {
+            Instructor.remove({_id: id}, function(error) {
                 if (error != null) {
                     next(error);
                 } else {

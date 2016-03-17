@@ -13,36 +13,60 @@
     ]);
 
     function InstructorController($scope, $mdDialog, InstructorService) {
-        
+
         $scope.updateList = function() {
+
             InstructorService.getInstructors().then(function(info) {
                 $scope.instructors.splice(0, $scope.instructors.length);
                 $scope.instructors.push.apply($scope.instructors, info.data);
+                console.log($scope.instructors);
             });
         }
-        
+
         $scope.instructors = [];
         $scope.updateList();
 
         $scope.register = function() {
-            InstructorService.postInstructor($scope.instructor).then(function(info) {
-                $scope.closeForm();
-                $scope.updateList();
-            }, function(error) {
-                console.log(error);
-            });
-        };
+            if ($scope.instructor._id === undefined) {
+                InstructorService.postInstructor($scope.instructor).then(function(info) {
+                    $scope.closeForm();
+                    $scope.updateList();
+                }, function(error) {
+                    console.log(error);
+                });
+            } else {
+                InstructorService.updateInstructor($scope.instructor).then(function(info) {
+                    $scope.closeForm();
+                    $scope.updateList();
+                }, function(error) {
+                    console.log(error);
+                });
+            }
 
-        $scope.update = function(id) {
-            /*InstructorService.updateInstructor($scope.instructor).then(function(info) {
-            }, function(error) {
-                console.log(error);
-            });*/
+
+
         };
 
         $scope.closeForm = function() {
             $mdDialog.hide();
             $scope.instructor = {};
+        };
+
+        $scope.removeInstructor = function(id) {
+            InstructorService.removeInstructor(id).then(function(info) {
+                $scope.updateList();
+            }, function(error) {
+
+            });
+        };
+
+        $scope.update = function(id) {
+            InstructorService.getInstructor(id).then(function(info) {
+                $scope.instructor = info.data;
+                $scope.showForm();
+            }, function(error) {
+
+            });
         };
 
         $scope.showForm = function() {
