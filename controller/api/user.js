@@ -186,8 +186,8 @@
         });
 
         router.delete('/:_idUser/student/:_idStudent', function(request, response, next) {
-            var id = request.params._id;
-            Student.remove({_id: id}, function() {
+            var id = request.params._idStudent;
+            Student.remove({_id: id}, function(error, data) {
                 if (error != null) {
                     next(error);
                 } else {
