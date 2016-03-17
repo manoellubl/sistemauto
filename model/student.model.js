@@ -55,10 +55,6 @@
             type: String,
             required: true
         },
-        situation: {
-            type: String,
-            required: true
-        },
         value: {
             type: Number,
             required: true
