@@ -14,17 +14,17 @@
           default: false
         },
         cpf: {
-            type: Number,
+            type: String,
             required: true,
             unique: true
         },
         rg: {
-            type: Number,
+            type: String,
             required: true,
             unique: true
         },
         cep: {
-            type: Number,
+            type: String,
             required: true
         },
         address: {

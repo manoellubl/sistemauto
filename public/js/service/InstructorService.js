@@ -23,7 +23,7 @@
                     data: [self.cache]
                 });
             } else {
-                $http.get(ApiUrl.url + '/instructor').then(function(info) {
+                $http.get(ApiUrl.url + '/user/instructor/').then(function(info) {
                     for (var instructor in info.data) {
                         self.cache[instructor._id] = instructor;
                     }
@@ -42,7 +42,7 @@
                     data: self.cache.id
                 });
             } else {
-                $http.get(ApiUrl.url + '/instructor/' + id).then(function(info) {
+                $http.get(ApiUrl.url + '/user/instructor/' + id).then(function(info) {
                     self.cache.id = info.data;
                     deferred.resolve(info);
                 }, function(error) {
@@ -55,7 +55,7 @@
         this.postInstructor = function(data) {
             var deferred = $q.defer();
 
-            $http.post(ApiUrl.url + '/instructor', data).then(function(info) {
+            $http.post(ApiUrl.url + '/user/instructor', data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
@@ -68,7 +68,7 @@
         this.updateInstructor = function(data) {
             var deferred = $q.defer();
 
-            $http.put(ApiUrl.url + '/instructor/' + data._id, data).then(function(info) {
+            $http.put(ApiUrl.url + '/user/instructor/' + data._id, data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
