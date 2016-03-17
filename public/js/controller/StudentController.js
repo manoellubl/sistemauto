@@ -13,7 +13,15 @@
     ]);
 
     function StudentController($scope, $mdDialog, StudentService) {
-
+        $scope.cnhtypes = [
+            {type: "A"},
+            {type: "B"},
+            {type: "AB"},
+            {type: "C"},
+            {type: "D"},
+            {type: "E"}
+        ];
+        
         $scope.updateList = function() {
             StudentService.getStudents().then(function(info) {
                 $scope.students.splice(0, $scope.students.length);

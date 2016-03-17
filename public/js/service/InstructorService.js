@@ -18,12 +18,14 @@
 
         this.getInstructors = function() {
             var deferred = $q.defer();
-            if (Object.keys(self.cache).length  > 0 && Object.keys(self.cache) === 'undefined') {
+            if (Object.keys(self.cache).length > 0 && Object.keys(self.cache) === 'undefined') {
                 deferred.resolve({
                     data: [self.cache]
                 });
             } else {
-                $http.get(ApiUrl.url + '/user/instructor').then(function(info) {
+
+                $http.get(ApiUrl.url + '/user/instructor/').then(function(info) {
+
                     for (var instructor in info.data) {
                         self.cache[instructor._id] = instructor;
                     }
@@ -54,7 +56,6 @@
 
         this.postInstructor = function(data) {
             var deferred = $q.defer();
-            console.log("entrou");
             $http.post(ApiUrl.url + '/user/instructor/', data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);

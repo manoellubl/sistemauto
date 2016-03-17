@@ -14,7 +14,7 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_CEP' | translate }}*</label>
-                    <input required ng-model="instructor.cep" ng-blur="updateAddress(instructor.cep)">
+                    <input required ng-model="instructor.cep" ng-blur="updateAddress(instructor.cep)" mask="99999-999" clean="true">
                 </md-input-container>
             </div>
             <md-input-container flex>
@@ -38,7 +38,7 @@
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>{{ 'STUDENT_CPF' | translate }}*</label>
-                    <input required ng-model="instructor.cpf">
+                    <input required ng-model="instructor.cpf" mask="999.999.999-99" clean="true">
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_RG' | translate }}*</label>
@@ -50,9 +50,12 @@
                 </md-input-container>
             </div>
             <div layout layout-sm="column">
-                <md-input-container flex>
-                    <label>{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*</label>
-                    <input required ng-model="instructor.cnhType">
+                <md-input-container >
+                    <md-select ng-model="instructor.cnhType" placeholder="{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*" style="padding: 26px 2px 0px">
+                      <md-option ng-repeat="cnh in cnhtypes" value="{{cnh.type}}">
+                        {{cnh.type}}
+                      </md-option>
+                    </md-select>
                 </md-input-container>
             </div>
             <md-input-container>
