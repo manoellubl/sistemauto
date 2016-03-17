@@ -50,10 +50,13 @@
                 </md-input-container>
             </div>
             <div layout layout-sm="column">
-                <md-input-container flex>
-                    <select required ng-model="instructor.cnhType" ng-options="cnh.type as cnh.type for cnh in cnhtypes">
-                        <option value="">{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}* </option>
-                    </select>
+                <md-input-container >
+                {{instructor.cnhType}}
+                    <md-select ng-model="instructor.cnhType" placeholder="{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*" style="padding: 26px 2px 0px">
+                      <md-option ng-repeat="cnh in cnhtypes" value="{{cnh.type}}">
+                        {{cnh.type}}
+                      </md-option>
+                    </md-select>
                 </md-input-container>
             </div>
             <md-input-container>
