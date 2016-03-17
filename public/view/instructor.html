@@ -1,8 +1,9 @@
 <md-list>
- <md-list-item ng-repeat="i in instructors" ng-click="fazerFuncao()">
+ <md-list-item ng-repeat="instructor in instructors" ng-click="update(instructor._id)">
     <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
-    <p>{{ i.name }}</p>
-  	<md-icon md-svg-src="asset/svg/clear.svg" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
+    <p>{{ instructor.name }}</p>
+    <p>{{instructor.cnhType}}</p>
+  	<md-icon md-svg-src="asset/svg/clear.svg" ng-click="removeInstructor(instructor._id)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
   </md-list-item>
 </md-list>
 

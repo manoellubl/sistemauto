@@ -18,12 +18,14 @@
 
         this.getInstructors = function() {
             var deferred = $q.defer();
-            if (Object.keys(self.cache).length  > 0 && Object.keys(self.cache) === 'undefined') {
+            if (Object.keys(self.cache).length > 0 && Object.keys(self.cache) === 'undefined') {
                 deferred.resolve({
                     data: [self.cache]
                 });
             } else {
+
                 $http.get(ApiUrl.url + '/user/instructor/').then(function(info) {
+
                     for (var instructor in info.data) {
                         self.cache[instructor._id] = instructor;
                     }
@@ -37,7 +39,7 @@
 
         this.getInstructor = function(id) {
             var deferred = $q.defer();
-            if (self.self.cache.id !== undefined) {
+            if (self.cache.id !== undefined) {
                 deferred.resolve({
                     data: self.cache.id
                 });
@@ -54,11 +56,11 @@
 
         this.postInstructor = function(data) {
             var deferred = $q.defer();
-
-            $http.post(ApiUrl.url + '/user/instructor', data).then(function(info) {
+            $http.post(ApiUrl.url + '/user/instructor/', data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
+                console.log(error);
                 deferred.reject(error);
             });
 
@@ -79,6 +81,16 @@
         };
 
         this.removeInstructor = function(id) {
+            var deferred = $q.defer();
+
+            $http.delete(ApiUrl.url + '/user/instructor/' + id).then(function(info) {
+                delete self.cache._id;
+                deferred.resolve(info);
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
         };
 
         this.getAddressByCep = function(cep) {
