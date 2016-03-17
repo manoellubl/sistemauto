@@ -145,9 +145,7 @@
                 });
             } else {
                 var cursor = Student.find({
-                    $and: {
-                        user: request.params._idUser
-                    }
+                    user: request.params._idUser
                 });
                 cursor.exec(function(error, data) {
                     if (error !== null) {
