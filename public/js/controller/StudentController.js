@@ -26,6 +26,7 @@
             StudentService.getStudents().then(function(info) {
                 $scope.students.splice(0, $scope.students.length);
                 $scope.students.push.apply($scope.students, info.data);
+                console.log($scope.students);
             });
         };
 
@@ -33,6 +34,8 @@
         $scope.updateList();
         
         $scope.register = function() {
+            $scope.student.birthDateTimestamp = $scope.student.birthDate.getTime();
+            
             if ($scope.student._id === undefined) {
                 StudentService.postStudent($scope.student).then(function(info) {
                     $scope.closeForm();
@@ -54,6 +57,7 @@
         $scope.update = function(id) {
             StudentService.getStudent(id).then(function(info) {
                 $scope.student = info.data;
+                $scope.student.birthDate = new Date($scope.student.birthDateTimestamp);
                 $scope.showForm();
             }, function(error) {
 
