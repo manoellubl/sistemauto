@@ -36,6 +36,8 @@
         $scope.updateList();
 
         $scope.register = function() {
+            $scope.instructor.birthDateTimestamp = $scope.instructor.birthDate.getTime();
+            
             if ($scope.instructor._id === undefined) {
                 InstructorService.postInstructor($scope.instructor).then(function(info) {
                     $scope.closeForm();
@@ -52,13 +54,16 @@
                 });
             }
 
-
-
         };
 
         $scope.closeForm = function() {
             $mdDialog.hide();
             $scope.instructor = {};
+        };
+
+        $scope.addInstructor = function() {
+            $scope.instructor = {};
+            $scope.showForm();
         };
 
         $scope.removeInstructor = function(id) {
@@ -72,6 +77,7 @@
         $scope.update = function(id) {
             InstructorService.getInstructor(id).then(function(info) {
                 $scope.instructor = info.data;
+                $scope.instructor.birthDate = new Date($scope.instructor.birthDateTimestamp);
                 $scope.showForm();
             }, function(error) {
 
