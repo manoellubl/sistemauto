@@ -18,9 +18,9 @@
     "mongoose": "^4.1.1",
     "mongoose-encryption": "^1.3.0",
     "morgan": "^1.6.1",
-    "node-slack": "0.0.7",
     "nodemailer": "^2.3.0",
     "q": "^1.4.1",
+    "slackbots": "^0.5.1",
     "underscore": "1.5.0"
   },
   "devDependencies": {

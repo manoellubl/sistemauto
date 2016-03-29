@@ -7,6 +7,8 @@
         var Student = rootRequire('model/student.model');
 
         var emailModule = require('../../module/emailModule');
+        var slackModule = require('../../module/slackModule');
+
         /**
          * Realiza o GET de Collection do Endpoint user.
          *
@@ -60,11 +62,9 @@
                     if (error !== null) {
                         next(error);
                     } else {
-                        console.log("aqui estah o data");
-                        console.log(data);
-                        console.log(">>>>>>>>>>>>>>>>>");
                         response.status(201).json(data);
                         emailModule.sendEmail(data.email, data.name, 'Confirmação do cadastro, seja bem-vindo');
+                        slackModule.reaction(data._id, data.email, data.name);
                     }
                 });
             } else {
