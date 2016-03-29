@@ -6,7 +6,7 @@
         // TODO corrigir o workaround :D
         var Student = rootRequire('model/student.model');
 
-
+        var emailModule = require('../../module/emailModule');
         /**
          * Realiza o GET de Collection do Endpoint user.
          *
@@ -60,7 +60,11 @@
                     if (error !== null) {
                         next(error);
                     } else {
+                        console.log("aqui estah o data");
+                        console.log(data);
+                        console.log(">>>>>>>>>>>>>>>>>");
                         response.status(201).json(data);
+                        emailModule.sendEmail(data.email, data.name, 'Confirmação do cadastro, seja bem-vindo');
                     }
                 });
             } else {

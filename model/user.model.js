@@ -52,6 +52,10 @@
         },
         cep: {
             type: String
+        },
+        confirmado: {
+            type: Boolean,
+            default: false
         }
     }, {
 		password: false
