@@ -5,20 +5,28 @@
 				<md-content md-theme="docs-dark">
 					<form id="signup-form" data-parsley-validate="" ng-submit="register()">
 						<md-input-container>
-							<label>Name</label>
+							<label>{{ 'SIGNUP_COMPANYNAME' | translate }}</label>
+							<input type="text" required ng-model="user.company">
+						</md-input-container>
+						<md-input-container>
+							<label>{{ 'SIGNUP_NAME' | translate }}</label>
 							<input type="text" required ng-model="user.name">
 						</md-input-container>
 						<md-input-container>
-							<label>Email</label>
+							<label>{{ 'SIGNUP_EMAIL' | translate }}</label>
 							<input type="email" required ng-model="user.email">
 						</md-input-container>
 						<md-input-container>
-							<label>Password</label>
+							<label>{{ 'SIGNUP_PASSWORD' | translate }}</label>
 							<input required ng-model="user.password" type="password">
+						</md-input-container>
+						<md-input-container>
+							<label>{{ 'SIGNUP_CNPJ' | translate }}</label>
+							<input required ng-model="user.cnpj" mask="99.999.999/9999-99" clean="true">
 						</md-input-container>
 						<md-input-container layout-align="center center">
 							<div layout="row" layout-sm="column" layout-margin>
-								<md-button type="submit" class="md-raised md-primary" flex="50" flex-sm="100">Register</md-button>
+								<md-button type="submit" class="md-raised md-primary" flex="50" flex-sm="100">{{ 'SIGNUP_REGISTER' | translate }}</md-button>
 							</div>
 						</md-input-container>
 					</form>

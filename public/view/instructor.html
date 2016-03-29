@@ -1,0 +1,19 @@
+<md-list>
+ <md-list-item ng-repeat="instructor in instructors" ng-click="update(instructor._id)">
+    <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
+    <p>{{ instructor.name }}</p>
+    <p>{{instructor.cnhType}}</p>
+  	<md-icon md-svg-src="asset/svg/clear.svg" ng-click="removeInstructor(instructor._id)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
+  </md-list-item>
+</md-list>
+
+<form id="form-profile" data-parsley-validate="" ng-submit="update()">
+
+</form>
+<md-button
+        class="md-fab md-warn md-fab-bottom-right"
+        style="position: fixed;"
+        ng-click="addInstructor()"
+        aria-label="Cadastrar Instrutor">
+    <md-icon md-svg-src="asset/svg/plus.svg"></md-icon>
+</md-button>

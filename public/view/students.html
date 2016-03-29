@@ -1,0 +1,21 @@
+<md-list>
+ <md-list-item ng-repeat="student in students" ng-click="update(student._id)">
+    <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
+    <p>{{ student.name }}</p>
+    <p>{{ student.email }}</p>
+    <p>{{ student.driverLicenseClass }}</p>
+    <md-icon md-svg-src="asset/svg/clear.svg" ng-click="removerStudent(student._id)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
+	<md-divider ng-if="!$last"></md-divider>
+  </md-list-item>
+</md-list>
+
+<form id="form-profile" data-parsley-validate="" ng-submit="update()">
+
+</form>
+<md-button
+        class="md-fab md-warn md-fab-bottom-right"
+        style="position: fixed;"
+        ng-click="addStudent()"
+        aria-label="Cadastrar Aluno">
+    <md-icon md-svg-src="asset/svg/plus.svg"></md-icon>
+</md-button>

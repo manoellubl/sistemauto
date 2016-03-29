@@ -1,0 +1,75 @@
+<md-dialog>
+    <form id="form-profile" data-parsley-validate="" ng-submit="register()">
+        <md-content class="md-padding" ng-cloak>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Nome completo *</label>
+                    <input required ng-model="student.name" type="text">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_EMAIL' | translate }}*</label>
+                    <input required ng-model="student.email">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_CEP' | translate }}*</label>
+                    <input required ng-model="student.cep" ng-blur="updateAddress(student.cep)" mask="99999-999" clean="true">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_ADDRESS' | translate }}*</label>
+                    <input required ng-model="student.address">
+                </md-input-container>
+               </div> 
+            <div layout="row">
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_NEIGHBORHOOD' | translate }}*</label>
+                    <input required ng-model="student.neighborhood">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_CITY' | translate }}*</label>
+                    <input required ng-model="student.city">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_STATE' | translate }}*</label>
+                    <input required ng-model="student.state">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_CPF' | translate }}*</label>
+                    <input required ng-model="student.cpf" mask="999.999.999-99" clean="true">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_RG' | translate }}*</label>
+                    <input required ng-model="student.rg">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_BIRTHDATE' | translate }}*</label>
+                    <input type="date" min="1900-01-01" max="2015-12-31" required ng-model="student.birthDate">
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container>
+                    <md-select ng-model="student.cnhType" placeholder="{{ 'STUDENT_DRIVER_LICENSE_CLASS' | translate }}*" style="padding: 26px 2px 0px">
+                      <md-option ng-repeat="cnh in cnhtypes" value="{{cnh.type}}">
+                        {{cnh.type}}
+                      </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>{{ 'STUDENT_VALUE' | translate }}*</label>
+                    <input required ng-model="student.value">
+                </md-input-container>
+            </div>
+            <md-input-container>
+                <div layout="row">
+                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
+                    <md-button type="button" ng-click="closeForm()" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_CANCEL' | translate }}</md-button>
+                </div>
+            </md-input-container>
+        </md-content>
+    </form>
+</md-dialog>

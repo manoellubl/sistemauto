@@ -13,7 +13,6 @@
          */
         router.post('/login', function(request, response) {
             var email = request.body.email;
-            
             var query = User.findOne({
                 email: email
             }).select('+password');
@@ -26,6 +25,10 @@
                 } else if (data.password !== request.body.password) {    
                     response.status(403).json({
                         message: 'Wrong password'
+                    });
+                } else if(!data.confirmado) {
+                    response.status(403).json({
+                        message: 'Sua conta ainda não foi liberada. Aguarde nosso contato! :)'
                     });
                 } else {
                     var token = jwt.sign(data, config.secret, {
