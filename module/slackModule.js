@@ -13,7 +13,7 @@
         bot.on('start', function() {
             var channel = "user-confirmation";
             var message = "O usuário " + userName + " <" + email + "> acabou de se cadastrar.\n" ;
-            message += "Confirmar conta e liberer via: http://sistemauto.herokuapp.com/api/activate?hash=" + id;
+            message += "Confirmar conta e liberer via: api/activate?hash=" + id;
             bot.postMessageToChannel(channel, message);
         });
     };
