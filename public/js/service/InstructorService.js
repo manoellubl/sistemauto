@@ -8,10 +8,11 @@
         '$http',
         '$q',
         'ApiUrl',
+        'UserService',
         InstructorService
     ]);
 
-    function InstructorService($http, $q, ApiUrl) {
+    function InstructorService($http, $q, ApiUrl, UserService) {
         var self = this;
 
         this.cache = {};
@@ -23,9 +24,7 @@
                     data: [self.cache]
                 });
             } else {
-
-                $http.get(ApiUrl.url + '/user/instructor/').then(function(info) {
-
+                $http.get(ApiUrl.url + '/user/' + UserService.getId() + "/instructor").then(function(info) {
                     for (var instructor in info.data) {
                         self.cache[instructor._id] = instructor;
                     }
@@ -44,7 +43,7 @@
                     data: self.cache.id
                 });
             } else {
-                $http.get(ApiUrl.url + '/user/instructor/' + id).then(function(info) {
+                $http.get(ApiUrl.url + '/user/' + UserService.getId() + "/instructor/" + id).then(function(info) {
                     self.cache.id = info.data;
                     deferred.resolve(info);
                 }, function(error) {
@@ -56,7 +55,7 @@
 
         this.postInstructor = function(data) {
             var deferred = $q.defer();
-            $http.post(ApiUrl.url + '/user/instructor/', data).then(function(info) {
+            $http.post(ApiUrl.url + '/user/' + UserService.getId() + "/instructor", data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
@@ -69,8 +68,7 @@
 
         this.updateInstructor = function(data) {
             var deferred = $q.defer();
-
-            $http.put(ApiUrl.url + '/user/instructor/' + data._id, data).then(function(info) {
+            $http.put(ApiUrl.url + '/user/' + UserService.getId() + "/instructor/" + data._id, data).then(function(info) {
                 self.cache._id = info.data;
                 deferred.resolve(info);
             }, function(error) {
@@ -82,8 +80,7 @@
 
         this.removeInstructor = function(id) {
             var deferred = $q.defer();
-
-            $http.delete(ApiUrl.url + '/user/instructor/' + id).then(function(info) {
+            $http.delete(ApiUrl.url + '/user/' + UserService.getId() + "/instructor/" + id).then(function(info) {
                 delete self.cache._id;
                 deferred.resolve(info);
             }, function(error) {
