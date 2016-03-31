@@ -9,10 +9,11 @@
         '$scope',
         '$mdDialog',
         'InstructorService',
+        'MensagemService',
         InstructorController
     ]);
 
-    function InstructorController($scope, $mdDialog, InstructorService) {
+    function InstructorController($scope, $mdDialog, InstructorService, MensagemService) {
 
         $scope.cnhtypes = [
             {type: "A"},
@@ -43,14 +44,18 @@
                     $scope.closeForm();
                     $scope.updateList();
                 }, function(error) {
-                    console.log(error);
+                    if(error.data.message != undefined) {
+                        MensagemService.msg(error.data.message);
+                    }
                 });
             } else {
                 InstructorService.updateInstructor($scope.instructor).then(function(info) {
                     $scope.closeForm();
                     $scope.updateList();
                 }, function(error) {
-                    console.log(error);
+                    if(error.data.message != undefined) {
+                        MensagemService.msg(error.data.message);
+                    }
                 });
             }
 
@@ -70,7 +75,9 @@
             InstructorService.removeInstructor(id).then(function(info) {
                 $scope.updateList();
             }, function(error) {
-
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
 
@@ -80,7 +87,9 @@
                 $scope.instructor.birthDate = new Date($scope.instructor.birthDateTimestamp);
                 $scope.showForm();
             }, function(error) {
-
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
 
@@ -101,7 +110,9 @@
                 $scope.instructor.city = info.data.localidade;
                 $scope.instructor.state = info.data.uf;
             }, function(error) {
-                console.log(error);
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
     }

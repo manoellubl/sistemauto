@@ -13,6 +13,9 @@
                 });
                 cursor.exec(function(error, data) {
                     if (error !== null) {
+                        if(error.message.data != undefined) {
+                            error.message.data = repare_message(error.message.data);
+                        }
                         next(error)
                     } else {
                         response.json(data);
@@ -22,6 +25,9 @@
                 var cursor = Student.find(request.query);
                 cursor.exec(function(error, data) {
                     if (error !== null) {
+                        if(error.message.data != undefined) {
+                            error.message.data = repare_message(error.message.data);
+                        }
                         next(error);
                     } else {
                         response.json(data);
@@ -35,6 +41,9 @@
             var query = Student.findById(id);
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message.data != undefined) {
+                        error.message.data = repare_message(error.message.data);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -48,6 +57,9 @@
                 console.log("aqui");
                 console.log(error);
                 if (error !== null) {
+                    if(error.message.data != undefined) {
+                        error.message.data = repare_message(error.message.data);
+                    }
                     next(error);
                 } else {
                     response.status(201).json(data);
@@ -60,6 +72,9 @@
             var query =  Student.findByIdAndUpdate(id, {$set: request.body}, {new: true});
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message.data != undefined) {
+                        error.message.data = repare_message(error.message.data);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -71,6 +86,9 @@
             var id = request.params._id;
             Student.remove({_id: id}, function() {
                 if (error != null) {
+                    if(error.message.data != undefined) {
+                        error.message.data = repare_message(error.message.data);
+                    }
                     next(error);
                 } else {
                     // TODO
@@ -78,6 +96,27 @@
                 }
             });
         });
+
+        function repare_message(message) {
+            var dupkey = 'E11000';
+            
+            if(message.indexOf(dupkey) > -1) {
+                if(message.indexOf('cpf_1') > -1) {
+                    return "CPF já cadastrado";
+                }
+                if(message.indexOf('rg_1') > -1) {
+                    return "RG já cadastrado";
+                }
+                if(message.indexOf('email_1') > -1) {
+                    return "Email já cadastrado";
+                }
+                if(message.indexOf('cnpj_1') > -1) {
+                    return "CNPJ já cadastrado";
+                }
+            }
+
+            return message;
+        }
 
     };
 }());

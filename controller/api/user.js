@@ -43,6 +43,9 @@
             var query = User.findById(id);
             query.exec(function(error, data) {
 				if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
 					next(error);
 				} else {
     	            response.json(data);
@@ -61,6 +64,9 @@
             if (validate_cnpj(user)) {
                 user.save(function(error, data) {
                     if (error !== null) {
+                        if(error.message != undefined) {
+                            error.message = repare_message(error.message);
+                        }
                         next(error);
                     } else {
                         response.status(201).json(data);
@@ -69,7 +75,7 @@
                     }
                 });
             } else {
-                response.status(400).json('CNPJ inválido');
+                response.status(400).json({message:'CNPJ inválido'});
             }
         });
 
@@ -84,13 +90,16 @@
                 var query =  User.findByIdAndUpdate(id, {$set: request.body}, {new: true});
                 query.exec(function(error, data) {  
                     if (error !== null) {
+                        if(error.message != undefined) {
+                            error.message = repare_message(error.message);
+                        }
                         next(error);
                     } else {
                         response.json(data);
                     }
                 });
             } else {
-                response.status(400).json('Erro de validação');
+                response.status(400).json({message:'CNPJ inválido'});
             }
         });
 
@@ -140,6 +149,9 @@
                 console.log('dados', query);
                 cursor.exec(function(error, data) {
                     if (error !== null) {
+                        if(error.message != undefined) {
+                            error.message = repare_message(error.message);
+                        }
                         next(error)
                     } else {
                         console.log(">>>>>>>>>>>>>>>>>");
@@ -154,6 +166,9 @@
                 });
                 cursor.exec(function(error, data) {
                     if (error !== null) {
+                        if(error.message != undefined) {
+                            error.message = repare_message(error.message);
+                        }
                         next(error);
                     } else {
                         response.json(data);
@@ -166,6 +181,9 @@
             var query = Student.findById(request.params._idStudent);
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -179,6 +197,9 @@
 
             student.save(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.status(201).json(data);
@@ -194,6 +215,9 @@
             var query =  Student.findByIdAndUpdate(idStudent, {$set: student});
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -205,6 +229,9 @@
             var id = request.params._idStudent;
             Student.remove({_id: id}, function(error, data) {
                 if (error != null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     // TODO
@@ -230,6 +257,9 @@
                 console.log('dados', query);
                 cursor.exec(function(error, data) {
                     if (error !== null) {
+                        if(error.message != undefined) {
+                            error.message = repare_message(error.message);
+                        }
                         next(error)
                     } else {
                         console.log(">>>>>>>>>>>>>>>>>");
@@ -244,6 +274,9 @@
                 });
                 cursor.exec(function(error, data) {
                     if (error !== null) {
+                        if(error.message != undefined) {
+                            error.message = repare_message(error.message);
+                        }
                         next(error);
                     } else {
                         response.json(data);
@@ -256,6 +289,9 @@
             var query = Instructor.findById(request.params._idInstructor);
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -270,6 +306,9 @@
 
             instructor.save(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.status(201).json(data);
@@ -285,6 +324,9 @@
             var query =  Instructor.findByIdAndUpdate(idInstructor, {$set: instructor});
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -296,6 +338,9 @@
             var id = request.params._idInstructor;
             Instructor.remove({_id: id}, function(error, data) {
                 if (error != null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     // TODO
@@ -304,7 +349,27 @@
             });
         });
 
+        function repare_message(message) {
+            var dupkey = 'E11000';
+            
+            if(message.indexOf(dupkey) > -1) {
+                console.log("DUPKEY FOUND");
+                if(message.indexOf('cpf_1') > -1) {
+                    return "CPF já cadastrado";
+                }
+                if(message.indexOf('rg_1') > -1) {
+                    return "RG já cadastrado";
+                }
+                if(message.indexOf('email_1') > -1) {
+                    return "Email já cadastrado";
+                }
+                if(message.indexOf('cnpj_1') > -1) {
+                    return "CNPJ já cadastrado";
+                }
+            }
 
+            return message;
+        }
 
     };
 

@@ -27,6 +27,9 @@
             var query = Instructor.findById(id);
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -38,6 +41,9 @@
             var student = new Instructor(request.body);
             student.save(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.status(201).json(data);
@@ -50,6 +56,9 @@
             var query =  Instructor.findByIdAndUpdate(id, {$set: request.body}, {new: true});
             query.exec(function(error, data) {
                 if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     response.json(data);
@@ -61,6 +70,9 @@
             var id = request.params._id;
             Instructor.remove({_id: id}, function(error) {
                 if (error != null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
                     next(error);
                 } else {
                     // TODO
@@ -68,5 +80,26 @@
                 }
             });
         });
+
+        function repare_message(message) {
+            var dupkey = 'E11000';
+            
+            if(message.indexOf(dupkey) > -1) {
+                if(message.indexOf('cpf_1') > -1) {
+                    return "CPF já cadastrado";
+                }
+                if(message.indexOf('rg_1') > -1) {
+                    return "RG já cadastrado";
+                }
+                if(message.indexOf('email_1') > -1) {
+                    return "Email já cadastrado";
+                }
+                if(message.indexOf('cnpj_1') > -1) {
+                    return "CNPJ já cadastrado";
+                }
+            }
+
+            return message;
+        }
     };
 }());

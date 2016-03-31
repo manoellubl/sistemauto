@@ -24,7 +24,9 @@
 			UserService.login($scope.user).then(function(info) {
 				$state.go('home.profile');
 			}, function(error) {
-				MensagemService.msg(error.data.message);
+				if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
 			});
 		};
 		
