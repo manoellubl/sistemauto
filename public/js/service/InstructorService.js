@@ -38,7 +38,7 @@
 
         this.getInstructor = function(id) {
             var deferred = $q.defer();
-            if (self.cache.id !== undefined) {
+            if (self.cache.id !== undefined && self.cache.id == id) {
                 deferred.resolve({
                     data: self.cache.id
                 });
