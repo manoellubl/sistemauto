@@ -4,14 +4,16 @@
 	/**
 	 * Controller
 	 */
-	angular.module('app').controller('MensagemController', [
-		'$scope',
+	angular.module('app').service('MensagemService', [
+		//'$scope',
 		//'$mdToast',
-		MensagemController
+		MensagemService
 	]);
 	
-	function MensagemController($scope) {
-		$scope.msg = function() {
+	function MensagemService() {
+		var self = this;
+
+		this.msg = function() {
     		var pinTo = "top right";
     		console.log(pinTo)
     	//	$mdToast.show(

@@ -8,11 +8,11 @@
 		'$scope',
 		'$state',
 		'UserService',
-		'MensagemController',
+		'MensagemService',
 		LoginController
 	]);
 	
-	function LoginController($scope, $state, UserService, MensagemController) {
+	function LoginController($scope, $state, UserService, MensagemService) {
 		
 		// usuário do form de login
 		$scope.user = {};
@@ -24,7 +24,7 @@
 			UserService.login($scope.user).then(function(info) {
 				$state.go('home.profile');
 			}, function(error) {
-				MensagemController.msg();
+				MensagemService.msg();
 				// TODO modal de erro
 			});
 		};
