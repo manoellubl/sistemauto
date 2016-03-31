@@ -8,10 +8,11 @@
 		'$scope',
 		'$state',
 		'UserService',
+		'MensagemService',
 		SignupController
 	]);
 	
-	function SignupController($scope, $state, UserService) {
+	function SignupController($scope, $state, UserService, MensagemService) {
 		
 		// usuário que está se cadastrando.
 		$scope.user = {};
@@ -23,7 +24,7 @@
 			UserService.postUser($scope.user).then(function(info) {
 				$state.go('login');
 			}, function(error) {
-				
+				MensagemService.msg(error.data.message);
 			});
 		};
 	}
