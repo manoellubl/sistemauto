@@ -9,10 +9,11 @@
         '$scope',
         '$mdDialog',
         'StudentService',
+        'MensagemService',
         StudentController
     ]);
 
-    function StudentController($scope, $mdDialog, StudentService) {
+    function StudentController($scope, $mdDialog, StudentService, MensagemService) {
         $scope.cnhtypes = [
             {type: "A"},
             {type: "B"},
@@ -41,14 +42,18 @@
                     $scope.closeForm();
                     $scope.updateList();
                 }, function(error) {
-                    console.log(error);
+                    if(error.data.message != undefined) {
+                        MensagemService.msg(error.data.message);
+                    }
                 });
             } else {
                 StudentService.updateStudent($scope.student).then(function(info) {
                     $scope.closeForm();
                     $scope.updateList();
                 }, function(error) {
-                    console.log(error);
+                    if(error.data.message != undefined) {
+                        MensagemService.msg(error.data.message);
+                    }
                 });
             }
 
@@ -60,7 +65,9 @@
                 $scope.student.birthDate = new Date($scope.student.birthDateTimestamp);
                 $scope.showForm();
             }, function(error) {
-
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
 
@@ -78,7 +85,9 @@
           StudentService.removeStudent(id).then(function(info) {
                 $scope.updateList();
           }, function(error) {
-
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
           });
         };
 
@@ -100,7 +109,9 @@
                 $scope.student.state = info.data.uf;
                 console.log("info sucesso", info);
             }, function(error) {
-                console.log("error falha", error);
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
     }

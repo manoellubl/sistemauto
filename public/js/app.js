@@ -42,13 +42,14 @@
 	});
 	
     app.run(function($rootScope, $mdToast) {
+      /*
         $rootScope.$on('response:sucess:POST', function() {
           $mdToast.showSimple('Cadastrado com sucesso');
         });
 
-        //$rootScope.$on('response:error:POST', function() {
-         // $mdToast.showSimple('Falha no cadastro');
-       // });
+        $rootScope.$on('response:error:POST', function() {
+        $mdToast.showSimple('Falha no cadastro');
+        });
 
         $rootScope.$on('response:sucess:PUT', function() {
           $mdToast.showSimple('Atualizado com sucesso');
@@ -57,7 +58,7 @@
         $rootScope.$on('response:error:PUT', function() {
           $mdToast.showSimple('Falha na atualização');
         });
-        
+        */
     });
 	
 	app.config(function($httpProvider) {

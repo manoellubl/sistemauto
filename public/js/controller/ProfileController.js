@@ -8,10 +8,11 @@
 	angular.module('app').controller('ProfileController', [
 		'$scope',
 		'UserService',
+		'MensagemService',
 		ProfileController
 	]);
 
-	function ProfileController($scope, UserService) {
+	function ProfileController($scope, UserService, MensagemService) {
 		
 		/**
 		 * Requisita os dados do usuário.
@@ -19,7 +20,9 @@
 		UserService.get().then(function(info) {
 			$scope.user = info.data;
 		}, function(error) {
-			
+			if(error.data.message != undefined) {
+                MensagemService.msg(error.data.message);
+            }
 		});
 		
 		/**
@@ -27,9 +30,11 @@
 		 */
 		$scope.update = function() {
 			UserService.update($scope.user).then(function(info) {
-				
+				MensagemService.msg("Salvo com sucesso");
 			}, function(error) {
-				
+				if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
 			});
 		};
 
@@ -41,7 +46,9 @@
 				$scope.user.state = info.data.uf;
 				console.log(info);
 			}, function(error) {
-				console.log(error);
+				if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
 			});
 		};
 	}

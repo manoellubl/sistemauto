@@ -55,7 +55,7 @@
         },
         confirmado: {
             type: Boolean,
-            default: false
+            default: true
         }
     }, {
 		password: false

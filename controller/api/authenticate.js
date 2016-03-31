@@ -20,11 +20,13 @@
             query.exec(function(error, data) {
                 if (data === null) {
                     response.status(403).json({
-                        message: 'Authentication failed'
+                        //message: 'Authentication failed'
+                        message: 'Email ou senha incorretos'
                     });
                 } else if (data.password !== request.body.password) {    
                     response.status(403).json({
-                        message: 'Wrong password'
+                        //message: 'Wrong password'
+                        message: 'Email ou senha incorretos'
                     });
                 } else if(!data.confirmado) {
                     response.status(403).json({
