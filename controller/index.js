@@ -12,8 +12,8 @@
             var isAuthentication = request.originalUrl === "/api/authenticate/login";
             var isCreatingUser = request.url === "/api/user" && request.method === "POST";
             var isGetUsers = request.originalUrl.indexOf("/api/user") !== -1 && request.method === "GET";
-            next();
-            /*if (isAuthentication || isCreatingUser || request.url == "/" || isGetUsers) {
+            
+            if (isAuthentication || isCreatingUser || request.url == "/" || isGetUsers) {
                 next();
             } else if (hasToken) {
                 jwt.verify(token, config.secret, function(err, decoded) {
@@ -29,7 +29,7 @@
                 });
             } else {
                 return response.status(403).json({message: 'Token not provided.'});
-            }*/
+            }
         });
 
         /* GET home page. */
