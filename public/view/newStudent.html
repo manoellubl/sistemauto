@@ -14,7 +14,8 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>{{ 'STUDENT_CEP' | translate }}*</label>
-                    <input required ng-model="student.cep" ng-blur="updateAddress(student.cep)" mask="99999-999" clean="true">
+<!--                    <input required ng-model="student.cep" ng-blur="updateAddress(student.cep)" mask="99999-999" clean="true"> -->
+                        <input required ng-model="student.cep" mask="99999-999" clean="true">
                 </md-input-container>
             </div>
             <div layout="row">
