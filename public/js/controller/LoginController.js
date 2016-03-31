@@ -24,8 +24,7 @@
 			UserService.login($scope.user).then(function(info) {
 				$state.go('home.profile');
 			}, function(error) {
-				MensagemService.msg();
-				// TODO modal de erro
+				MensagemService.msg(error.data.message);
 			});
 		};
 		

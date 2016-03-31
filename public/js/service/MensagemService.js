@@ -2,26 +2,22 @@
 	'use strict';
 	
 	/**
-	 * Controller
+	 * Controller de Mensagens do sistema
+	 * TODO personalizar para msg de sucesso, erro e alerta
 	 */
 	angular.module('app').service('MensagemService', [
-		//'$scope',
-		//'$mdToast',
+		'$mdToast',
 		MensagemService
 	]);
 	
-	function MensagemService() {
+	function MensagemService($mdToast) {
 		var self = this;
 
-		this.msg = function() {
-    		var pinTo = "top right";
-    		console.log(pinTo)
-    	//	$mdToast.show(
-      		//	$mdToast.simple()
-        	//	.textContent('Simple Toast!')
-        	//	.position(pinTo)
-        	//	.hideDelay(3000)
-    	//	);
+		this.msg = function(mensagem) {
+    		var posicao = "top right";
+    		$mdToast.show(
+      			$mdToast.simple().content(mensagem).position(posicao).hideDelay(3000)
+    		);
     	};
   	}
-})
+})();

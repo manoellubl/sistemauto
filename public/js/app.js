@@ -17,8 +17,8 @@
 	
 	// localmente colocar http://localhost:8080/api
   // para o http://sistemauto.herokuapp.com/api
-  app.constant('ApiUrl', { url: 'http://localhost:8080/api' });
-  //app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
+  //app.constant('ApiUrl', { url: 'http://localhost:8080/api' });
+  app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
 
 	app.config(function(blockUIConfig) {
@@ -46,9 +46,9 @@
           $mdToast.showSimple('Cadastrado com sucesso');
         });
 
-        $rootScope.$on('response:error:POST', function() {
-          $mdToast.showSimple('Falha no cadastro');
-        });
+        //$rootScope.$on('response:error:POST', function() {
+         // $mdToast.showSimple('Falha no cadastro');
+       // });
 
         $rootScope.$on('response:sucess:PUT', function() {
           $mdToast.showSimple('Atualizado com sucesso');
