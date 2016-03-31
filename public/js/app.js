@@ -8,11 +8,11 @@
 		'ngAnimate', 
 		'ngCookies', 
 		'ngTouch',
-  		'ngSanitize',
+  	'ngSanitize',
     'ngMask',
 		'ui.router', 
 		'ngMaterial',
-        'pascalprecht.translate'
+    'pascalprecht.translate'
 	]);
 	
 	// localmente colocar http://localhost:8080/api
@@ -46,9 +46,9 @@
           $mdToast.showSimple('Cadastrado com sucesso');
         });
 
-        $rootScope.$on('response:error:POST', function() {
-          $mdToast.showSimple('Falha no cadastro');
-        });
+        //$rootScope.$on('response:error:POST', function() {
+         // $mdToast.showSimple('Falha no cadastro');
+       // });
 
         $rootScope.$on('response:sucess:PUT', function() {
           $mdToast.showSimple('Atualizado com sucesso');
