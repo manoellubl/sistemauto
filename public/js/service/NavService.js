@@ -26,8 +26,12 @@
 				name: 'MENU_INSTRUCTORS',
 				icon: 'perm_identity',
 				sref: '.instructor'
-			}		
-			];
+			}, {
+				name: 'MENU_CLAZZ',
+				icon: 'class',
+				sref: '.clazz'
+			}
+		];
 	
 		this.loadAllItems = function() {
 			return $q.when(menuItems);

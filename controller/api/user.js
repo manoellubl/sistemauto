@@ -6,6 +6,7 @@
         // TODO corrigir o workaround :D
         var Student = rootRequire('model/student.model');
         var Instructor = rootRequire('model/instructor.model');
+        var Clazz = rootRequire('model/clazz.model');
 
         var emailModule = require('../../module/emailModule');
         var slackModule = require('../../module/slackModule');
@@ -345,6 +346,97 @@
                 } else {
                     // TODO
                     response.json({});
+                }
+            });
+        });
+
+        router.get('/:id_user/clazz', function(request, response, next) {
+            var cursor = Clazz.find({
+                'user': request.params.id_user
+            });
+
+            cursor.exec(function(error, data) {
+                if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
+                    next(error);
+                } else {
+                    response.json(data);
+                }
+            });
+        });
+
+        router.get('/:id_user/student/:id_student/clazz', function(request, response, next) {
+            var id_user = request.params.id_user;
+            var id_student = request.params.id_student;
+
+            var cursor = Clazz.find({
+                'user': id_user,
+                'student': id_student
+            });
+
+            cursor.exec(function(error, data) {
+                if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
+                    next(error);
+                } else {
+                    response.json(data);
+                }
+            });
+        });
+
+        router.post('/:id_user/student/:id_student/clazz', function(request, response, next) {
+            var id_user = request.params.id_user;
+            var id_student = request.params.id_student;
+
+            var clazz = new Clazz(request.body);
+            clazz.user = id_user;
+            clazz.student = id_student;
+
+            clazz.save(function(error, data) {
+                if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
+                    next(error);
+                } else {
+                    response.status(201).json(data);
+                }
+            });
+        });
+
+        router.get('/:id_user/student/:id_student/clazz/:id_clazz', function(request, response, next) {
+            var cursor = Clazz.findById(request.params.id_clazz);
+            cursor.exec(function(error, data) {
+                if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
+                    next(error);
+                } else {
+                    response.json(data);
+                }
+            });
+        });
+
+        router.put('/:id_user/student/:id_student/clazz/:id_clazz', function(request, response, next) {
+            var id_user = request.params.id_user;
+            var id_student = request.params.id_student;
+            var id_clazz = request.params.id_clazz;
+            delete request.body._id;
+
+            var cursor = Clazz.findByIdAndUpdate(id_clazz, {$set: request.body});
+            cursor.exec(function(error, data) {
+                if (error !== null) {
+                    if(error.message != undefined) {
+                        error.message = repare_message(error.message);
+                    }
+                    next(error);
+                } else {
+                    response.json(data);
                 }
             });
         });
