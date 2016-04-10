@@ -1,3 +1,9 @@
 <md-content>
-    TODO clazz
+    <md-list flex="">
+        <md-list-item class="md-3-line" ng-repeat="student in students" ng-click="addClazz(student)">
+            <div class="md-list-item-text" layout="column">
+                <h3>{{ student.name }}</h3>
+            </div>
+        </md-list-item>
+    </md-list>
 </md-content>

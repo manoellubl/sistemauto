@@ -16,6 +16,7 @@
 
     function ClazzController($scope, $mdDialog, UserService, StudentService, ClazzService) {
         StudentService.getStudents().then(function(info) {
+            $scope.students = info.data;
             _.each(info.data, function(student) {
                 console.log(student);
                 ClazzService.query(student._id);
@@ -36,5 +37,11 @@
         }, function(error) {
 
         });
+
+        $scope.addClazz = function(student) {
+            console.log('estudante selecionado');
+            console.log(student);
+            console.log(".....................");
+        };
     }
 })();

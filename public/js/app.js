@@ -18,7 +18,7 @@
 
     // localmente colocar http://localhost:8080/api
     // para o http://sistemauto.herokuapp.com/api
-    //app.constant('ApiUrl', {url: 'http://localhost:8080/api'});
+  //  app.constant('ApiUrl', {url: 'http://localhost:8080/api'});
     app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
 
@@ -108,7 +108,7 @@
             MENU_PROFILE: 'Profile',
             MENU_STUDENTS: 'Students',
             MENU_INSTRUCTORS: 'Instructors',
-            MENU_CLAZZ: 'Class'
+            MENU_CLAZZ: ""
         });
         $translateProvider.translations('pt-br', {
             LOGIN_EMAIL: 'Email',
