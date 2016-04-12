@@ -76,19 +76,24 @@
 
         $scope.data = {};
 
-        $scope.showForm = function(student) {
-            console.log(student);
-            $scope.data.title = student.name + " hora";
-            $scope.data.student = student._id;
+        $scope.salvarAula = function() {
             $scope.data.user = UserService.getId();
 
-            console.log($scope.data);
-
-            ClazzService.post(student._id, $scope.data).then(function(info) {
+            ClazzService.post($scope.data.student, $scope.data).then(function(info) {
                 console.log('data', info.data);
+                $scope.data = {};
             }, function(error) {
                 console.log(error);
             });
+        };
+
+        $scope.cancelar = function() {
+            $scope.data = {};
+        };
+
+        $scope.showForm = function(student) {
+            $scope.data.title = student.name;
+            $scope.data.student = student._id;
         };
 
         $scope.calEventsExt = {
