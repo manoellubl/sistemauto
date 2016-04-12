@@ -1,25 +1,40 @@
-<calendar-md flex layout layout-fill
-             calendar-direction="direction"
-             on-prev-month="prevMonth"
-             on-next-month="nextMonth"
-             on-day-click="dayClick"
-             title-format="'MMMM y'"
-             ng-model='selectedDate'
-             week-starts-on="firstDayOfWeek"
-             data-start-year="2014"
-             tooltips="tooltips"
-             day-format="dayFormat"
-             day-label-format="'EEE'"
-             day-label-tooltip-format="'EEEE'"
-             day-tooltip-format="'fullDate'"
-             day-content="setDayContent"
-             disable-future-selection="false">
-</calendar-md>
+<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
 <md-content>
     <md-list flex="">
         <md-list-item class="md-3-line" ng-repeat="student in students" ng-click="addClazz(student)">
             <div class="md-list-item-text" layout="column">
                 <h3>{{ student.name }}</h3>
+                <div class="_md-secondary-container">
+                    <button class="md-secondary md-icon-button md-button ng-scope md-ink-ripple" type="button"
+                           ng-click="showForm(student)"
+                            aria-label="call">
+                        <i class="material-icons">class</i>
+                    </button>
+                </div>
+                <div class="row">
+                    <md-input-container>
+                        <label>Tipo</label>
+                        <md-select ng-model="data.type">
+                            <md-option ng-repeat="tipo in tipos" value="{{ tipo.value }}">
+                                {{ tipo.value}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div class="row">
+                    <md-input-container flex-gt-md="30">
+                        <label>Início</label>
+                        <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-inicio"
+                               placeholder="Date" min-date="date" ng-model="data.start" class=" md-input">
+                    </md-input-container>
+                </div>
+                <div class="row">
+                    <md-input-container flex-gt-md="30">
+                        <label>Término</label>
+                        <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-termino"
+                               placeholder="Date" min-date="date" ng-model="data.end" class=" md-input">
+                    </md-input-container>
+                </div>
             </div>
         </md-list-item>
     </md-list>

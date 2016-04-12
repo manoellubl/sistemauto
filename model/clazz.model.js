@@ -4,11 +4,18 @@
     var mongoose = require('mongoose');
 
     module.exports = mongoose.model('Clazz', new mongoose.Schema({
-        'data': {
+        'start': {
             type: Date,
             required: true
         },
-        'type': {
+        'end': {
+            type: Date,
+            required: true
+        },
+        'title': {
+            type: String,
+            required: true
+        }, 'type': {
             type: String,
             required: true
         },
