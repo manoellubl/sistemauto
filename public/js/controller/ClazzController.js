@@ -7,15 +7,15 @@
      */
     angular.module('app').controller('ClazzController', [
         'StudentService', 'ClazzService', 'UserService',
-        '$scope', '$compile', 'uiCalendarConfig', '$mdDialog',
+        '$scope', '$compile', 'uiCalendarConfig', '$mdDialog', 'MensagemService',
         ClazzController
     ]);
 
-    function ClazzController(StudentService, ClazzService, UserService, $scope, $compile, uiCalendarConfig, $mdDialog) {
+    function ClazzController(StudentService, ClazzService, UserService, $scope, $compile, uiCalendarConfig, $mdDialog, MensagemService) {
         StudentService.getStudents().then(function (info) {
             $scope.students = info.data;
         }, function (error) {
-
+            MensagemService.msg(error.data.message);
         });
 
         var date = new Date();
@@ -75,7 +75,7 @@
             $scope.data.user = UserService.getId();
 
             ClazzService.post($scope.data.student, $scope.data).then(function (info) {
-                console.log('data', info.data);
+                $scope.eventSources[0].push(info.data);
                 $scope.data = {};
             }, function (error) {
                 console.log(error);
