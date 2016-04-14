@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    module.exports = function (router) {
+    module.exports = function(router) {
         var jwt = require('jsonwebtoken');
         var User = rootRequire('model/user.model');
         var config = rootRequire('config/env.config.json')[process.env.NODE_ENV || 'development'];
@@ -13,9 +13,17 @@
          */
         router.post('/login', function(request, response) {
             var email = request.body.email;
-            var query = User.findOne({
-                email: email
-            }).select('+password');
+            var type = request.body.type;
+            if (type != undefined && type == "student") {
+                var query = User.findOne({
+                    cpf: request.body.cpf
+                });
+            } else {
+                var query = User.findOne({
+                    email: email
+                }).select('+password');
+            }
+
 
             query.exec(function(error, data) {
                 if (data === null) {
@@ -23,12 +31,12 @@
                         //message: 'Authentication failed'
                         message: 'Email ou senha incorretos'
                     });
-                } else if (data.password !== request.body.password) {    
+                } else if (type === undefined && data.password !== request.body.password) {
                     response.status(403).json({
                         //message: 'Wrong password'
                         message: 'Email ou senha incorretos'
                     });
-                } else if(!data.confirmado) {
+                } else if (!data.confirmado) {
                     response.status(403).json({
                         message: 'Sua conta ainda não foi liberada. Aguarde nosso contato! :)'
                     });
@@ -47,7 +55,7 @@
         router.post('/logout', function(request, response) {
             // TODO avaliar como fazer isto corretamente
             // a lib nao tem como invalidar o token
-            response.json({message: 'Logout done'});
+            response.json({ message: 'Logout done' });
         });
     };
 }());
