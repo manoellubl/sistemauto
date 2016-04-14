@@ -29,7 +29,8 @@
                 if (data === null) {
                     response.status(403).json({
                         //message: 'Authentication failed'
-                        message: 'Email ou senha incorretos'
+                        message: 'Email ou senha incorretos',
+                        data: data
                     });
                 } else if (type === undefined && data.password !== request.body.password) {
                     response.status(403).json({
