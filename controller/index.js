@@ -9,7 +9,7 @@
             var token = request.body.token || request.query.token || request.headers['x-access-token'];
 
             var hasToken = token !== null && token !== undefined;
-            var isAuthentication = request.originalUrl === "/api/authenticate/login";
+            var isAuthentication = request.originalUrl === "/api/authenticate/login" || request.originalUrl === "/api/authenticate-student/login";
             var isCreatingUser = request.url === "/api/user" && request.method === "POST";
             var isGetUsers = request.originalUrl.indexOf("/api/user") !== -1 && request.method === "GET";
             var isActivate = request.originalUrl.indexOf("/api/activate") !== -1 && request.method === "GET";
