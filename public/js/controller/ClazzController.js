@@ -7,15 +7,15 @@
      */
     angular.module('app').controller('ClazzController', [
         'StudentService', 'ClazzService', 'UserService',
-        '$scope', '$compile', 'uiCalendarConfig', '$mdDialog',
+        '$scope', '$compile', 'uiCalendarConfig', '$mdDialog', 'MensagemService',
         ClazzController
     ]);
 
-    function ClazzController(StudentService, ClazzService, UserService, $scope, $compile, uiCalendarConfig, $mdDialog) {
+    function ClazzController(StudentService, ClazzService, UserService, $scope, $compile, uiCalendarConfig, $mdDialog, MensagemService) {
         StudentService.getStudents().then(function (info) {
             $scope.students = info.data;
         }, function (error) {
-
+            MensagemService.msg(error.data.message);
         });
 
         var date = new Date();
@@ -47,13 +47,13 @@
         ];
 
         $scope.eventsF = function (start, end, timezone, callback) {
-            var s = new Date(start).getTime() / 1000;
-            var e = new Date(end).getTime() / 1000;
+            var s = start;
+            var e = end;
             var m = new Date(start).getMonth();
             var events = [{
                 title: 'Feed Me ' + m,
-                start: s + (50000),
-                end: s + (100000),
+                start: s,
+                end: s,
                 allDay: false,
                 className: ['customFeed']
             }];
@@ -74,8 +74,17 @@
         $scope.salvarAula = function () {
             $scope.data.user = UserService.getId();
 
+            $scope.data.start = $scope.data.start.getTime();
+            $scope.data.end = $scope.data.end.getTime();
+
             ClazzService.post($scope.data.student, $scope.data).then(function (info) {
-                console.log('data', info.data);
+                var aula = info.data;
+                aula.start = new Date(aula.start);
+                castDate(aula.start);
+
+                aula.end = new Date(aula.end);
+                castDate(aula.end);
+                $scope.eventSources[0].push(aula);
                 $scope.data = {};
             }, function (error) {
                 console.log(error);
@@ -95,9 +104,10 @@
         $scope.uiConfig = {
             calendar: {
                 height: 450,
-                editable: true,
+                editable: false,
+                ignoreTimezone: false,
                 header: {
-                    left: 'title',
+                    left: 'title month agendaWeek agendaDay',
                     center: '',
                     right: 'today prev,next'
                 }
@@ -118,13 +128,23 @@
 
         ClazzService.all().then(function (info) {
             $scope.eventSources.splice(0, $scope.eventSources.length);
+            _.each(info.data, function(data) {
+                data.start = new Date(data.start);
+                castDate(data.start);
+
+                data.end = new Date(data.end);
+                castDate(data.end);
+            });
             $scope.eventSources.push(info.data);
+
             $scope.eventSources.push($scope.eventSource);
-            $scope.eventSources.push($scope.eventsF);
         });
+
+        function castDate(data) {
+            data.setUTCFullYear( data.getFullYear(), data.getMonth(), data.getDate() );
+        }
         /* event sources array*/
         $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-        $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 
     }
 })();

@@ -9,8 +9,8 @@
         </div>
         <div class="row">
             <md-input-container>
-                <label>Tipo</label>
-                <md-select ng-model="data.type">
+                <label>Tipo *</label>
+                <md-select required ng-model="data.type">
                     <md-option ng-repeat="tipo in tipos" value="{{ tipo.value }}">
                         {{ tipo.value}}
                     </md-option>
@@ -19,16 +19,16 @@
         </div>
         <div class="row">
             <md-input-container>
-                <label>Início</label>
-                <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-inicio"
-                       placeholder="Date" min-date="date" ng-model="data.start" class=" md-input">
+                <label>Início *</label>
+                <input required mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-inicio"
+                       placeholder="Início" min-date="date" ng-model="data.start" class=" md-input">
             </md-input-container>
         </div>
         <div class="row">
             <md-input-container>
-                <label>Término</label>
-                <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-termino"
-                       placeholder="Date" min-date="date" ng-model="data.end" class=" md-input">
+                <label>Término *</label>
+                <input required mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-termino"
+                       placeholder="Fim" min-date="date" ng-model="data.end" class=" md-input">
             </md-input-container>
         </div>
         <md-input-container>
