@@ -7,19 +7,18 @@
         if (message.indexOf(dupkey) > -1) {
             console.log("DUPKEY FOUND");
             if (message.indexOf('cpf_1') > -1) {
-                return "CPF já cadastrado";
+                return "CPF já cadastrado!";
             }
             if (message.indexOf('rg_1') > -1) {
-                return "RG já cadastrado";
+                return "RG já cadastrado!";
             }
             if (message.indexOf('email_1') > -1) {
-                return "Email já cadastrado";
+                return "Email já cadastrado!";
             }
             if (message.indexOf('cnpj_1') > -1) {
-                return "CNPJ já cadastrado";
+                return "CNPJ já cadastrado!";
             }
         }
-
         return message;
     };
 
@@ -48,7 +47,6 @@
                 return false;
             }
         }
-
         return true;
     };
 })();
