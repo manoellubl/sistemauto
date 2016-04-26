@@ -5,94 +5,67 @@
     var Clazz = rootRequire('model/clazz.model');
     var util = rootRequire('module/util');
 
+    var URI = '/api/user/:id_user/student/:id_student/clazz';
+
+    /**
+     * Obtém todas as aulas de uma auto escola
+     */
     router.get('/api/user/:id_user/clazz', function(request, response, next) {
         var cursor = Clazz.find({
             'user': request.params.id_user
         });
 
         cursor.exec(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.json(data);
-            }
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
-    router.get('/api/user/:id_user/student/:id_student/clazz', function(request, response, next) {
-        var id_user = request.params.id_user;
-        var id_student = request.params.id_student;
-
+    /**
+     * Pega todas as aulas de um aluno
+     */
+    router.get(URI, function(request, response, next) {
         var cursor = Clazz.find({
-            'user': id_user,
-            'student': id_student
+            'user': request.params.id_user,
+            'student': request.params.id_student
         });
 
         cursor.exec(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.json(data);
-            }
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
-    router.post('/api/user/:id_user/student/:id_student/clazz', function(request, response, next) {
-        var id_user = request.params.id_user;
-        var id_student = request.params.id_student;
-
+    /**
+     * Cadastra um nova aula de um aluno
+     */
+    router.post(URI, function(request, response, next) {
         var clazz = new Clazz(request.body);
-        clazz.user = id_user;
-        clazz.student = id_student;
+        clazz.user = request.params.id_user;
+        clazz.student = request.params.id_student;
 
         clazz.save(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.status(201).json(data);
-            }
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
-    router.get('/api/user/:id_user/student/:id_student/clazz/:id_clazz', function(request, response, next) {
+    /**
+     * Obtém uma aula específica de um aluno
+     */
+    router.get(URI + '/:id_clazz', function(request, response, next) {
         var cursor = Clazz.findById(request.params.id_clazz);
         cursor.exec(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.json(data);
-            }
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
-    router.put('/api/user/:id_user/student/:id_student/clazz/:id_clazz', function(request, response, next) {
-        var id_user = request.params.id_user;
-        var id_student = request.params.id_student;
-        var id_clazz = request.params.id_clazz;
-        delete request.body._id;
-
-        var cursor = Clazz.findByIdAndUpdate(id_clazz, {$set: request.body});
+    /**
+     * Atualiza uma aula específica
+     */
+    router.put(URI + '/:id_clazz', function(request, response, next) {
+        var cursor = Clazz.findByIdAndUpdate(request.params.id_clazz, {
+            $set: request.body
+        });
         cursor.exec(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.json(data);
-            }
+            util.generic_response_callback(response, next, error, data);
         });
     });
 

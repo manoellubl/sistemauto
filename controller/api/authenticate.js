@@ -15,7 +15,7 @@
     router.post('/api/authenticate/login', function (request, response) {
         var email = request.body.email;
         var type = request.body.type;
-        if (type != undefined && type == "student") {
+        if (type != undefined && type == 'student') {
             var query = User.findOne({
                 cpf: request.body.cpf
             });
@@ -24,7 +24,6 @@
                 email: email
             }).select('+password');
         }
-
 
         query.exec(function (error, data) {
             if (data === null) {
@@ -54,8 +53,7 @@
     });
 
     router.post('/api/authenticate/logout', function (request, response) {
-        // TODO avaliar como fazer isto corretamente
-        // a lib nao tem como invalidar o token
+        // lembrar de invalidar o token
         response.json({message: 'Logout done'});
     });
 

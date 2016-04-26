@@ -2,116 +2,83 @@
     'use strict';
 
     var router = require('express').Router();
-
     var Instructor = rootRequire('model/instructor.model');
-
     var util = rootRequire('module/util');
 
-    router.get('/api/user/:_idUser/instructor', function(request, response, next) {
-        console.log("entrou");
+    var URI = '/api/user/:_idUser/instructor';
+
+    /**
+     * Obtém todos os instrutores de uma auto escola.
+     * Se for passado parâmetros de busca, será realizada
+     * uma filtragem.
+     */
+    router.get(URI, function(request, response, next) {
+        var cursor = Instructor.find({
+            user: request.params._idUser
+        });
+        cursor = buscaInstrutor(request, cursor);
+
+        cursor.exec(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    function buscaInstrutor(request, cursor) {
         if (request.query !== undefined && request.query.name !== undefined) {
-            console.log('ok');
-            var query = {
+            cursor = Instructor.find({
                 $and: {
                     name : {
                         '$regex': request.query.name
                     },
                     instructor: request.params._idUser
                 }
-            };
-            var cursor = Instructor.find(query);
-            console.log('dados', query);
-            cursor.exec(function(error, data) {
-                if (error !== null) {
-                    if(error.message != undefined) {
-                        error.message = util.repare_message(error.message);
-                    }
-                    next(error)
-                } else {
-                    console.log(">>>>>>>>>>>>>>>>>");
-                    console.log(data);
-                    console.log(">>>>>>>>>>>>>>>>>");
-                    response.json(data);
-                }
-            });
-        } else {
-            var cursor = Instructor.find({
-                user: request.params._idUser
-            });
-            cursor.exec(function(error, data) {
-                if (error !== null) {
-                    if(error.message != undefined) {
-                        error.message = util.repare_message(error.message);
-                    }
-                    next(error);
-                } else {
-                    response.json(data);
-                }
             });
         }
-    });
+        return cursor;
+    }
 
-    router.get('/api/user/:_idUser/instructor/:_idInstructor', function(request, response, next) {
-        var query = Instructor.findById(request.params._idInstructor);
-        query.exec(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.json(data);
-            }
+    /**
+     * Obtém um instrutor específico
+     */
+    router.get(URI + '/:_idInstructor', function(request, response, next) {
+        var cursor = Instructor.findById(request.params._idInstructor);
+        cursor.exec(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
-    router.post('/api/user/:_idUser/instructor', function(request, response, next) {
-        console.log("entrou no post");
+    /**
+     * Cadastra um novo instrutor.
+     */
+    router.post(URI, function(request, response, next) {
         var instructor = new Instructor(request.body);
         instructor.user = request.params._idUser;
 
         instructor.save(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.status(201).json(data);
-            }
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
-    router.put('/api/user/:_idUser/instructor/:_idInstructor', function(request, response, next) {
-        var instructor = request.body;
-        var idInstructor = request.params._idInstructor;
-        delete request.body._id;
-
-        var query =  Instructor.findByIdAndUpdate(idInstructor, {$set: instructor});
-        query.exec(function(error, data) {
-            if (error !== null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.json(data);
-            }
+    /**
+     * Atualiza um instrutor específico.
+     */
+    router.put(URI + '/:_idInstructor', function(request, response, next) {
+        var cursor = Instructor.findByIdAndUpdate(request.params._idInstructor, {
+            $set: request.body
+        });
+        cursor.exec(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
-    router.delete('/api/user/:_idUser/instructor/:_idInstructor', function(request, response, next) {
-        var id = request.params._idInstructor;
-        Instructor.remove({_id: id}, function(error, data) {
-            if (error != null) {
-                if(error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                // TODO
-                response.json({});
-            }
+    /**
+     * Remove um instrutor específico.
+     */
+    router.delete(URI + '/:_idInstructor', function(request, response, next) {
+        Instructor.remove({
+            _id: request.params._idInstructor
+        }, function(error, data) {
+            util.generic_response_callback(response, next, error, data);
         });
     });
 

@@ -7,27 +7,25 @@
     var slackModule = require('../../module/slackModule');
     var util = rootRequire('module/util');
 
+    var URI = '/api/user';
+
     /**
      * Realiza o GET de Collection do Endpoint user.
      *
      * GET /api/user
      */
-    router.get('/api/user', function (request, response) {
+    router.get(URI, function (request, response) {
+        var cursor = User.find(request.query);
         if (request.query !== undefined && request.query.name !== undefined) {
-            var cursor = User.find({
+            cursor = User.find({
                 name: {
                     '$regex': request.query.name
                 }
             });
-            cursor.exec(function (error, data) {
-                response.json(data);
-            });
-        } else {
-            var cursor = User.find(request.query);
-            cursor.exec(function (error, data) {
-                response.json(data);
-            });
         }
+        cursor.exec(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
     });
 
     /**
@@ -35,18 +33,10 @@
      *
      * GET /api/user/:id
      */
-    router.get('/api/user/:_id', function (request, response, next) {
-        var id = request.params._id;
-        var query = User.findById(id);
-        query.exec(function (error, data) {
-            if (error !== null) {
-                if (error.message != undefined) {
-                    error.message = util.repare_message(error.message);
-                }
-                next(error);
-            } else {
-                response.json(data);
-            }
+    router.get(URI + '/:_id', function (request, response, next) {
+        var cursor = User.findById(request.params._id);
+        cursor.exec(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
         });
     });
 
@@ -55,9 +45,8 @@
      *
      * POST /api/user
      */
-    router.post('/api/user', function (request, response, next) {
+    router.post(URI, function (request, response, next) {
         var user = new User(request.body);
-        // remover e criptografar senha http://importjake.io/testing-express-routes-with-mocha-supertest-and-mock-goose/
         if (util.validate_cnpj(user.cnpj)) {
             user.save(function (error, data) {
                 if (error !== null) {
@@ -81,34 +70,30 @@
      *
      * PUT /api/user/:id
      */
-    router.put('/api/user/:_id', function (request, response, next) {
-        var id = request.params._id;
-
+    router.put(URI + '/:_id', function (request, response, next) {
         if (util.validate_cnpj(request.body.cnpj)) {
-            console.log('request.body', request.body);
-            var cursor = User.findByIdAndUpdate(id, {
+            var cursor = User.findByIdAndUpdate(request.params._id, {
                     $set: request.body
                 }, {
                     new: true
                 });
             cursor.exec(function (error, data) {
-                if (error !== null) {
-                    if (error.message != undefined) {
-                        console.log('error', error);
-                        error.message = util.repare_message(error.message);
-                    }
-                    next(error);
-                } else {
-                    response.json(data);
-                }
+                util.generic_response_callback(response, next, error, data);
             });
         } else {
-            response.status(400).json({message: 'CNPJ inválido'});
+            response.status(400).json({
+                message: 'CNPJ inválido'
+            });
         }
     });
 
+    // subrecurso de estudantes de uma auto escola
     router.use(require('./user/student'));
+
+    // subrecurso de instrutores de uma auto escola
     router.use(require('./user/instructor'));
+
+    // subrecurso de aulas de auto escola + estudantes
     router.use(require('./user/clazz'));
 
     module.exports = router;

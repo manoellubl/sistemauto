@@ -10,12 +10,12 @@
         var token = request.body.token || request.query.token || request.headers['x-access-token'];
 
         var hasToken = token !== null && token !== undefined;
-        var isAuthentication = request.originalUrl === "/api/authenticate/login";
-        var isCreatingUser = request.url === "/api/user" && request.method === "POST";
-        var isGetUsers = request.originalUrl.indexOf("/api/user") !== -1 && request.method === "GET";
-        var isActivate = request.originalUrl.indexOf("/api/activate") !== -1 && request.method === "GET";
+        var isAuthentication = request.originalUrl === '/api/authenticate/login';
+        var isCreatingUser = request.url === '/api/user' && request.method === 'POST';
+        var isGetUsers = request.originalUrl.indexOf('/api/user') !== -1 && request.method === 'GET';
+        var isActivate = request.originalUrl.indexOf('/api/activate') !== -1 && request.method === 'GET';
 
-        if (isAuthentication || isCreatingUser || request.url == "/" || isGetUsers || isActivate) {
+        if (isAuthentication || isCreatingUser || request.url === '/' || isGetUsers || isActivate) {
             next();
         } else if (hasToken) {
             jwt.verify(token, config.secret, function(err, decoded) {
@@ -39,8 +39,13 @@
         response.render('index');
     });
 
+    // recurso de autenticacao
     router.use(require('./api/authenticate'));
+
+    // recurso de ativação de auto escolas
     router.use(require('./api/activate'));
+
+    // recurso de auto escolas
     router.use(require('./api/user'));
 
     module.exports = router;

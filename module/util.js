@@ -1,6 +1,11 @@
 (function () {
     'use strict';
 
+    /**
+     *
+     * @param message
+     * @returns {*}
+     */
     module.exports.repare_message = function (message) {
         var dupkey = 'E11000';
 
@@ -22,6 +27,11 @@
         return message;
     };
 
+    /**
+     *
+     * @param cnpj
+     * @returns {boolean}
+     */
     module.exports.validate_cnpj = function(cnpj) {
         if (cnpj.length != 14) {
             return false;
@@ -48,5 +58,23 @@
             }
         }
         return true;
+    };
+
+    /**
+     * 
+     * @param response
+     * @param next
+     * @param error
+     * @param data
+     */
+    module.exports.generic_response_callback = function(response, next, error, data) {
+        if (error !== null) {
+            if(error.message != undefined) {
+                error.message = module.exports.repare_message(error.message);
+            }
+            next(error);
+        } else {
+            response.json(data);
+        }
     };
 })();
