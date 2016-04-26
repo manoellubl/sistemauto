@@ -1,122 +1,83 @@
-(function() {
+(function () {
     'use strict';
 
-    module.exports = function (router) {
-        var Student = rootRequire('model/student.model');
+    var router = require('express').Router();
+    var Student = rootRequire('model/student.model');
+    var util = rootRequire('module/util');
 
-        router.get(':_id/', function(request, response, next) {
-            if (request.query !== undefined && request.query.name !== undefined) {
-                var cursor = Student.find({
-                    name : {
+    var URI = '/api/user/:_idUser/student';
+
+    /**
+     * Obtém todos os estudantes de uma auto escola
+     */
+    router.get(URI, function (request, response, next) {
+        var cursor = Student.find({
+            user: request.params._idUser
+        });
+        cursor = buscaStudent(request, cursor);
+        cursor.exec(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    function buscaStudent(request, cursor) {
+        if (request.query !== undefined && request.query.name !== undefined) {
+            cursor = Student.find({
+                $and: {
+                    name: {
                         '$regex': request.query.name
-                    }
-                });
-                cursor.exec(function(error, data) {
-                    if (error !== null) {
-                        if(error.message.data != undefined) {
-                            error.message.data = repare_message(error.message.data);
-                        }
-                        next(error)
-                    } else {
-                        response.json(data);
-                    }
-                });
-            } else {
-                var cursor = Student.find(request.query);
-                cursor.exec(function(error, data) {
-                    if (error !== null) {
-                        if(error.message.data != undefined) {
-                            error.message.data = repare_message(error.message.data);
-                        }
-                        next(error);
-                    } else {
-                        response.json(data);
-                    }
-                });
-            }
-        });
-
-        router.get('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            var query = Student.findById(id);
-            query.exec(function(error, data) {
-                if (error !== null) {
-                    if(error.message.data != undefined) {
-                        error.message.data = repare_message(error.message.data);
-                    }
-                    next(error);
-                } else {
-                    response.json(data);
+                    },
+                    user: request.params._idUser
                 }
             });
-        });
-
-        router.post('/', function(request, response, next) {
-            var student = new Student(request.body);
-            student.save(function(error, data) {
-                console.log("aqui");
-                console.log(error);
-                if (error !== null) {
-                    if(error.message.data != undefined) {
-                        error.message.data = repare_message(error.message.data);
-                    }
-                    next(error);
-                } else {
-                    response.status(201).json(data);
-                }
-            });
-        });
-
-        router.put('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            var query =  Student.findByIdAndUpdate(id, {$set: request.body}, {new: true});
-            query.exec(function(error, data) {
-                if (error !== null) {
-                    if(error.message.data != undefined) {
-                        error.message.data = repare_message(error.message.data);
-                    }
-                    next(error);
-                } else {
-                    response.json(data);
-                }
-            });
-        });
-
-        router.delete('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            Student.remove({_id: id}, function() {
-                if (error != null) {
-                    if(error.message.data != undefined) {
-                        error.message.data = repare_message(error.message.data);
-                    }
-                    next(error);
-                } else {
-                    // TODO
-                    response.json({});
-                }
-            });
-        });
-
-        function repare_message(message) {
-            var dupkey = 'E11000';
-            
-            if(message.indexOf(dupkey) > -1) {
-                if(message.indexOf('cpf_1') > -1) {
-                    return "CPF já cadastrado";
-                }
-                if(message.indexOf('rg_1') > -1) {
-                    return "RG já cadastrado";
-                }
-                if(message.indexOf('email_1') > -1) {
-                    return "Email já cadastrado";
-                }
-                if(message.indexOf('cnpj_1') > -1) {
-                    return "CNPJ já cadastrado";
-                }
-            }
-
-            return message;
         }
+        return cursor;
+    }
 
-    };
-}());
+    /**
+     * Obtém um estudante específico de uma auto escola
+     */
+    router.get(URI + '/:_idStudent', function (request, response, next) {
+        var cursor = Student.findById(request.params._idStudent);
+        cursor.exec(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    /**
+     * Cadastra um novo estudante em uma auto escola
+     */
+    router.post(URI, function (request, response, next) {
+        var student = new Student(request.body);
+        student.user = request.params._idUser;
+
+        student.save(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    /**
+     * Atualiza um estudante específico de uma auto escola
+     */
+    router.put(URI + '/:_idStudent', function (request, response, next) {
+        var cursor = Student.findByIdAndUpdate(request.params._idStudent, {
+            $set: request.body
+        });
+        cursor.exec(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    /**
+     * Remove um estudante específico de uma auto escola
+     */
+    router.delete(URI + '/:_idStudent', function (request, response, next) {
+        Student.remove({
+            _id: request.params._idStudent
+        }, function (error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    module.exports = router;
+})();
