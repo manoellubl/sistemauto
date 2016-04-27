@@ -21,13 +21,11 @@
 		 * Cadastra o usuário no sistema.
 		 */
 		$scope.register = function() {
-			console.log("registrando");
 			UserService.postUser($scope.user).then(function(info) {
                 $state.go('login');
-                MensagemService.msg("Cadastrado com sucesso");
+                MensagemService.msg("Cadastrado com sucesso!");
 			}, function(error) {
-				console.log(error);
-				if(error.data.message != undefined) {
+				if (error.data.message != undefined) {
                     MensagemService.msg(error.data.message);
                 }
 			});

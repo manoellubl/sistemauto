@@ -42,15 +42,14 @@
             var sum = 0;
             for (var i = 11 + k; i >= 0; i--) {
                 var d = parseInt(cnpj.charAt(i));
-
+                
                 if (isNaN(d)) {
                     return false;
                 }
-
+                
                 sum += d * factor;
                 factor = (factor == 9 ? 2 : (factor + 1));
             }
-
             sum %= 11;
 
             if ((sum < 2 ? 0 : 11 - sum) != cnpj.charAt(12 + k)) {

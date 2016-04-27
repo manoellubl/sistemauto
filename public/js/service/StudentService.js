@@ -40,7 +40,7 @@
 
         this.getStudent = function(id) {
             var deferred = $q.defer();
-            if (self.cache.id !== undefined && self.cache.id == id) {
+            if (self.cache.id != undefined && self.cache.id == id) {
                 deferred.resolve({
                     data: self.cache.id
                 });

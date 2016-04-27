@@ -4,6 +4,7 @@
     var router = require('express').Router();
     var Student = rootRequire('model/student.model');
     var util = rootRequire('module/util');
+    var emailModule = require('../../../module/emailModule');
 
     var URI = '/api/user/:_idUser/student';
 
@@ -50,9 +51,21 @@
     router.post(URI, function (request, response, next) {
         var student = new Student(request.body);
         student.user = request.params._idUser;
+        student.password = (request.params._idUser).slice(0,8);
 
         student.save(function (error, data) {
-            util.generic_response_callback(response, next, error, data);
+            if (error !== null) {
+                if (error.message !== undefined) {
+                    error.message = util.repare_message(error.message);
+                }
+                next(error);
+            } else {
+                var subject = 'Autorização de login no aplicativo Sistemauto';
+                var content = 'Você acaba de ser cadastrado no nosso sistema pela sua auto escola, seja bem-vindo(a)! ' +
+                                'Sua chave de acesso é: ' + data.password + '.' 
+                response.status(201).json(data);
+                emailModule.sendEmail(data.email, data.name, content, subject);
+            }
         });
     });
 

@@ -65,8 +65,8 @@
                     <input required ng-model="student.value">
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Telefone*</label>
-                    <input required mask="(99) 99999-9999" ng-model="student.value">
+                    <label>{{ 'STUDENT_PHONE' | translate }}</label>
+                    <input mask="(99) 99999-9999" ng-model="student.phone">
                 </md-input-container>
             </div>
             <md-input-container>
