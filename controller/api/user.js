@@ -1,215 +1,104 @@
-(function() {
+(function () {
     'use strict';
 
-    module.exports = function (router) {
-        var User = rootRequire('model/user.model');
-        // TODO corrigir o workaround :D
-        var Student = rootRequire('model/student.model');
+    var router = require('express').Router();
+    var User = rootRequire('model/user.model');
+    var emailModule = require('../../module/emailModule');
+    var slackModule = require('../../module/slackModule');
+    var util = rootRequire('module/util');
 
-        var emailModule = require('../../module/emailModule');
-        var slackModule = require('../../module/slackModule');
+    var URI = '/api/user';
 
-        /**
-         * Realiza o GET de Collection do Endpoint user.
-         *
-         * GET /api/user
-         */
-        router.get('/', function(request, response) {
-            if (request.query !== undefined && request.query.name !== undefined) {
-                var cursor = User.find({ 
-                    name : {
-                        '$regex': request.query.name
-                    }
-                });
-                cursor.exec(function(error, data) {
-                    response.json(data);
-                });
-            } else {
-                var cursor = User.find(request.query);
-                cursor.exec(function(error, data) {
-                    response.json(data);
-                });
-            }
-        });
-
-        /**
-         * Realiza o GET de Resource do Endpoint user.
-         *
-         * GET /api/user/:id
-         */
-        router.get('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            var query = User.findById(id);
-            query.exec(function(error, data) {
-				if (error !== null) {
-					next(error);
-				} else {
-    	            response.json(data);
-				}
+    /**
+     * Realiza o GET de Collection do Endpoint user.
+     *
+     * GET /api/user
+     */
+    router.get(URI, function (request, response) {
+        var cursor = User.find(request.query);
+        if (request.query !== undefined && request.query.name !== undefined) {
+            cursor = User.find({
+                name: {
+                    '$regex': request.query.name
+                }
             });
-        });
-
-        /**
-         * Realiza o POST de Resource do Endpoint user.
-         *
-         * POST /api/user
-         */
-        router.post('/', function(request, response, next) {
-            var user = new User(request.body);
-			// remover e criptografar senha http://importjake.io/testing-express-routes-with-mocha-supertest-and-mock-goose/
-            if (validate_cnpj(user)) {
-                user.save(function(error, data) {
-                    if (error !== null) {
-                        next(error);
-                    } else {
-                        response.status(201).json(data);
-                        emailModule.sendEmail(data.email, data.name, 'Confirmação do cadastro, seja bem-vindo');
-                        slackModule.reaction(data._id, data.email, data.name);
-                    }
-                });
-            } else {
-                response.status(400).json('CNPJ inválido');
-            }
-        });
-
-        /**
-         * Realiza o PUT de Resource do Endpoint user.
-         *
-         * PUT /api/user/:id
-         */
-        router.put('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            if (validate_cnpj(request.body)) {
-                var query =  User.findByIdAndUpdate(id, {$set: request.body}, {new: true});
-                query.exec(function(error, data) {  
-                    if (error !== null) {
-                        next(error);
-                    } else {
-                        response.json(data);
-                    }
-                });
-            } else {
-                response.status(400).json('Erro de validação');
-            }
-        });
-
-        // TODO MOVER
-        function    validate_cnpj(user) {
-            if (user.cnpj.length != 14) {
-                return false;
-            }
-            
-            for (var k = 0; k < 2; k++) {
-                var factor = 2;
-                var sum = 0;
-                for (var i = 11 + k; i >= 0; i--) {
-                    var d = parseInt(user.cnpj.charAt(i));
-                    
-                    if (isNaN(d)) {
-                        return false;
-                    }
-
-                    sum += d * factor;
-                    factor = (factor == 9 ? 2 : (factor + 1));
-                }
-
-                sum %= 11;
-                
-                if ((sum < 2 ? 0 : 11 - sum) != user.cnpj.charAt(12 + k)) {
-                    return false;
-                }
-            }
-
-            return true;
         }
-
-        router.get('/:_idUser/student', function(request, response, next) {
-            console.log("entrou");
-            if (request.query !== undefined && request.query.name !== undefined) {
-                console.log('ok');
-                var query = {
-                    $and: {
-                        name : {
-                            '$regex': request.query.name
-                        },
-                        user: request.params._idUser
-                    }
-                };
-                var cursor = Student.find(query);
-                console.log('dados', query);
-                cursor.exec(function(error, data) {
-                    if (error !== null) {
-                        next(error)
-                    } else {
-                        console.log(">>>>>>>>>>>>>>>>>");
-                        console.log(data);
-                        console.log(">>>>>>>>>>>>>>>>>");
-                        response.json(data);
-                    }
-                });
-            } else {
-                var cursor = Student.find({
-                    user: request.params._idUser
-                });
-                cursor.exec(function(error, data) {
-                    if (error !== null) {
-                        next(error);
-                    } else {
-                        response.json(data);
-                    }
-                });
-            }
+        cursor.exec(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
         });
+    });
 
-        router.get('/:_idUser/student/:_idStudent', function(request, response, next) {
-            var query = Student.findById(request.params._idStudent);
-            query.exec(function(error, data) {
+    /**
+     * Realiza o GET de Resource do Endpoint user.
+     *
+     * GET /api/user/:id
+     */
+    router.get(URI + '/:_id', function (request, response, next) {
+        var cursor = User.findById(request.params._id);
+        cursor.exec(function (error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    /**
+     * Realiza o POST de Resource do Endpoint user.
+     *
+     * POST /api/user
+     */
+    router.post(URI, function (request, response, next) {
+        var user = new User(request.body);
+        if (util.validate_cnpj(user.cnpj)) {
+            user.save(function (error, data) {
                 if (error !== null) {
+                    if (error.message != undefined) {
+                        error.message = util.repare_message(error.message);
+                    }
                     next(error);
                 } else {
-                    response.json(data);
-                }
-            });
-        });
-
-        router.post('/:_idUser/student', function(request, response, next) {
-            var student = new Student(request.body);
-            student.user = request.params._idUser;
-
-            student.save(function(error, data) {
-                if (error !== null) {
-                    next(error);
-                } else {
+                    var subject = 'Confirmação da conta';
+                    var content = 'Confirmação do cadastro, seja bem-vindo! Aguarde liberação da conta para acessar.';
                     response.status(201).json(data);
+                    emailModule.sendEmail(data.email, data.name, content, subject);
+                    slackModule.reaction(data._id, data.email, data.name);
                 }
             });
-        });
-
-        router.put('/:_idUser/student/:_idStudent', function(request, response, next) {
-            var student = request.body;
-            var idStudent = request.params._idStudent;
-            delete request.body._id;
-
-            var query =  Student.findByIdAndUpdate(idStudent, {$set: student});
-            query.exec(function(error, data) {
-                if (error !== null) {
-                    next(error);
-                } else {
-                    response.json(data);
-                }
+        } else {
+            response.status(400).json({
+                message: 'CNPJ inválido'
             });
-        });
+        }
+    });
 
-        router.delete('/:_idUser/student/:_idStudent', function(request, response, next) {
-            var id = request.params._idStudent;
-            Student.remove({_id: id}, function(error, data) {
-                if (error != null) {
-                    next(error);
-                } else {
-                    // TODO
-                    response.json({});
-                }
+    /**
+     * Realiza o PUT de Resource do Endpoint user.
+     *
+     * PUT /api/user/:id
+     */
+    router.put(URI + '/:_id', function (request, response, next) {
+        if (util.validate_cnpj(request.body.cnpj)) {
+            var cursor = User.findByIdAndUpdate(request.params._id, {
+                    $set: request.body
+                }, {
+                    new: true
+                });
+            cursor.exec(function (error, data) {
+                util.generic_response_callback(response, next, error, data);
             });
-        });
-    };
+        } else {
+            response.status(400).json({
+                message: 'CNPJ inválido'
+            });
+        }
+    });
+
+    // subrecurso de estudantes de uma auto escola
+    router.use(require('./user/student'));
+
+    // subrecurso de instrutores de uma auto escola
+    router.use(require('./user/instructor'));
+
+    // subrecurso de aulas de auto escola + estudantes
+    router.use(require('./user/clazz'));
+
+    module.exports = router;
 }());

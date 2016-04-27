@@ -10,11 +10,12 @@
 		'$state',
 		'NavService', 
 		'UserService',
+		'MensagemService',
 		'$translate',
 		MainController
 	]);
 
-	function MainController($scope, $state, NavService, UserService, $translate) {
+	function MainController($scope, $state, NavService, UserService, MensagemService, $translate) {
 
 		// itens do menu
 		$scope.menuItems = [];

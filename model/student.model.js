@@ -63,6 +63,14 @@
             type: Number,
             required: true
         },
+        phone: {
+            type: String,
+            required: false
+        },
+        password:{
+            type: String,
+            required: true
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             required: true

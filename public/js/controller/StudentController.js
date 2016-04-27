@@ -9,10 +9,11 @@
         '$scope',
         '$mdDialog',
         'StudentService',
+        'MensagemService',
         StudentController
     ]);
 
-    function StudentController($scope, $mdDialog, StudentService) {
+    function StudentController($scope, $mdDialog, StudentService, MensagemService) {
         $scope.cnhtypes = [
             {type: "A"},
             {type: "B"},
@@ -26,7 +27,6 @@
             StudentService.getStudents().then(function(info) {
                 $scope.students.splice(0, $scope.students.length);
                 $scope.students.push.apply($scope.students, info.data);
-                console.log($scope.students);
             });
         };
 
@@ -40,18 +40,23 @@
                 StudentService.postStudent($scope.student).then(function(info) {
                     $scope.closeForm();
                     $scope.updateList();
+                    MensagemService.msg("Aluno cadastrado com sucesso!");
                 }, function(error) {
-                    console.log(error);
+                    if (error.data.message != undefined) {
+                        MensagemService.msg(error.data.message);
+                    }
                 });
             } else {
                 StudentService.updateStudent($scope.student).then(function(info) {
                     $scope.closeForm();
                     $scope.updateList();
+                    MensagemService.msg("Aluno atualizado com sucesso!");
                 }, function(error) {
-                    console.log(error);
+                    if (error.data.message != undefined) {
+                        MensagemService.msg(error.data.message);
+                    }
                 });
             }
-
         };
 
         $scope.update = function(id) {
@@ -60,7 +65,9 @@
                 $scope.student.birthDate = new Date($scope.student.birthDateTimestamp);
                 $scope.showForm();
             }, function(error) {
-
+                if (error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
 
@@ -77,8 +84,11 @@
         $scope.removerStudent = function(id) {
           StudentService.removeStudent(id).then(function(info) {
                 $scope.updateList();
+                MensagemService.msg("Aluno removido com sucesso!");
           }, function(error) {
-
+                if (error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
           });
         };
 
@@ -100,7 +110,9 @@
                 $scope.student.state = info.data.uf;
                 console.log("info sucesso", info);
             }, function(error) {
-                console.log("error falha", error);
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
     }

@@ -2,7 +2,6 @@
     'use strict';
 
     var mongoose = require('mongoose');
-    var config = require('../config/env.config')[process.env.NODE_ENV || 'development'];
 
     var schema = new mongoose.Schema({
         name: {
@@ -57,6 +56,10 @@
         },
         address: {
             type: String,
+            required: true
+        },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
             required: true
         }
     });

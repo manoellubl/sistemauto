@@ -37,10 +37,7 @@
         return require(__dirname + '/' + name);
     };
 
-	app.use(enrouten({
-		'directory': 'controller',
-		'index': 'controller'
-	}));
+    app.use('/', require('./controller/index'));
 
     app.use(function(error, request, response, next) {
         response.status(error.status || 400);
