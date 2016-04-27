@@ -55,13 +55,17 @@
                     }
                     next(error);
                 } else {
+                    var subject = 'Confirmação da conta';
+                    var content = 'Confirmação do cadastro, seja bem-vindo! Aguarde liberação da conta para acessar.';
                     response.status(201).json(data);
-                    emailModule.sendEmail(data.email, data.name, 'Confirmação do cadastro, seja bem-vindo');
+                    emailModule.sendEmail(data.email, data.name, content, subject);
                     slackModule.reaction(data._id, data.email, data.name);
                 }
             });
         } else {
-            response.status(400).json({message: 'CNPJ inválido'});
+            response.status(400).json({
+                message: 'CNPJ inválido'
+            });
         }
     });
 

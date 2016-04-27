@@ -19,7 +19,9 @@
             if (error !== null) {
                 next(error);
             } else {
-                emailSender.sendEmail(data.email, data.name, 'Sua conta acaba de ser liberada. Parabéns!');
+                var subject = 'Confirmação da conta';
+                var content = 'Sua conta acaba de ser liberada. Parabéns!';
+                emailSender.sendEmail(data.email, data.name, content, subject);
                 response.json({
                     message: 'Conta liberada!'
                 });

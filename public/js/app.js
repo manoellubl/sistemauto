@@ -16,7 +16,8 @@
         'ngResource',
         'materialCalendar',
         'ngMaterialDatePicker',
-        'ui.calendar', 'ui.bootstrap'
+        'ui.calendar',
+        'ui.bootstrap'
     ]);
 
     // localmente colocar http://localhost:8080/api
@@ -107,6 +108,7 @@
             STUDENT_VALUE: 'Value',
             STUDENT_CANCEL: 'Cancel',
             STUDENT_SAVE: 'Save',
+            STUDENT_PHONE: 'Phone',
             MENU_DASHBOARD: 'Dashboard',
             MENU_PROFILE: 'Profile',
             MENU_STUDENTS: 'Students',
@@ -150,6 +152,7 @@
             STUDENT_VALUE: 'Valor',
             STUDENT_CANCEL: 'Cancelar',
             STUDENT_SAVE: 'Salvar',
+            STUDENT_PHONE: 'Telefone',
             MENU_DASHBOARD: 'Painel',
             MENU_PROFILE: 'Perfil',
             MENU_STUDENTS: 'Alunos',
