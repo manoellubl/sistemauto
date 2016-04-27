@@ -15,23 +15,17 @@
      */
     router.post('/api/authenticate/login', function (request, response) {
         var email = request.body.email;
-        var type = request.body.type;
-        if (type != undefined && type == 'student') {
-            var query = User.findOne({
-                cpf: request.body.cpf
-            });
-        } else {
-            var query = User.findOne({
-                email: email
-            }).select('+password');
-        }
+
+        var query = User.findOne({
+            email: email
+        }).select('+password');
 
         query.exec(function (error, data) {
             if (data === null) {
                 response.status(403).json({
                     message: 'Email ou senha incorretos'
                 });
-            } else if (type === undefined && data.password !== request.body.password) {
+            } else if (data.password !== request.body.password) {
                 response.status(403).json({
                     message: 'Email ou senha incorretos'
                 });
@@ -40,13 +34,7 @@
                     message: 'Sua conta ainda não foi liberada. Aguarde nosso contato! :)'
                 });
             } else {
-                var token = jwt.sign(data, config.secret, {
-                    expiresIn: 144000 // 24 hours
-                });
-                response.json({
-                    token: token,
-                    id: data._id
-                });
+               setToken(data);
             }
         });
     });
@@ -73,13 +61,7 @@
                     message: 'Senha incorretos'
                 });
             } else {
-                var token = jwt.sign(data, config.secret, {
-                    expiresIn: 144000 // 24 hours
-                });
-                response.json({
-                    token: token,
-                    id: data._id
-                });
+                setToken(data);
             }
         });
     });
@@ -88,6 +70,19 @@
         // lembrar de invalidar o token
         response.json({message: 'Logout done'});
     });
+
+    /**
+    * Função que seta o token e o id quando a requisição der certo.
+    */
+    function setToken(data){
+        var token = jwt.sign(data, config.secret, {
+            expiresIn: 144000 // 24 hours
+        });
+        response.json({
+            token: token,
+            id: data._id
+        });
+    };
 
     module.exports = router;
 }());
