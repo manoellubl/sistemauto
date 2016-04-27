@@ -34,7 +34,7 @@
                     message: 'Sua conta ainda não foi liberada. Aguarde nosso contato! :)'
                 });
             } else {
-               setToken(data);
+               setToken(data, response);
             }
         });
     });
@@ -61,7 +61,7 @@
                     message: 'Senha incorretos'
                 });
             } else {
-                setToken(data);
+                setToken(data, response);
             }
         });
     });
@@ -74,7 +74,7 @@
     /**
     * Função que seta o token e o id quando a requisição der certo.
     */
-    function setToken(data){
+    function setToken(data, response){
         var token = jwt.sign(data, config.secret, {
             expiresIn: 144000 // 24 hours
         });
