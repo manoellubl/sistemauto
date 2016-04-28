@@ -15,6 +15,9 @@
      */
     router.post('/api/authenticate/login', function (request, response) {
         var email = request.body.email;
+        
+        console.log("Login");
+        console.log(request.body);
 
         var query = User.findOne({
             email: email
@@ -45,20 +48,26 @@
      * POST /api/loginEstudante
      */
     router.post('/api/authenticate/loginEstudante', function (request, response) {
-        var cpf = request.body.cpf;
+        var email = request.body.email;
+        var userId = request.body.userId;
+
+        console.log("Login Estudante");
+        console.log(request.body);
 
         var query = Student.findOne({
-            cpf: cpf
-        }).select('+password');
+            email: email,
+            user: userId
+        });
 
         query.exec(function (error, data) {
+            console.log(data);
             if (data === null) {
                 response.status(403).json({
                     message: 'Você não foi cadastrado ainda pela auto escola. Por favor entre em contato com a mesma.'
                 });
             } else if (data.password !== request.body.password) {
                 response.status(403).json({
-                    message: 'Senha incorretos'
+                    message: 'Senha incorreta'
                 });
             } else {
                 setToken(data, response);

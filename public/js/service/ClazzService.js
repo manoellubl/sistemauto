@@ -50,9 +50,10 @@
         };
 
         this.post = function(idStudent, data) {
-            console.log(idStudent);
+            console.log("Post clazz");
             var deferred = $q.defer();
             var url = ApiUrl.url + '/user/' + UserService.getId() + "/student/" + idStudent + '/clazz';
+            console.log("URL: " + url);
             $http.post(url, data).then(function(info) {
                 deferred.resolve(info);
             }, function(error) {
