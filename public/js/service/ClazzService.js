@@ -75,5 +75,19 @@
 
             return deferred.promise;
         };
+
+        this.remove = function(asd, id) {
+            var deferred = $q.defer();
+            var url = ApiUrl.url + '/user/' + UserService.getId() + "/student/" + asd + '/clazz/' + id;
+
+            $http.delete(url).then(function(info) {
+                console.log("clazz serviceeee");
+                deferred.resolve(info);
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
+        };
     }
 })();

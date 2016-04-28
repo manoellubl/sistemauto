@@ -12,11 +12,14 @@
     ]);
 
     function ClazzController(StudentService, ClazzService, UserService, $scope, $compile, uiCalendarConfig, $mdDialog, MensagemService) {
-        StudentService.getStudents().then(function (info) {
-            $scope.students = info.data;
-        }, function (error) {
-            MensagemService.msg(error.data.message);
-        });
+        $scope.updateView = function(){
+            StudentService.getStudents().then(function (info) {
+                $scope.students = info.data;
+            }, function (error) {
+                MensagemService.msg(error.data.message);
+            });
+        }
+        $scope.updateView();
 
         var date = new Date();
         var d = date.getDate();
@@ -60,6 +63,20 @@
             callback(events);
         };
 
+
+
+
+        /* alert on eventClick */
+        $scope.alertOnEventClick = function( date, jsEvent, view){
+            $scope.selectedClazz = date;
+            $scope.showDialog();
+        };
+         /* Render Tooltip */
+        $scope.eventRender = function( event, element, view ) { 
+            element.attr({'tooltip': event.title, 'tooltip-append-to-body': true});
+            $compile(element)($scope);
+        };
+
         $scope.tipos = [{
             value: 'Simulador'
         }, {
@@ -95,6 +112,20 @@
             });
         };
 
+        $scope.removeClazz = function(id) {
+            ClazzService.remove($scope.selectedClazz.student, id).then(function(info) {
+                $scope.updateView();
+                $scope.updateCalendar();
+                $scope.closeDialog();
+                console.log("SUCESSO");
+            }, function(error) {
+                console.log("ERRO");
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
+            });
+        };
+
         $scope.cancelar = function () {
             $scope.data = {};
         };
@@ -114,7 +145,9 @@
                     left: 'title month agendaWeek agendaDay',
                     center: '',
                     right: 'today prev,next'
-                }
+                },
+                eventClick: $scope.alertOnEventClick,
+                eventRender: $scope.eventRender
             }
         };
 
@@ -130,19 +163,38 @@
             }
         };
 
-        ClazzService.all().then(function (info) {
-            $scope.eventSources.splice(0, $scope.eventSources.length);
-            _.each(info.data, function(data) {
-                data.start = new Date(data.start);
-                castDate(data.start);
-
-                data.end = new Date(data.end);
-                castDate(data.end);
+        $scope.showDialog = function() {
+            $mdDialog.show({
+                scope: $scope,
+                clickOutsideToClose: true,
+                preserveScope: true, 
+                templateUrl: '../view/newClazz.html',
+                parent: angular.element(document.body)
             });
-            $scope.eventSources.push(info.data);
+        };
 
-            $scope.eventSources.push($scope.eventSource);
-        });
+        $scope.closeDialog = function() {
+            $mdDialog.hide();
+            $scope.selectedClazz = {};
+        };
+
+
+        $scope.updateCalendar = function() {
+            ClazzService.all().then(function (info) {
+                $scope.eventSources.splice(0, $scope.eventSources.length);
+                _.each(info.data, function(data) {
+                    data.start = new Date(data.start);
+                    castDate(data.start);
+
+                    data.end = new Date(data.end);
+                    castDate(data.end);
+                });
+                $scope.eventSources.push(info.data);
+
+                $scope.eventSources.push($scope.eventSource);
+            });
+        };
+        $scope.updateCalendar();
 
         function castDate(data) {
             data.setUTCFullYear( data.getFullYear(), data.getMonth(), data.getDate() );
