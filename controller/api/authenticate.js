@@ -51,7 +51,6 @@
             cpf: cpf
         }).select('+password');
 
-
         query.exec(function (error, data) {
             if (data === null) {
                 response.status(403).json({
