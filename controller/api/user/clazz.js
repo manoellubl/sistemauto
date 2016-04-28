@@ -69,5 +69,14 @@
         });
     });
 
+    router.delete(URI + '/:_id_clazz', function(request, response, next) {
+        Clazz.remove({
+            _id: request.params._id_clazz
+        }, function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+
+    });
+
     module.exports = router;
 })();
