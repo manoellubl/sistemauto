@@ -1,105 +1,86 @@
 (function() {
     'use strict';
 
-    module.exports = function (router) {
-        var Instructor = rootRequire('model/instructor.model');
+    var router = require('express').Router();
+    var Instructor = rootRequire('model/instructor.model');
+    var util = rootRequire('module/util');
 
-        router.get('/', function(request, response) {
-            if (request.query !== undefined && request.query.name !== undefined) {
-                var cursor = Instructor.find({
+    var URI = '/api/user/:_idUser/instructor';
+
+    /**
+     * Obtém todos os instrutores de uma auto escola.
+     * Se for passado parâmetros de busca, será realizada
+     * uma filtragem.
+     */
+    router.get(URI, function(request, response, next) {
+        var cursor = Instructor.find({
+            user: request.params._idUser
+        });
+        cursor = buscaInstrutor(request, cursor);
+
+        cursor.exec(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    function buscaInstrutor(request, cursor) {
+        if (request.query !== undefined && request.query.name !== undefined) {
+            cursor = Instructor.find({
+                $and: {
                     name : {
                         '$regex': request.query.name
-                    }
-                });
-                cursor.exec(function(error, data) {
-                    response.json(data);
-                });
-            } else {
-                var cursor = Instructor.find(request.query);
-                cursor.exec(function(error, data) {
-                    response.json(data);
-                });
-            }
-        });
-
-        router.get('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            var query = Instructor.findById(id);
-            query.exec(function(error, data) {
-                if (error !== null) {
-                    if(error.message != undefined) {
-                        error.message = repare_message(error.message);
-                    }
-                    next(error);
-                } else {
-                    response.json(data);
+                    },
+                    instructor: request.params._idUser
                 }
             });
-        });
-
-        router.post('/', function(request, response, next) {
-            var student = new Instructor(request.body);
-            student.save(function(error, data) {
-                if (error !== null) {
-                    if(error.message != undefined) {
-                        error.message = repare_message(error.message);
-                    }
-                    next(error);
-                } else {
-                    response.status(201).json(data);
-                }
-            });
-        });
-
-        router.put('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            var query =  Instructor.findByIdAndUpdate(id, {$set: request.body}, {new: true});
-            query.exec(function(error, data) {
-                if (error !== null) {
-                    if(error.message != undefined) {
-                        error.message = repare_message(error.message);
-                    }
-                    next(error);
-                } else {
-                    response.json(data);
-                }
-            });
-        });
-
-        router.delete('/:_id', function(request, response, next) {
-            var id = request.params._id;
-            Instructor.remove({_id: id}, function(error) {
-                if (error != null) {
-                    if(error.message != undefined) {
-                        error.message = repare_message(error.message);
-                    }
-                    next(error);
-                } else {
-                    // TODO
-                    response.json({});
-                }
-            });
-        });
-
-        function repare_message(message) {
-            var dupkey = 'E11000';
-            
-            if(message.indexOf(dupkey) > -1) {
-                if(message.indexOf('cpf_1') > -1) {
-                    return "CPF já cadastrado";
-                }
-                if(message.indexOf('rg_1') > -1) {
-                    return "RG já cadastrado";
-                }
-                if(message.indexOf('email_1') > -1) {
-                    return "Email já cadastrado";
-                }
-                if(message.indexOf('cnpj_1') > -1) {
-                    return "CNPJ já cadastrado";
-                }
-            }
-
-            return message;
         }
-    };
-}());
+        return cursor;
+    }
+
+    /**
+     * Obtém um instrutor específico
+     */
+    router.get(URI + '/:_idInstructor', function(request, response, next) {
+        var cursor = Instructor.findById(request.params._idInstructor);
+        cursor.exec(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    /**
+     * Cadastra um novo instrutor.
+     */
+    router.post(URI, function(request, response, next) {
+        var instructor = new Instructor(request.body);
+        instructor.user = request.params._idUser;
+
+        instructor.save(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    /**
+     * Atualiza um instrutor específico.
+     */
+    router.put(URI + '/:_idInstructor', function(request, response, next) {
+        var cursor = Instructor.findByIdAndUpdate(request.params._idInstructor, {
+            $set: request.body
+        });
+        cursor.exec(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    /**
+     * Remove um instrutor específico.
+     */
+    router.delete(URI + '/:_idInstructor', function(request, response, next) {
+        Instructor.remove({
+            _id: request.params._idInstructor
+        }, function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
+    module.exports = router;
+})();
