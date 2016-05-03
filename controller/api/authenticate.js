@@ -59,7 +59,7 @@
         }).select('+password');
 
         query.exec(function (error, data) {
-            console.log("---req---")
+            console.log("---req----")
             console.log(data);
             if (data === null) {
                 response.status(403).json({
