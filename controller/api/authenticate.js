@@ -48,14 +48,13 @@
      * POST /api/loginEstudante
      */
     router.post('/api/authenticate/loginEstudante', function (request, response) {
-        var email = request.body.email;
-        var userId = request.body.userId;
-
+        var cpf = request.body.cpf;
+        
         console.log("Login Estudante");
         console.log(request.body);
 
         var query = Student.findOne({
-            email: email
+            cpf: cpf
         }).select('+password');
 
         query.exec(function (error, data) {
