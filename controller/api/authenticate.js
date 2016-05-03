@@ -54,12 +54,12 @@
         console.log("Login Estudante");
         console.log(request.body);
 
-        var query = Student.findOne({
-            email: email,
-            user: userId
-        });
+        var query = User.findOne({
+            email: email
+        }).select('+password');
 
         query.exec(function (error, data) {
+            console.log("---req---")
             console.log(data);
             if (data === null) {
                 response.status(403).json({
