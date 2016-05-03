@@ -24,6 +24,8 @@
         }).select('+password');
 
         query.exec(function (error, data) {
+            console.log("---req2----")
+            console.log(data);
             if (data === null) {
                 response.status(403).json({
                     message: 'Email ou senha incorretos'
@@ -60,6 +62,7 @@
         query.exec(function (error, data) {
             console.log("---req----")
             console.log(data);
+            console.log(data.password);
             if (data === null) {
                 response.status(403).json({
                     message: 'Você não foi cadastrado ainda pela auto escola. Por favor entre em contato com a mesma.'
