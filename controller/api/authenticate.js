@@ -19,7 +19,7 @@
         console.log("Login");
         console.log(request.body);
 
-        var query = Student.findOne({
+        var query = User.findOne({
             email: email
         }).select('+password');
 
@@ -54,7 +54,7 @@
         console.log("Login Estudante");
         console.log(request.body);
 
-        var query = User.findOne({
+        var query = Student.findOne({
             email: email
         }).select('+password');
 
