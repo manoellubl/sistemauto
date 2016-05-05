@@ -16,7 +16,10 @@
         cpf: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            index: {
+                unique: true
+            }
         },
         rg: {
             type: String,

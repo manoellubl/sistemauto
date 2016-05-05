@@ -57,7 +57,7 @@
 
         var query = Student.findOne({
             cpf: cpf
-        }).select('+password');
+        }).select();
 
         query.exec(function (error, data) {
             console.log("---req----")
