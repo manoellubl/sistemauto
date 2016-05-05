@@ -72,7 +72,8 @@
         },
         password:{
             type: String,
-            required: true
+            required: true,
+            select: false
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,

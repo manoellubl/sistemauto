@@ -15,17 +15,12 @@
      */
     router.post('/api/authenticate/login', function (request, response) {
         var email = request.body.email;
-        
-        console.log("Login");
-        console.log(request.body);
 
         var query = User.findOne({
             email: email
         }).select('+password');
 
         query.exec(function (error, data) {
-            console.log("---req2----")
-            console.log(data);
             if (data === null) {
                 response.status(403).json({
                     message: 'Email ou senha incorretos'
@@ -51,18 +46,12 @@
      */
     router.post('/api/authenticate/loginEstudante', function (request, response) {
         var cpf = request.body.cpf;
-        
-        console.log("Login Estudante");
-        console.log(request.body);
 
         var query = Student.findOne({
             cpf: cpf
-        }).select();
+        }).select('+password');
 
         query.exec(function (error, data) {
-            console.log("---req----")
-            console.log(data);
-            console.log(data.password);
             if (data === null) {
                 response.status(403).json({
                     message: 'Você não foi cadastrado ainda pela auto escola. Por favor entre em contato com a mesma.'
