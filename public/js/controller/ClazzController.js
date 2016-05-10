@@ -91,12 +91,15 @@
         $scope.salvarAula = function () {
             console.log("AQUI CARAI");
             $scope.data.user = UserService.getId();
+            var dataComeco = $scope.data.date;
+            dataComeco.setHours($scope.data.time.getHours());
+            dataComeco.setMinutes($scope.data.time.getMinutes());
+            dataComeco = dataComeco.getTime()
 
-            $scope.data.start = $scope.data.start.getTime();
-            $scope.data.end = $scope.data.end.getTime();
+            var dataFim = dataComeco + $scope.data.end*60000;
 
-            var date = new Date($scope.data.start);
-            console.log(date.getHours());
+            $scope.data.start = dataComeco
+            $scope.data.end = dataFim
 
             ClazzService.post($scope.data.student, $scope.data).then(function (info) {
                 var aula = info.data;
