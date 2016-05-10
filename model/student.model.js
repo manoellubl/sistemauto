@@ -16,7 +16,10 @@
         cpf: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            index: {
+                unique: true
+            }
         },
         rg: {
             type: String,
@@ -69,7 +72,8 @@
         },
         password:{
             type: String,
-            required: true
+            required: true,
+            select: false
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,

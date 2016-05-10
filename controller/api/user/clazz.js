@@ -24,12 +24,14 @@
      * Pega todas as aulas de um aluno
      */
     router.get(URI, function(request, response, next) {
+        console.log("Get clazz student");
         var cursor = Clazz.find({
             'user': request.params.id_user,
             'student': request.params.id_student
         });
 
         cursor.exec(function(error, data) {
+            console.log(data);
             util.generic_response_callback(response, next, error, data);
         });
     });
@@ -67,6 +69,15 @@
         cursor.exec(function(error, data) {
             util.generic_response_callback(response, next, error, data);
         });
+    });
+
+    router.delete(URI + '/:_id_clazz', function(request, response, next) {
+        Clazz.remove({
+            _id: request.params._id_clazz
+        }, function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+
     });
 
     module.exports = router;

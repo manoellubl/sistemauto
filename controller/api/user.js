@@ -14,7 +14,7 @@
      *
      * GET /api/user
      */
-    router.get(URI, function (request, response) {
+    router.get(URI, function (request, response, next) {
         var cursor = User.find(request.query);
         if (request.query !== undefined && request.query.name !== undefined) {
             cursor = User.find({

@@ -50,9 +50,10 @@
         };
 
         this.post = function(idStudent, data) {
-            console.log(idStudent);
+            console.log("Post clazz");
             var deferred = $q.defer();
             var url = ApiUrl.url + '/user/' + UserService.getId() + "/student/" + idStudent + '/clazz';
+            console.log("URL: " + url);
             $http.post(url, data).then(function(info) {
                 deferred.resolve(info);
             }, function(error) {
@@ -67,6 +68,20 @@
             var url = ApiUrl.url + '/user/' + UserService.getId() + "/student/" + idStudent + '/clazz/' + id;
 
             $http.put(url, data).then(function(info) {
+                deferred.resolve(info);
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+            return deferred.promise;
+        };
+
+        this.remove = function(asd, id) {
+            var deferred = $q.defer();
+            var url = ApiUrl.url + '/user/' + UserService.getId() + "/student/" + asd + '/clazz/' + id;
+
+            $http.delete(url).then(function(info) {
+                console.log("clazz serviceeee");
                 deferred.resolve(info);
             }, function(error) {
                 deferred.reject(error);
