@@ -63,6 +63,7 @@
      * Atualiza uma aula específica
      */
     router.put(URI + '/:id_clazz', function(request, response, next) {
+        console.log("cheguei");
         var cursor = Clazz.findByIdAndUpdate(request.params.id_clazz, {
             $set: request.body
         });

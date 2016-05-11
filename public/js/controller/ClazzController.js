@@ -21,10 +21,12 @@
         }
         $scope.updateView();
 
-        var date = new Date();
+        var date = new Date();        
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
+        $scope.myDate = date;
+        $scope.minutesToEdit = 0;
 
         $scope.eventSource = {
             url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
@@ -69,8 +71,21 @@
         /* alert on eventClick */
         $scope.alertOnEventClick = function( date, jsEvent, view){
             $scope.selectedClazz = date;
+            $scope.data.date = new Date(date.start);
+            $scope.minutesToEdit = ($scope.selectedClazz.end - $scope.selectedClazz.start) / 60000;
             $scope.showDialog();
         };
+
+        $scope.showDialog = function() {
+            $mdDialog.show({
+                scope: $scope,
+                clickOutsideToClose: true,
+                preserveScope: true, 
+                templateUrl: '../view/newClazz.html',
+                parent: angular.element(document.body)
+            });
+        };
+
          /* Render Tooltip */
         $scope.eventRender = function( event, element, view ) { 
             element.attr({'tooltip': event.title, 'tooltip-append-to-body': true});
@@ -87,6 +102,11 @@
         ];
 
         $scope.data = {};
+        $scope.data.date = new Date();
+        $scope.today = new Date($scope.data.date.getFullYear(),
+             $scope.data.date.getMonth(),
+             $scope.data.date.getDate());
+
 
         $scope.salvarAula = function () {
             console.log("AQUI CARAI");
@@ -94,7 +114,7 @@
             var dataComeco = $scope.data.date;
             dataComeco.setHours($scope.data.time.getHours());
             dataComeco.setMinutes($scope.data.time.getMinutes());
-            dataComeco = dataComeco.getTime()
+            dataComeco = dataComeco.getTime();
 
             var dataFim = dataComeco + $scope.data.end*60000;
 
@@ -112,6 +132,35 @@
                 $scope.data = {};
             }, function (error) {
                 console.log(error);
+            });
+        };
+
+        $scope.editarAula = function(){
+            $scope.selectedClazz.start = $scope.data.date.getTime();
+            $scope.selectedClazz.end = $scope.data.date.getTime() + $scope.minutesToEdit*60000;
+            var clazzCopy = {};
+            clazzCopy._id = $scope.selectedClazz._id;
+            clazzCopy.start = $scope.selectedClazz.start;
+            clazzCopy.end = $scope.selectedClazz.end;
+            clazzCopy.title = $scope.selectedClazz.title;
+            clazzCopy.type = $scope.selectedClazz.type;
+            clazzCopy.student = $scope.selectedClazz.student;
+            clazzCopy.user = $scope.selectedClazz.user;
+            clazzCopy.ativo = $scope.selectedClazz.ativo;
+
+            console.log(clazzCopy);
+
+            
+            ClazzService.put($scope.data.student, clazzCopy._id, clazzCopy).then(function(info) {
+                $scope.updateView();
+                $scope.updateCalendar();
+                $scope.closeDialog();
+                console.log("SUCESSO UPDATE AULA");
+            }, function(error) {
+                console.log("ERRO UPDATE AULA");
+                if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
             });
         };
 
@@ -166,15 +215,7 @@
             }
         };
 
-        $scope.showDialog = function() {
-            $mdDialog.show({
-                scope: $scope,
-                clickOutsideToClose: true,
-                preserveScope: true, 
-                templateUrl: '../view/newClazz.html',
-                parent: angular.element(document.body)
-            });
-        };
+
 
         $scope.closeDialog = function() {
             $mdDialog.hide();
