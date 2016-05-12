@@ -15,7 +15,8 @@
         'title': {
             type: String,
             required: true
-        }, 'type': {
+        }, 
+        'type': {
             type: String,
             required: true
         },

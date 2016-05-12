@@ -71,7 +71,8 @@
         /* alert on eventClick */
         $scope.alertOnEventClick = function( date, jsEvent, view){
             $scope.selectedClazz = date;
-            $scope.data.date = new Date(date.start);
+            $scope.data.date = new Date(date.start); /*variavel para guardar a data */
+            $scope.data.time = new Date(date.start); /*variavel para guardar as horas */
             $scope.minutesToEdit = ($scope.selectedClazz.end - $scope.selectedClazz.start) / 60000;
             $scope.showDialog();
         };
@@ -109,7 +110,6 @@
 
 
         $scope.salvarAula = function () {
-            console.log("AQUI CARAI");
             $scope.data.user = UserService.getId();
             var dataComeco = $scope.data.date;
             dataComeco.setHours($scope.data.time.getHours());
@@ -136,8 +136,12 @@
         };
 
         $scope.editarAula = function(){
-            $scope.selectedClazz.start = $scope.data.date.getTime();
-            $scope.selectedClazz.end = $scope.data.date.getTime() + $scope.minutesToEdit*60000;
+            var editedDate = $scope.data.date;
+            editedDate.setHours($scope.data.time.getHours());
+            editedDate.setMinutes($scope.data.time.getMinutes());
+
+            $scope.selectedClazz.start = editedDate.getTime();
+            $scope.selectedClazz.end = editedDate.getTime() + $scope.minutesToEdit*60000;
             var clazzCopy = {};
             clazzCopy._id = $scope.selectedClazz._id;
             clazzCopy.start = $scope.selectedClazz.start;
