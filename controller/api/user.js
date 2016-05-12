@@ -7,9 +7,16 @@
     var slackModule = require('../../module/slackModule');
     var util = rootRequire('module/util');
 
+    var notificacao = rootRequire('module/notification');
+
     var job = rootRequire('module/job');
 
     var URI = '/api/user';
+
+    router.post('/api/notificacao', function(request, response, next) {
+        notificacao.sendPushNotification(request.body.token, request.body.mensagem);
+        response.json({});
+    });
 
     /**
      * Realiza o GET de Collection do Endpoint user.
