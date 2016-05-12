@@ -86,6 +86,9 @@
         user: {
             type: mongoose.Schema.Types.ObjectId,
             required: true
+        }, 
+        pushToken : {
+            type: String
         }
     });
 

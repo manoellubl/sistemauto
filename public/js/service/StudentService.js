@@ -19,6 +19,21 @@
 
         this.cache = {};
 
+        this.sendNotification = function(token, mensagem) {
+            var deferred = $q.defer();
+
+            $http.post(ApiUrl.url + '/notificacao', {
+                'token': token,
+                'mensagem': mensagem
+            }).then(function(info) {
+                deferred.resolve(info);
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+             return deferred.promise;
+        };
+
         this.getStudents = function() {
             var deferred = $q.defer();
             if (Object.keys(self.cache).length  > 0 && Object.keys(self.cache) === "undefined") {

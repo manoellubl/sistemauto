@@ -7,6 +7,7 @@
     var emailSender = require('../../module/emailModule');
 
     router.get('/api/activate', function (request, response, next) {
+
         var hash = request.query.hash;
         var cursor = User.findByIdAndUpdate(hash, {
             $set: {

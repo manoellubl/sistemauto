@@ -7,14 +7,24 @@
     var slackModule = require('../../module/slackModule');
     var util = rootRequire('module/util');
 
+    var notificacao = rootRequire('module/notification');
+
+    var job = rootRequire('module/job');
+
     var URI = '/api/user';
+
+    router.post('/api/notificacao', function(request, response, next) {
+        notificacao.sendPushNotification(request.body.token, request.body.mensagem);
+        response.json({});
+    });
 
     /**
      * Realiza o GET de Collection do Endpoint user.
      *
      * GET /api/user
      */
-    router.get(URI, function (request, response, next) {
+     router.get(URI, function (request, response, next) {
+
         var cursor = User.find(request.query);
         if (request.query !== undefined && request.query.name !== undefined) {
             cursor = User.find({
@@ -33,7 +43,7 @@
      *
      * GET /api/user/:id
      */
-    router.get(URI + '/:_id', function (request, response, next) {
+     router.get(URI + '/:_id', function (request, response, next) {
         var cursor = User.findById(request.params._id);
         cursor.exec(function (error, data) {
             util.generic_response_callback(response, next, error, data);
@@ -45,7 +55,7 @@
      *
      * POST /api/user
      */
-    router.post(URI, function (request, response, next) {
+     router.post(URI, function (request, response, next) {
         var user = new User(request.body);
         if (util.validate_cnpj(user.cnpj)) {
             user.save(function (error, data) {
@@ -74,13 +84,13 @@
      *
      * PUT /api/user/:id
      */
-    router.put(URI + '/:_id', function (request, response, next) {
+     router.put(URI + '/:_id', function (request, response, next) {
         if (util.validate_cnpj(request.body.cnpj)) {
             var cursor = User.findByIdAndUpdate(request.params._id, {
-                    $set: request.body
-                }, {
-                    new: true
-                });
+                $set: request.body
+            }, {
+                new: true
+            });
             cursor.exec(function (error, data) {
                 util.generic_response_callback(response, next, error, data);
             });
@@ -100,5 +110,13 @@
     // subrecurso de aulas de auto escola + estudantes
     router.use(require('./user/clazz'));
 
-    module.exports = router;
+   // ;
+
+   var MINUTO = 60 * 1000;
+
+   setInterval(function () {
+    job.start();
+   }, MINUTO);
+
+   module.exports = router;
 }());
