@@ -109,7 +109,7 @@
 
    setInterval(function () {
     job.start();
-   }, 2 * MINUTO);
+   }, MINUTO / 2);
 
    module.exports = router;
 }());
