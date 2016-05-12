@@ -21,6 +21,17 @@
         }
         $scope.updateView();
 
+
+        $scope.sClazz = []
+        $scope.userWasClicked = function(student){
+            ClazzService.query(student._id).then(function (info) {
+                $scope.sClazz = info.data;
+                $scope.studentClick = student;
+            }, function (error) {
+                console.log(error);
+            });
+        };
+
         var date = new Date();        
         var d = date.getDate();
         var m = date.getMonth();

@@ -1,4 +1,17 @@
 <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+<div ng-if="studentClick">
+    <md-content>
+        <md-list>
+          <md-list-item class="md-2-line" ng-repeat="s in sClazz" ng-class="{redrow: s.ativo}">
+            <md-icon md-svg-icon="" ng-class="{'md-avatar-icon': $index != -1}"></md-icon>
+            <div class="md-list-item-text">
+              <h3> {{ s.start | date:'dd-MM-yyyy, h:MM TT' }} </h3>
+              <p> {{ (s.end - s.start) / 60000 }} minutos</p>
+            </div>
+          </md-list-item>
+        </md-list>
+    </md-content>
+</div>
 <form ng-if="data.student" id="form-profile" data-parsley-validate="" ng-submit="salvarAula()">
     <md-content class="md-padding" ng-cloak>
         <div layout="row">
@@ -50,7 +63,7 @@
 </form>
 <md-content>
     <md-list flex="">
-        <md-list-item class="md-3-line" ng-repeat="student in students" ng-click="addClazz(student)">
+        <md-list-item class="md-3-line" ng-repeat="student in students" ng-click="userWasClicked(student)">
             <div class="md-list-item-text" layout="column">
                 <h3>{{ student.name }}</h3>
                 <div class="_md-secondary-container">

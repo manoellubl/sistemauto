@@ -20,7 +20,6 @@
         'ui.bootstrap'
     ]);
 
-
     // app.constant('ApiUrl', {url: 'http://localhost:8080/api'});
     app.constant('ApiUrl', { url: 'http://sistemauto.herokuapp.com/api' });
 
