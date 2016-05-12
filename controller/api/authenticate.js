@@ -51,8 +51,8 @@
         var query = Student.findOne({
             cpf: cpf
         }).select('+password');
-
         query.exec(function (error, data) {
+
             if (data === null) {
                 response.status(403).json({
                     message: 'Você não foi cadastrado ainda pela auto escola. Por favor entre em contato com a mesma.'
@@ -94,7 +94,8 @@
         });
         response.json({
             token: token,
-            id: data._id
+            id: data._id,
+            autoId: data.user
         });
     };
 
