@@ -8,12 +8,13 @@
     angular.module('app').controller('StudentController', [
         '$scope',
         '$mdDialog',
+        '$mdMedia',
         'StudentService',
         'MensagemService',
         StudentController
     ]);
 
-    function StudentController($scope, $mdDialog, StudentService, MensagemService) {
+    function StudentController($scope, $mdDialog, $mdMedia, StudentService, MensagemService) {
         $scope.cnhtypes = [
             {type: "A"},
             {type: "B"},
@@ -33,6 +34,9 @@
         $scope.students = [];
         $scope.updateList();
         
+        /**
+        * Faz a requisição para registrar ou atualizar um aluno
+        */
         $scope.register = function() {
             $scope.student.birthDateTimestamp = $scope.student.birthDate.getTime();
             
@@ -76,22 +80,33 @@
             $scope.student = {};
         };
 
+        /**
+        * Adiciona um aluno
+        */
         $scope.addStudent = function() {
             $scope.student = {};
             $scope.showForm();
         };
 
-        $scope.removerStudent = function(id) {
-          StudentService.removeStudent(id).then(function(info) {
+        /**
+        * Remove um aluno
+        */
+        $scope.removerStudent = function(id, ev) {
+            ev.stopPropagation();
+
+            StudentService.removeStudent(id).then(function(info) {
                 $scope.updateList();
                 MensagemService.msg("Aluno removido com sucesso!");
-          }, function(error) {
+            }, function(error) {
                 if (error.data.message != undefined) {
                     MensagemService.msg(error.data.message);
                 }
-          });
+            });
         };
 
+        /**
+        * Modal para inserir um novo aluno
+        */
         $scope.showForm = function() {
             $mdDialog.show({
                 scope: $scope,
@@ -115,5 +130,24 @@
                 }
             });
         };
-    }
+
+        /**
+        * Modal que adiciona datas nos exames do aluno
+        */
+        $scope.adicionarProvas = function(id, ev) {
+            ev.stopPropagation();
+            $mdDialog.show({
+                scope: $scope,
+                clickOutsideToClose: true,
+                preserveScope: true, 
+                templateUrl: '../view/dataExames.html',
+                parent: angular.element(document.body),
+                fullscreen: $mdMedia('xs')
+            });
+        };
+
+        $scope.salvarDatasExames = function(){
+            MensagemService.msg("Datas dos exames salvas!");
+        }
+    };
 })();

@@ -1,10 +1,11 @@
 <md-list>
  <md-list-item ng-repeat="student in students" ng-click="update(student._id)">
-    <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar" />
+    <img alt="Img not found" ng-src="asset/svg/student.svg" class="md-avatar">
     <p>{{ student.name }}</p>
     <p>{{ student.email }}</p>
-    <p>{{ student.driverLicenseClass }}</p>
-    <md-icon md-svg-src="asset/svg/clear.svg" ng-click="removerStudent(student._id)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': student.newMessage}"></md-icon>
+    <p>{{ student.cnhType }}</p>
+    <md-icon md-svg-src="asset/svg/doc.svg" ng-click="adicionarProvas(student._id, $event)" aria-label="Adicionar data exames"></md-icon>
+    <md-icon md-svg-src="asset/svg/clear.svg" ng-click="removerStudent(student._id, $event)" aria-label="Remover estudante"></md-icon>
 	<md-divider ng-if="!$last"></md-divider>
   </md-list-item>
 </md-list>

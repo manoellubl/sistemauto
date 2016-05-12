@@ -1,0 +1,21 @@
+<md-dialog>
+    <form id="exames-aluno" ng-submit="salvarDatasExames()">
+        <md-content class="md-padding">
+        <div layout-gt-xs="row">
+            <h4>Avaliação Psicológica</h4>
+            <md-datepicker ng-model="user.submissionDate" md-placeholder="Enter date"></md-datepicker>
+        </div>
+            <h4>la la la</h4>
+            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+            <h4>Clínico</h4>
+            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+            <!-- Botoes -->
+            <md-input-container>
+                <div layout="row">
+                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
+                    <md-button type="button" ng-click="closeForm()" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_CANCEL' | translate }}</md-button>
+                </div>
+            </md-input-container>
+        </md-content>
+    </form>
+</md-dialog>
