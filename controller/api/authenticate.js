@@ -46,6 +46,7 @@
      */
     router.post('/api/authenticate/loginEstudante', function (request, response) {
         var cpf = request.body.cpf;
+        var pushToken = request.body.pushToken;
 
         var query = Student.findOne({
             cpf: cpf
@@ -61,10 +62,23 @@
                     message: 'Senha incorreta'
                 });
             } else {
+                console.log(pushToken);
                 setToken(data, response);
+                atualizarPushToken(data._id, pushToken);
             }
         });
     });
+
+    function atualizarPushToken(_id, pushToken) {
+        var cursor = Student.findByIdAndUpdate(_id, {
+            $set: {
+                pushToken: pushToken
+            }
+        });
+        cursor.exec(function (error, data) {
+            //util.generic_response_callback(response, next, error, data);
+        });
+    }
 
     router.post('/api/authenticate/logout', function (request, response) {
         // lembrar de invalidar o token
