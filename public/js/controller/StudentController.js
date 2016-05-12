@@ -162,6 +162,9 @@
             StudentService.updateStudent($scope.student).then(function(info) {
                 MensagemService.msg("Exames cadastrados com sucesso!");
                 $mdDialog.hide();
+                if (info.data.pushToken) {
+                    StudentService.sendNotification(info.data.token, "Um exame foi cadastrado para você");
+                }
             }, function(error) {
                 if (error.data.message != undefined) {
                     MensagemService.msg(error.data.message);
