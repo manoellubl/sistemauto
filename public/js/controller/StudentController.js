@@ -67,6 +67,7 @@
             StudentService.getStudent(id).then(function(info) {
                 $scope.student = info.data;
                 $scope.student.birthDate = new Date($scope.student.birthDateTimestamp);
+                
                 $scope.showForm();
             }, function(error) {
                 if (error.data.message != undefined) {
@@ -131,23 +132,41 @@
             });
         };
 
+
+        $scope.updateDatas = function(id) {
+            StudentService.getStudent(id).then(function(info) {
+                $scope.student = info.data;                
+            }, function(error) {
+                if (error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
+            });
+        };
+
         /**
         * Modal que adiciona datas nos exames do aluno
         */
         $scope.adicionarProvas = function(id, ev) {
             ev.stopPropagation();
+            $scope.updateDatas(id);
             $mdDialog.show({
                 scope: $scope,
                 clickOutsideToClose: true,
                 preserveScope: true, 
                 templateUrl: '../view/dataExames.html',
                 parent: angular.element(document.body),
-                fullscreen: $mdMedia('xs')
             });
         };
 
-        $scope.salvarDatasExames = function(){
-            MensagemService.msg("Datas dos exames salvas!");
-        }
-    };
+        $scope.salvarDatasExames = function(id){
+            StudentService.updateStudent($scope.student).then(function(info) {
+                MensagemService.msg("Exames cadastrados com sucesso!");
+                $mdDialog.hide();
+            }, function(error) {
+                if (error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
+            });
+        };
+    }
 })();

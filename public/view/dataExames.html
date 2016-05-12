@@ -1,14 +1,19 @@
 <md-dialog>
-    <form id="exames-aluno" ng-submit="salvarDatasExames()">
-        <md-content class="md-padding">
-        <div layout-gt-xs="row">
-            <h4>Avaliação Psicológica</h4>
-            <md-datepicker ng-model="user.submissionDate" md-placeholder="Enter date"></md-datepicker>
-        </div>
-            <h4>la la la</h4>
-            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-            <h4>Clínico</h4>
-            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+    <form id="exames-aluno" ng-submit="salvarDatasExames(student._id)">
+        <md-content class="md-padding" ng-cloak>
+            <h3> Datas Exames</h3>
+            <div layout="row">
+                <div flex>
+                    <label>Técnico/Teórico</label>
+                    <md-datepicker ng-model="student.exameTeorico" md-min-date="today" md-placeholder="Enter date"></md-datepicker>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex>
+                    <label>Prático</label>
+                    <md-datepicker ng-model="student.examePratico" md-min-date="today" md-placeholder="Enter date"></md-datepicker>
+                </div>
+            </div>
             <!-- Botoes -->
             <md-input-container>
                 <div layout="row">
