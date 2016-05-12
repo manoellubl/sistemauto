@@ -7,8 +7,6 @@
     var slackModule = require('../../module/slackModule');
     var util = rootRequire('module/util');
 
-    var notification = rootRequire('module/notification');
-
     var URI = '/api/user';
 
     /**
@@ -18,7 +16,6 @@
      */
     router.get(URI, function (request, response, next) {
 
-        notification.sendPushNotification("cpV1k0o-v-M:APA91bHdpQaf3u6I6dNeoeQ4gpDgTLwIuAO4LuuaXPlECeQPEXSRSv_bmxIb1yQ3kgRFsIEzv6rFycVuJN22R4L1PXExUF6GVmj2oVPNluglVgVOU5gLh_0A28RYK-e8cwgZVHkhp4Lq");
         var cursor = User.find(request.query);
         if (request.query !== undefined && request.query.name !== undefined) {
             cursor = User.find({
