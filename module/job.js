@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var Student = rootRequire('model/user.model');
+    var Student = rootRequire('model/student.model');
     var Clazz = rootRequire('model/clazz.model');
 
     var notificacao = rootRequire('module/notification');
