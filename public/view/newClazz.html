@@ -1,24 +1,52 @@
 <md-dialog>
-    <form id="form-clazz" data-parsley-validate="" ng-submit="TODO">
-        <md-content class="md-padding" ng-cloak>
-            <div layout="row">
+
+    <form id="form-clazz" data-parsley-validate="" ng-submit="editarAula()">
+    <md-content class="md-padding" ng-cloak>
+        <div layout="row">
+            <div flex>
                 <md-input-container flex>
                     <label>Título</label>
-                    <input required ng-model="selectedClazz.title" type="text">
+                    <input ng-disabled="true" required ng-model="selectedClazz.title" type="text">
                 </md-input-container>
             </div>
-            <div layout="row">
-                <md-input-container flex>
-                    <label>Tipo</label>
-                    <input required ng-model="selectedClazz.type" type="text">
-                </md-input-container>
-            </div>
+            <div flex>
             <md-input-container>
-                <div layout="row">
-                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
-                    <md-button type="button" ng-click="removeClazz(selectedClazz._id)" class="md-raised md-primary" flex="25" flex-sm="25">Excluir</md-button>
-                </div>
+                <label>Tipo *</label>
+                <md-select required ng-model="selectedClazz.type">
+                    <md-option ng-repeat="tipo in tipos" value="{{ tipo.value }}">
+                        {{ tipo.value}}
+                    </md-option>
+                </md-select>
             </md-input-container>
-        </md-content>
-    </form>
+            </div>
+        </div>
+        <div layout="row">
+            <div flex>
+                <label>Data da aula *</label>
+                <md-datepicker ng-model="data.date" md-min-date="today" md-placeholder="Enter date"></md-datepicker>
+            </div>
+        </div>
+        <div layout="row">
+            <div flex>
+                <md-input-container>
+                    <label>Hora de início *</label>
+                    <input type="time" ng-model="data.time">
+                </md-input-container>
+            </div>
+ 
+            <div flex>
+            <md-input-container flex>
+                <label>Duracao de aula (em minutos) *</label>
+                <input required max="240" min="0" placeholder="Duracao em MINUTOS" type="number" ng-model="minutesToEdit">
+            </md-input-container>
+            </div>
+        </div>
+        <md-input-container>
+            <div layout="row">
+                <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
+                <md-button type="button" ng-click="removeClazz(selectedClazz._id)" class="md-raised md-primary" flex="25" flex-sm="25">Excluir</md-button>
+            </div>
+        </md-input-container>
+    </md-content>
+</form>
 </md-dialog>

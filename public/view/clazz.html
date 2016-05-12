@@ -2,12 +2,13 @@
 <form ng-if="data.student" id="form-profile" data-parsley-validate="" ng-submit="salvarAula()">
     <md-content class="md-padding" ng-cloak>
         <div layout="row">
-            <md-input-container flex>
-                <label>Título</label>
-                <input ng-disabled="true" required ng-model="data.title" type="text">
-            </md-input-container>
-        </div>
-        <div class="row">
+            <div flex>
+                <md-input-container flex>
+                    <label>Título</label>
+                    <input ng-disabled="true" required ng-model="data.title" type="text">
+                </md-input-container>
+            </div>
+            <div flex>
             <md-input-container>
                 <label>Tipo *</label>
                 <md-select required ng-model="data.type">
@@ -16,20 +17,28 @@
                     </md-option>
                 </md-select>
             </md-input-container>
+            </div>
         </div>
-        <div class="row">
-            <md-input-container>
-                <label>Início *</label>
-                <input required mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-inicio"
-                       placeholder="Início" min-date="date" ng-model="data.start" class=" md-input">
-            </md-input-container>
+        <div layout="row">
+            <div flex>
+                <label>Data da aula *</label>
+                <md-datepicker ng-model="data.date" md-min-date="today" md-placeholder="Enter date"></md-datepicker>
+            </div>
         </div>
-        <div class="row">
-            <md-input-container>
-                <label>Término *</label>
-                <input required mdc-datetime-picker="" date="true" time="true" type="text" id="datetime-termino"
-                       placeholder="Fim" min-date="date" ng-model="data.end" class=" md-input">
+        <div layout="row">
+            <div flex>
+                <md-input-container>
+                    <label>Hora de início *</label>
+                    <input type="time" ng-model="data.time">
+                </md-input-container>
+            </div>
+ 
+            <div flex>
+            <md-input-container flex>
+                <label>Duracao de aula (em minutos) *</label>
+                <input required max="240" min="0" placeholder="Duracao em MINUTOS" type="number" ng-model="data.end">
             </md-input-container>
+            </div>
         </div>
         <md-input-container>
             <div layout="row">
