@@ -116,7 +116,7 @@
 
    setInterval(function () {
     job.start();
-   }, MINUTO / 2);
+   }, MINUTO);
 
    module.exports = router;
 }());
