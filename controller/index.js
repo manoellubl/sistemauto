@@ -14,11 +14,12 @@
         var isAuthentication = request.originalUrl === '/api/authenticate/login' || request.originalUrl === '/api/authenticate/loginEstudante';
 
         var isCreatingUser = request.url === '/api/user' && request.method === 'POST';
-        var isGetUsers = request.originalUrl.indexOf('/api/user') !== -1 && request.method === 'GET';
+        var isGetUsers = request.originalUrl.indexOf('/api/user') !== -1 && request.method === 'GET' ;
+        var isAulas = request.originalUrl.indexOf('/api/user') !== -1 && request.method === 'PUT' ;
         var isActivate = request.originalUrl.indexOf('/api/activate') !== -1 && request.method === 'GET';
         var isLogout = request.originalUrl.indexOf('/api/authenticate/logout') !== -1 && request.method === 'POST';
 
-        if (isAuthentication || isCreatingUser || request.url === '/' || isGetUsers || isActivate || isLogout) {
+        if (isAuthentication || isCreatingUser || request.url === '/' || isGetUsers || isActivate || isLogout || isAulas) {
             next();
         } else if (hasToken) {
             jwt.verify(token, config.secret, function(err, decoded) {
