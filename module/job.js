@@ -14,6 +14,13 @@
 
             for (var index in data) {
                 var inicio = new Date(data[index].start);
+                  var cursorUser = User.findById(data[index].user);
+                cursorUser.exec(function (error, user) {
+                    if (user.pushToken) {
+                        notificacao.sendPushNotification(user.pushToken, "Atenção você está próximo de ter uma aula " + data[index].type);
+                    }
+                });
+                
 
                 if (agora.getHours() === inicio.getHours() 
                     && agora.getDay() === inicio.getDay() 
