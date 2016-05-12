@@ -12,17 +12,8 @@
         cursor.exec(function(error, data) {
             var agora = new Date();
 
-   
-
             for (var index in data) {
                 var inicio = new Date(data[index].start);
-
-                         var cursorStudent = Student.findById(data[index].student);
-                cursorStudent.exec(function (error, student) {
-                    if (student.pushToken) {
-                        notificacao.sendPushNotification(student.pushToken, "Atenção você está próximo de ter uma aula " + data[index].type);
-                    }
-                });
 
                 if (agora.getHours() === inicio.getHours() 
                     && agora.getDay() === inicio.getDay() 
