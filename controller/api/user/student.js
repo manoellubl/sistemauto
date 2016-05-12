@@ -51,7 +51,7 @@
     router.post(URI, function (request, response, next) {
         var student = new Student(request.body);
         student.user = request.params._idUser;
-        student.password = (student._id).slice(0,8);
+        student.password = "12345";
 
         student.save(function (error, data) {
             if (error !== null) {
