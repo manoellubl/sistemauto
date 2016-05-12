@@ -72,6 +72,19 @@
         });
     });
 
+    /**
+     * Marca que aluno nao ira pra aula
+     */
+    router.put(URI + '/:id_clazz/quit', function(request, response, next) {
+        console.log("cheguei aqui");
+        var cursor = Clazz.findByIdAndUpdate(request.params.id_clazz, {
+            $set: {ativo: false}
+        });
+        cursor.exec(function(error, data) {
+            util.generic_response_callback(response, next, error, data);
+        });
+    });
+
     router.delete(URI + '/:_id_clazz', function(request, response, next) {
         Clazz.remove({
             _id: request.params._id_clazz

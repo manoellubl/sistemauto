@@ -182,3 +182,7 @@ md-backdrop.md-sidenav-backdrop {
   max-width: 300px; /* set a maxwidth bigger than the widest element */
   left: -126px;
 }
+
+.redrow {
+  background-color: #FF3333;
+}
