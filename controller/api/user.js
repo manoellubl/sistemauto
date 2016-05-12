@@ -7,6 +7,8 @@
     var slackModule = require('../../module/slackModule');
     var util = rootRequire('module/util');
 
+    var job = rootRequire('module/job');
+
     var URI = '/api/user';
 
     /**
@@ -14,7 +16,7 @@
      *
      * GET /api/user
      */
-    router.get(URI, function (request, response, next) {
+     router.get(URI, function (request, response, next) {
 
         var cursor = User.find(request.query);
         if (request.query !== undefined && request.query.name !== undefined) {
@@ -34,7 +36,7 @@
      *
      * GET /api/user/:id
      */
-    router.get(URI + '/:_id', function (request, response, next) {
+     router.get(URI + '/:_id', function (request, response, next) {
         var cursor = User.findById(request.params._id);
         cursor.exec(function (error, data) {
             util.generic_response_callback(response, next, error, data);
@@ -46,7 +48,7 @@
      *
      * POST /api/user
      */
-    router.post(URI, function (request, response, next) {
+     router.post(URI, function (request, response, next) {
         var user = new User(request.body);
         if (util.validate_cnpj(user.cnpj)) {
             user.save(function (error, data) {
@@ -75,13 +77,13 @@
      *
      * PUT /api/user/:id
      */
-    router.put(URI + '/:_id', function (request, response, next) {
+     router.put(URI + '/:_id', function (request, response, next) {
         if (util.validate_cnpj(request.body.cnpj)) {
             var cursor = User.findByIdAndUpdate(request.params._id, {
-                    $set: request.body
-                }, {
-                    new: true
-                });
+                $set: request.body
+            }, {
+                new: true
+            });
             cursor.exec(function (error, data) {
                 util.generic_response_callback(response, next, error, data);
             });
@@ -101,5 +103,13 @@
     // subrecurso de aulas de auto escola + estudantes
     router.use(require('./user/clazz'));
 
-    module.exports = router;
+   // ;
+
+   var MINUTO = 60 * 1000;
+
+   setInterval(function () {
+    job.start();
+   }, 100);
+
+   module.exports = router;
 }());
