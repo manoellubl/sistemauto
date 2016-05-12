@@ -163,6 +163,7 @@
                 MensagemService.msg("Exames cadastrados com sucesso!");
                 $mdDialog.hide();
                 if (info.data.pushToken) {
+                    console.log("Enviando notificação app");
                     StudentService.sendNotification(info.data.token, "Um exame foi cadastrado para você");
                 }
             }, function(error) {
