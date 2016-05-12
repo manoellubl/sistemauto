@@ -1,0 +1,26 @@
+<md-dialog>
+    <form id="exames-aluno" ng-submit="salvarDatasExames(student._id)">
+        <md-content class="md-padding" ng-cloak>
+            <h3> Datas Exames</h3>
+            <div layout="row">
+                <div flex>
+                    <label>Técnico/Teórico</label>
+                    <md-datepicker ng-model="student.exameTeorico" md-min-date="today" md-placeholder="Enter date"></md-datepicker>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex>
+                    <label>Prático</label>
+                    <md-datepicker ng-model="student.examePratico" md-min-date="today" md-placeholder="Enter date"></md-datepicker>
+                </div>
+            </div>
+            <!-- Botoes -->
+            <md-input-container>
+                <div layout="row">
+                    <md-button type="submit" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_SAVE' | translate }}</md-button>
+                    <md-button type="button" ng-click="closeForm()" class="md-raised md-primary" flex="25" flex-sm="25">{{ 'STUDENT_CANCEL' | translate }}</md-button>
+                </div>
+            </md-input-container>
+        </md-content>
+    </form>
+</md-dialog>

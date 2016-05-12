@@ -26,6 +26,7 @@
                 'token': token,
                 'mensagem': mensagem
             }).then(function(info) {
+                console.log("Msg enviada para o app")
                 deferred.resolve(info);
             }, function(error) {
                 deferred.reject(error);

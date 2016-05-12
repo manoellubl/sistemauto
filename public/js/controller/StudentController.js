@@ -8,12 +8,13 @@
     angular.module('app').controller('StudentController', [
         '$scope',
         '$mdDialog',
+        '$mdMedia',
         'StudentService',
         'MensagemService',
         StudentController
     ]);
 
-    function StudentController($scope, $mdDialog, StudentService, MensagemService) {
+    function StudentController($scope, $mdDialog, $mdMedia, StudentService, MensagemService) {
         $scope.cnhtypes = [
             {type: "A"},
             {type: "B"},
@@ -33,6 +34,9 @@
         $scope.students = [];
         $scope.updateList();
         
+        /**
+        * Faz a requisição para registrar ou atualizar um aluno
+        */
         $scope.register = function() {
             $scope.student.birthDateTimestamp = $scope.student.birthDate.getTime();
             
@@ -63,6 +67,7 @@
             StudentService.getStudent(id).then(function(info) {
                 $scope.student = info.data;
                 $scope.student.birthDate = new Date($scope.student.birthDateTimestamp);
+                
                 $scope.showForm();
             }, function(error) {
                 if (error.data.message != undefined) {
@@ -76,22 +81,33 @@
             $scope.student = {};
         };
 
+        /**
+        * Adiciona um aluno
+        */
         $scope.addStudent = function() {
             $scope.student = {};
             $scope.showForm();
         };
 
-        $scope.removerStudent = function(id) {
-          StudentService.removeStudent(id).then(function(info) {
+        /**
+        * Remove um aluno
+        */
+        $scope.removerStudent = function(id, ev) {
+            ev.stopPropagation();
+
+            StudentService.removeStudent(id).then(function(info) {
                 $scope.updateList();
                 MensagemService.msg("Aluno removido com sucesso!");
-          }, function(error) {
+            }, function(error) {
                 if (error.data.message != undefined) {
                     MensagemService.msg(error.data.message);
                 }
-          });
+            });
         };
 
+        /**
+        * Modal para inserir um novo aluno
+        */
         $scope.showForm = function() {
             $mdDialog.show({
                 scope: $scope,
@@ -111,6 +127,47 @@
                 console.log("info sucesso", info);
             }, function(error) {
                 if(error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
+            });
+        };
+
+
+        $scope.updateDatas = function(id) {
+            StudentService.getStudent(id).then(function(info) {
+                $scope.student = info.data;                
+            }, function(error) {
+                if (error.data.message != undefined) {
+                    MensagemService.msg(error.data.message);
+                }
+            });
+        };
+
+        /**
+        * Modal que adiciona datas nos exames do aluno
+        */
+        $scope.adicionarProvas = function(id, ev) {
+            ev.stopPropagation();
+            $scope.updateDatas(id);
+            $mdDialog.show({
+                scope: $scope,
+                clickOutsideToClose: true,
+                preserveScope: true, 
+                templateUrl: '../view/dataExames.html',
+                parent: angular.element(document.body),
+            });
+        };
+
+        $scope.salvarDatasExames = function(id){
+            StudentService.updateStudent($scope.student).then(function(info) {
+                MensagemService.msg("Exames cadastrados com sucesso!");
+                $mdDialog.hide();
+                if (info.data.pushToken) {
+                    console.log("Enviando notificação app");
+                    StudentService.sendNotification(info.data.token, "Um exame foi cadastrado para você");
+                }
+            }, function(error) {
+                if (error.data.message != undefined) {
                     MensagemService.msg(error.data.message);
                 }
             });

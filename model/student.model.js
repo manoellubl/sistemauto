@@ -70,6 +70,14 @@
             type: String,
             required: false
         },
+        exameTeorico: {
+            type: String,
+            required: false
+        },
+        examePratico: {
+            type: String,
+            required: false
+        },
         password:{
             type: String,
             required: true,
