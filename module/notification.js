@@ -4,7 +4,6 @@
     var request = require('request');
 
     module.exports.sendPushNotification = function(token, message) {
-
         if (token !== undefined) {
             var data = {
                 "tokens": [token],

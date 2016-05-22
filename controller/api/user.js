@@ -14,7 +14,7 @@
     var URI = '/api/user';
 
     router.post('/api/notificacao', function(request, response, next) {
-        notificacao.sendPushNotification(request.body.token, request.body.mensagem);
+        notificacao.sendPushNotification(request.body.push, request.body.mensagem);
         response.json({});
     });
 

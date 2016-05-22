@@ -23,7 +23,7 @@
             var deferred = $q.defer();
 
             $http.post(ApiUrl.url + '/notificacao', {
-                'token': token,
+                'push': token,
                 'mensagem': mensagem
             }).then(function(info) {
                 console.log("Msg enviada para o app")
